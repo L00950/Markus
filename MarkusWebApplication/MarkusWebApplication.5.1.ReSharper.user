@@ -1,0 +1,497 @@
+<Configuration>
+  <SettingsComponent>
+    <string />
+    <integer />
+    <boolean>
+      <setting name="livetemplates.csharp.usevar">True</setting>
+      <setting name="SolutionAnalysisEnabled">True</setting>
+    </boolean>
+  </SettingsComponent>
+  <RecentFiles>
+    <RecentFiles>
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/f:MailSend.htm" caret="0" fromTop="0" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/f:Mail.aspx" caret="1339" fromTop="14" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/f:Mail.aspx.cs" caret="2081" fromTop="65" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:App_WebReferences/d:SmartSMS/f:smsservice.wsdl" caret="0" fromTop="0" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:App_WebReferences/d:SmartSMS/f:smsservice.disco" caret="0" fromTop="0" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:App_WebReferences/d:SmartSMS/f:smsservice.discomap" caret="0" fromTop="0" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:BBS/f:Medlemssida.ascx.cs" caret="181" fromTop="8" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:BBS/f:Medlemssida.ascx" caret="347" fromTop="7" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:BBS/f:MedlemsKalender.ascx.cs" caret="67" fromTop="4" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:BBS/f:MedlemsKalender.ascx" caret="0" fromTop="0" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:BBS/f:Logon.ascx.cs" caret="173" fromTop="7" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:BBS/f:Logon.ascx" caret="0" fromTop="0" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:BBS/f:Default.aspx" caret="293" fromTop="5" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:BBS/f:Default.aspx.cs" caret="165" fromTop="5" />
+      <File id="648B7E7B-9455-4290-931C-BFDC89ABA64A/f:Kalender.cs" caret="511" fromTop="20" />
+      <File id="C0DCD4E5-B792-40A3-B1F6-D20792AE3E09/f:Program.cs" caret="229" fromTop="10" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/f:UpdateWeb.aspx.cs" caret="34" fromTop="2" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/f:Calendar.aspx" caret="7789" fromTop="17" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:App_Code/f:BBS.cs" caret="544" fromTop="19" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:App_Code/f:DataAccess.cs" caret="0" fromTop="0" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:App_Code/f:DataGeneric.cs" caret="0" fromTop="0" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:App_Code/f:Global.asax.cs" caret="155" fromTop="6" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/f:MarkusService.asmx" caret="0" fromTop="0" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/f:Calendar.aspx.cs" caret="7928" fromTop="12" />
+      <File id="648B7E7B-9455-4290-931C-BFDC89ABA64A/f:HanteraBokningar.cs" caret="710" fromTop="17" />
+      <File id="d:Miscellaneous Files/f:default.htm/l:C!?Privat?www?building?default.htm" caret="528" fromTop="7" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/f:Web.config" caret="4233" fromTop="29" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:App_Code/f:MarkusService.cs" caret="513" fromTop="8" />
+    </RecentFiles>
+    <RecentEdits>
+      <File id="C0DCD4E5-B792-40A3-B1F6-D20792AE3E09/f:Program.cs" caret="369" fromTop="17" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/f:Calendar.aspx.cs" caret="3752" fromTop="6" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/f:Calendar.aspx.cs" caret="3952" fromTop="10" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/f:Calendar.aspx.cs" caret="5720" fromTop="21" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/f:Calendar.aspx" caret="9318" fromTop="27" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/f:Web.config" caret="4473" fromTop="17" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/f:Calendar.aspx" caret="7890" fromTop="17" />
+      <File id="d:Miscellaneous Files/f:default.htm/l:C!?Privat?www?building?default.htm" caret="2978" fromTop="9" />
+      <File id="d:Miscellaneous Files/f:default.htm/l:C!?Privat?www?building?default.htm" caret="13400" fromTop="17" />
+      <File id="d:Miscellaneous Files/f:default.htm/l:C!?Privat?www?building?default.htm" caret="13001" fromTop="11" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:App_Code/f:MarkusService.cs" caret="3404" fromTop="34" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:App_Code/f:MarkusService.cs" caret="255" fromTop="10" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:App_Code/f:MarkusService.cs" caret="693" fromTop="12" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:App_Code/f:MarkusService.cs" caret="1048" fromTop="25" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:App_Code/f:MarkusService.cs" caret="2644" fromTop="25" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:App_Code/f:MarkusService.cs" caret="1364" fromTop="10" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:App_Code/f:MarkusService.cs" caret="2319" fromTop="10" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:App_Code/f:MarkusService.cs" caret="1681" fromTop="16" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:App_Code/f:MarkusService.cs" caret="2157" fromTop="18" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:App_Code/f:MarkusService.cs" caret="2272" fromTop="21" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:App_Code/f:MarkusService.cs" caret="2644" fromTop="31" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:App_Code/f:MarkusService.cs" caret="1952" fromTop="26" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:App_Code/f:MarkusService.cs" caret="2681" fromTop="23" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:App_Code/f:MarkusService.cs" caret="1394" fromTop="16" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:App_Code/f:MarkusService.cs" caret="1769" fromTop="10" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:App_Code/f:MarkusService.cs" caret="808" fromTop="6" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/f:Web.config" caret="4359" fromTop="35" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/f:Web.config" caret="4233" fromTop="29" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:App_Code/f:MarkusService.cs" caret="75" fromTop="2" />
+      <File id="30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD/d:App_Code/f:MarkusService.cs" caret="513" fromTop="12" />
+    </RecentEdits>
+  </RecentFiles>
+  <NAntValidationSettings>
+    <NAntPath value="" />
+  </NAntValidationSettings>
+  <UnitTestRunner>
+    <Providers />
+  </UnitTestRunner>
+  <UnitTestRunnerNUnit>
+    <NUnitInstallDir>C:\Program Files\NUnit 2.5.9\bin\net-2.0\</NUnitInstallDir>
+    <UseAddins>Never</UseAddins>
+  </UnitTestRunnerNUnit>
+  <CompletionStatisticsManager>
+    <ItemStatistics item="Default">
+      <Item value="if" priority="18" />
+      <Item value="DateTime`0" priority="25" />
+      <Item value="IsPostBack" priority="2" />
+      <Item value="Request" priority="1" />
+      <Item value="this" priority="2" />
+      <Item value="objectid" priority="1" />
+      <Item value="TimeSpan`0" priority="0" />
+      <Item value="start" priority="0" />
+      <Item value="tid" priority="0" />
+      <Item value="tidDetTog" priority="0" />
+      <Item value="receiver" priority="0" />
+      <Item value="class" priority="8" />
+      <Item value="string" priority="20" />
+      <Item value="public" priority="40" />
+      <Item value="int" priority="20" />
+      <Item value="static" priority="16" />
+      <Item value="List" priority="7" />
+      <Item value="Hus`0" priority="2" />
+      <Item value="return" priority="16" />
+      <Item value="new" priority="35" />
+      <Item value="List&lt;Bokning&gt;" priority="0" />
+      <Item value="Bokning`0" priority="12" />
+      <Item value="Bokning" priority="3" />
+      <Item value="void" priority="6" />
+      <Item value="användarnamn" priority="1" />
+      <Item value="lösenord" priority="2" />
+      <Item value="else" priority="1" />
+      <Item value="Serializable" priority="3" />
+      <Item value="private" priority="10" />
+      <Item value="System" priority="6" />
+      <Item value="IO" priority="2" />
+      <Item value="File`0" priority="0" />
+      <Item value="CannotUnloadAppDomainException`0" priority="0" />
+      <Item value="fil" priority="5" />
+      <Item value="NonSerializedAttribute`0" priority="0" />
+      <Item value="bokningar" priority="19" />
+      <Item value="var" priority="27" />
+      <Item value="SqlCommand" priority="0" />
+      <Item value="foreach" priority="4" />
+      <Item value="Ankomst" priority="2" />
+      <Item value="row" priority="2" />
+      <Item value="Avresa" priority="2" />
+      <Item value="Convert`0" priority="3" />
+      <Item value="Hus" priority="3" />
+      <Item value="WeakReference`0" priority="0" />
+      <Item value="Mail" priority="3" />
+      <Item value="SmtpMail`0" priority="0" />
+      <Item value="SmartSMS`0" priority="1" />
+      <Item value="App_Code" priority="1" />
+      <Item value="MarkusWebApplication" priority="0" />
+      <Item value="Filnamn" priority="4" />
+      <Item value="serializer" priority="1" />
+      <Item value="writer" priority="0" />
+      <Item value="reader" priority="4" />
+      <Item value="lock" priority="0" />
+      <Item value="Läs`0" priority="6" />
+      <Item value="i" priority="8" />
+      <Item value="IEnumerable" priority="0" />
+      <Item value="maxId" priority="0" />
+      <Item value="bokning" priority="11" />
+      <Item value="Spara`0" priority="4" />
+      <Item value="index" priority="1" />
+      <Item value="id" priority="3" />
+      <Item value="HanteraBokningar`0" priority="11" />
+      <Item value="ListBox`0" priority="0" />
+      <Item value="DateTime" priority="2" />
+      <Item value="Id" priority="2" />
+      <Item value="Kommentar" priority="2" />
+      <Item value="Person" priority="2" />
+      <Item value="note" priority="1" />
+      <Item value="person" priority="0" />
+      <Item value="while" priority="1" />
+      <Item value="tmpDate" priority="3" />
+      <Item value="bokadeDatum" priority="3" />
+      <Item value="cdtStartDate" priority="0" />
+      <Item value="List&lt;DateTime&gt;" priority="0" />
+      <Item value="EnvironmentVariableTarget`0" priority="0" />
+      <Item value="str" priority="1" />
+      <Item value="char" priority="0" />
+      <Item value="strArray" priority="7" />
+      <Item value="fs" priority="0" />
+      <Item value="protected" priority="0" />
+      <Item value="override" priority="0" />
+      <Item value="Session" priority="2" />
+      <Item value="innehåll" priority="2" />
+      <Item value="Control" priority="1" />
+      <Item value="LoadControl`0" priority="1" />
+      <Item value="center" priority="0" />
+      <Item value="användare" priority="0" />
+      <Item value="Response" priority="3" />
+      <Item value="null" priority="2" />
+      <Item value="switch" priority="1" />
+      <Item value="case" priority="2" />
+      <Item value="break" priority="2" />
+      <Item value="default" priority="1" />
+      <Item value="tabell" priority="2" />
+      <Item value="TableRow" priority="0" />
+      <Item value="Cells" priority="0" />
+      <Item value="TableCellCollection" priority="0" />
+      <Item value="for" priority="0" />
+      <Item value="TableCell`0" priority="2" />
+      <Item value="cell" priority="2" />
+      <Item value="CheckBox`0" priority="0" />
+      <Item value="ID" priority="0" />
+      <Item value="Text" priority="0" />
+      <Item value="checkbox" priority="0" />
+      <Item value="TableRow`0" priority="0" />
+      <Item value="rad" priority="1" />
+      <Item value="String`0" priority="0" />
+      <Item value="dag" priority="7" />
+      <Item value="SkapaCell`0" priority="0" />
+      <Item value="HämtaMånadsnamn`0" priority="0" />
+      <Item value="bool" priority="0" />
+      <Item value="FinnsDatum`0" priority="0" />
+      <Item value="månad" priority="4" />
+      <Item value="try" priority="0" />
+      <Item value="false" priority="2" />
+      <Item value="true" priority="0" />
+      <Item value="month" priority="0" />
+      <Item value="Enabled" priority="0" />
+      <Item value="datum" priority="0" />
+      <Item value="enum" priority="0" />
+      <Item value="IDataBindingsAccessor`0" priority="0" />
+      <Item value="AppDomainSetup`0" priority="0" />
+      <Item value="Sida`0" priority="0" />
+      <Item value="Medlemssida`0" priority="0" />
+      <Item value="Namn" priority="0" />
+      <Item value="namespace" priority="2" />
+      <Item value="Medlem`0" priority="1" />
+      <Item value="m" priority="1" />
+      <Item value="Guid`0" priority="0" />
+      <Item value="const" priority="0" />
+      <Item value="FilnamnsMall" priority="2" />
+      <Item value="filNamn" priority="0" />
+      <Item value="filnamn" priority="4" />
+      <Item value="CalendarEnd" priority="5" />
+      <Item value="CalendarStart" priority="1" />
+      <Item value="JusteraFramSlutdatumTillStartdatum`0" priority="0" />
+      <Item value="statusText" priority="1" />
+      <Item value="FileStyleUriParser`0" priority="1" />
+      <Item value="fileName" priority="0" />
+      <Item value="fileInfo" priority="1" />
+      <Item value="dataFil" priority="0" />
+      <Item value="filInfo" priority="2" />
+      <Item value="filStorlek" priority="0" />
+      <Item value="senastSparad" priority="0" />
+      <Item value="antalBokningar" priority="0" />
+      <Item value="args" priority="2" />
+      <Item value="Any`1" priority="1" />
+      <Item value="a" priority="1" />
+      <Item value="firstyear" priority="2" />
+      <Item value="secondyear" priority="0" />
+      <Item value="_firstyear" priority="0" />
+      <Item value="Eval`0" priority="0" />
+      <Item value="MarkusMailService`0" priority="0" />
+      <Item value="byte" priority="0" />
+      <Item value="Bilaga`0" priority="0" />
+      <Item value="StreamWriter`0" priority="0" />
+      <Item value="FileStream`0" priority="0" />
+      <Item value="bilaga" priority="2" />
+      <Item value="CreateNew" priority="0" />
+      <Item value="Count`1" priority="1" />
+      <Item value="Web" priority="1" />
+      <Item value="MailAttachment`0" priority="0" />
+      <Item value="MailEncoding`0" priority="0" />
+      <Item value="Attachment`0" priority="0" />
+      <Item value="contentType" priority="0" />
+      <Item value="ContentType`0" priority="1" />
+      <Item value="message" priority="3" />
+      <Item value="attachment" priority="1" />
+      <Item value="FileInfo`0" priority="0" />
+      <Item value="FileInfo" priority="0" />
+      <Item value="fi" priority="0" />
+      <Item value="SmtpClient`0" priority="3" />
+      <Item value="Net" priority="1" />
+      <Item value="MailMessage`0" priority="0" />
+      <Item value="MailAddress" priority="1" />
+      <Item value="smtpClient" priority="4" />
+      <Item value="NetworkCredential`0" priority="0" />
+      <Item value="folder" priority="1" />
+      <Item value="IObservable" priority="0" />
+      <Item value="Directory`0" priority="0" />
+      <Item value="bilagor" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.DateTime">
+      <Item value="Today" priority="6" />
+      <Item value="Now" priority="3" />
+      <Item value="Parse`0" priority="1" />
+      <Item value="TryParse`0" priority="0" />
+      <Item value="DaysInMonth`0" priority="0" />
+      <Item value="IsLeapYear`0" priority="0" />
+      <Item value="toar" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.HttpRequest">
+      <Item value="QueryString" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:MarkusWebApplication.Mail">
+      <Item value="receiver" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.UI.HtmlControls.HtmlInputHidden">
+      <Item value="Value" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:MarkusWebApplication.Calendar">
+      <Item value="CreateCalendar`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.UI.WebControls.Label">
+      <Item value="Text" priority="6" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.TimeSpan">
+      <Item value="TotalMilliseconds" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Double">
+      <Item value="ToString`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.String">
+      <Item value="ToUpper`0" priority="1" />
+      <Item value="Substring`0" priority="0" />
+      <Item value="Split`0" priority="0" />
+      <Item value="ToCharArray`0" priority="0" />
+      <Item value="Trim`0" priority="1" />
+      <Item value="Replace`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.IO.File">
+      <Item value="OpenText`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.IO.StreamReader">
+      <Item value="ReadToEnd`0" priority="0" />
+      <Item value="Close`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.List`1">
+      <Item value="GetType`0" priority="0" />
+      <Item value="Add`0" priority="2" />
+      <Item value="FindIndex`0" priority="0" />
+      <Item value="Remove`0" priority="0" />
+      <Item value="RemoveAt`0" priority="0" />
+      <Item value="Contains`0" priority="1" />
+      <Item value="OrderBy`2" priority="0" />
+      <Item value="Where`1" priority="0" />
+      <Item value="FirstOrDefault`1" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@MarkusWebApplication.DataGeneric">
+      <Item value="ExecQueryReturnDataSet`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Data.DataSet">
+      <Item value="Tables" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Convert">
+      <Item value="ToDateTime`0" priority="1" />
+      <Item value="ToInt32`0" priority="4" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Xml.Serialization.XmlSerializer">
+      <Item value="Serialize`0" priority="0" />
+      <Item value="Deserialize`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:App_Code.Bokningar">
+      <Item value="Lista" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:App_Code.Bokning">
+      <Item value="Hus" priority="0" />
+      <Item value="Id" priority="4" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.IEnumerable`1">
+      <Item value="Select`2" priority="0" />
+      <Item value="Max`2" priority="0" />
+      <Item value="ToList`1" priority="1" />
+      <Item value="FirstOrDefault`1" priority="0" />
+      <Item value="Count`1" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@MarkusWebApplication.HanteraBokningar">
+      <Item value="Login`0" priority="0" />
+      <Item value="HämtaBokningar`0" priority="2" />
+      <Item value="SparaNyBokning`0" priority="1" />
+      <Item value="HämtaBokning`0" priority="1" />
+      <Item value="TaBortBokning`0" priority="0" />
+      <Item value="UppdateraBokning`0" priority="0" />
+      <Item value="LäsFrånFil`0" priority="0" />
+      <Item value="Säkerhetskopiera`0" priority="0" />
+      <Item value="FilInformation`0" priority="0" />
+      <Item value="AntalBokningar`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@MarkusWebApplication.Hus">
+      <Item value="MonteRojo" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:MarkusWebApplication.Bokning">
+      <Item value="Ankomst" priority="2" />
+      <Item value="Avresa" priority="2" />
+      <Item value="Person" priority="0" />
+      <Item value="Kommentar" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.UI.HtmlControls.HtmlInputText">
+      <Item value="Value" priority="6" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.DateTime">
+      <Item value="AddDays`0" priority="0" />
+      <Item value="Day" priority="1" />
+      <Item value="Year" priority="5" />
+      <Item value="Month" priority="1" />
+      <Item value="ToString`0" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.IO.TextReader">
+      <Item value="ReadLine`0" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:MarkusWebApplication.WebForm1">
+      <Item value="deletebutton" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ASP.calendar_aspx">
+      <Item value="DeletebuttonServerClick`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.String">
+      <Item value="IsNullOrEmpty`0" priority="0" />
+      <Item value="Format`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.UI.HtmlControls.HtmlGenericControl">
+      <Item value="Controls" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.UI.ControlCollection">
+      <Item value="Add`0" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.UI.WebControls.TextBox">
+      <Item value="Text" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.HttpResponse">
+      <Item value="Redirect`0" priority="3" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.UI.WebControls.Table">
+      <Item value="Rows" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.UI.WebControls.TableRowCollection">
+      <Item value="Add`0" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.UI.WebControls.TableCell">
+      <Item value="Controls" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Int32">
+      <Item value="ToString`0" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.UI.WebControls.TableRow">
+      <Item value="Cells" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.UI.WebControls.TableCellCollection">
+      <Item value="Add`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:App_Code.Medlem">
+      <Item value="Email" priority="0" />
+      <Item value="Bryggplats" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.UI.WebControls.Calendar">
+      <Item value="SelectedDate" priority="5" />
+      <Item value="RenderingCompatibility" priority="0" />
+      <Item value="VisibleDate" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.IO.FileInfo">
+      <Item value="Length" priority="1" />
+      <Item value="LastWriteTime" priority="1" />
+      <Item value="FullName" priority="0" />
+      <Item value="Delete`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Int64">
+      <Item value="ToString`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:MarkusModel.Calendar">
+      <Item value="CreateCalendar`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@MarkusModel.Hus">
+      <Item value="MonteRojo" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.UI.WebControls.DataGrid">
+      <Item value="Items" priority="0" />
+      <Item value="DataItemContainer" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:MarkusService+Bilaga">
+      <Item value="Namn" priority="0" />
+      <Item value="Innehåll" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.IO.FileStream">
+      <Item value="Write`0" priority="0" />
+      <Item value="Close`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Web.Mail.MailEncoding">
+      <Item value="Base64" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.Mail.MailMessage">
+      <Item value="Attachments" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.IList">
+      <Item value="Add`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Net.Mail.MailMessage">
+      <Item value="Headers" priority="1" />
+      <Item value="To" priority="0" />
+      <Item value="Sender" priority="0" />
+      <Item value="From" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Net.Mail.MailAddressCollection">
+      <Item value="Add`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Net.Mail.MailAddress">
+      <Item value="Address" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Net.Mail.SmtpClient">
+      <Item value="Send`0" priority="0" />
+      <Item value="Credentials" priority="2" />
+      <Item value="UseDefaultCredentials" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Net.Mail.Attachment">
+      <Item value="ContentType" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.IO.Directory">
+      <Item value="CreateDirectory`0" priority="0" />
+    </ItemStatistics>
+  </CompletionStatisticsManager>
+</Configuration>

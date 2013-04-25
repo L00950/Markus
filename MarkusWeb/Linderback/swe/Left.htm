@@ -1,0 +1,145 @@
+﻿<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Visual Studio 6.0">
+<TITLE></TITLE>
+<SCRIPT LANGUAGE=javascript src="../text.js"></SCRIPT>
+<SCRIPT LANGUAGE=javascript>
+var ns4=document.layers?1:0
+var ie4=document.all?1:0
+var ns6=document.getElementById&&!document.all?1:0
+
+var currentObj = null;
+function clickObj(obj)
+{
+	if(currentObj)
+		currentObj.style.color='black';
+	currentObj = obj;
+//	var str = obj.id + ".htm";
+//	parent.f_right.location = str;
+	obj.style.color='red';
+}
+</SCRIPT>
+<STYLE TYPE="text/css">
+<!--
+
+.menuh	{
+		BORDER-COLOR : #FFFF99 ;
+		cursor : hand ;
+		Border-Left : #FFFF99 ;
+		Border-Top : #FFFF99 ;
+		Padding-Left : 1px ;
+		Padding-Top : 1px ;
+		Background-Color : #FFFF99 ;
+	}
+.menu	{
+		Background-Color : white ;
+	}
+.home	{
+		cursor : hand ;
+	}
+
+.menulinks{
+text-decoration:none;
+}
+//-->
+</STYLE>
+</HEAD>
+
+<body bgcolor="lightblue">
+<SCRIPT Language="Javascript1.2">
+
+// E-mail sida
+var win = null;
+function NewWindow(mypage,myname,w,h,scroll)
+{
+	LeftPosition = (screen.width) ? (screen.width-w)/2 : 0;
+	TopPosition = (screen.height) ? (screen.height-h)/2 : 0;
+	settings ='height='+h+',width='+w+',top='+TopPosition+',left='+LeftPosition+',scrollbars='+scroll;
+	win = window.open(mypage,myname,settings);
+	if(win.window.focus)
+		win.window.focus();
+}
+
+var menuwidth=90
+var offsetleft=10
+var offsettop=40
+
+var ns4=document.layers?1:0
+var ie4=document.all?1:0
+var ns6=document.getElementById&&!document.all?1:0
+
+function makeStatic() {
+if (ie4) {object1.style.pixelTop=document.body.scrollTop+offsettop}
+else if (ns6) {document.getElementById("object1").style.top=window.pageYOffset+offsettop}
+else if (ns4) {eval(document.object1.top=eval(window.pageYOffset+offsettop));}
+setTimeout("makeStatic()",0);
+}
+
+if (ie4||ns6) {document.write('<span ALIGN="CENTER" ID="object1" STYLE="Position:absolute; Top:20; Left:'+offsetleft+'; Z-Index:5;cursor:hand;background-color:black;"><TABLE BORDER="1" width="'+menuwidth+'" CELLPADDING="0" CELLSPACING="0" BORDERCOLOR="black" bgcolor="white">')}
+else if (ns4){ document.write('<LAYER top="20" name="object1" left="'+offsetleft+'" BGCOLOR=black><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="1"><TR><TD><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" width="'+menuwidth+'">')}
+
+if (ie4||ns6||ns4)
+document.write('<TR><TD BGCOLOR="#3399FF" BORDERCOLORDARK="#99CCFF" BORDERCOLORLIGHT="#003399"><P ALIGN=CENTER><FONT SIZE="2" FACE=VERDANA>Meny</FONT></TD></TR>')
+
+var menui = new Array();
+var menul = new Array();
+
+//configure below for menu items. Extend list as desired
+
+menui[0]="Presentation";
+menui[1]="Aktuellt";
+menui[2]="Stuga 1";
+menui[3]=" - 2013";
+menui[4]=" - 2014";
+menui[5]="Stuga 2";
+menui[6]=" - 2013";
+menui[7]=" - 2014";
+menui[8]="Stuga 3";
+menui[9]=" - 2013";
+menui[10]=" - 2014";
+menui[11]="Kartor";
+menui[12]="Bokning";
+menui[13]="Länkar";
+
+menul[0]="beskrivning.htm";
+menul[1]="../news.htm";
+menul[2]="stuga.htm";
+menul[3]="1/bokat1.asp";
+menul[4]="1/bokat2.asp";
+menul[5]="stuga2.htm";
+menul[6]="2/bokat1.asp";
+menul[7]="2/bokat2.asp";
+menul[8]="../Bilder/stuga3/stuga3_sv.htm";
+menul[9]="5/bokat1.asp";
+menul[10]="5/bokat2.asp";
+menul[11]="karta.htm";
+menul[12]="kontakt.htm";
+menul[13]="../links.htm";
+
+if (ie4||ns6) {document.write('<TR><TD BORDERCOLOR="white" ID="firstrow" ONCLICK="clickObj(this);parent.f_right.location=\''+menul[0]+'\'" onmouseover="className=\'menuh\'" onMouseout="className=\'menu\'"><CENTER><FONT SIZE="2" FACE=VERDANA>'+menui[0]+'</FONT></TD></TR>')}
+else if (ns4){document.write('<TR><TD BGCOLOR="white"><ILAYER><LAYER width="'+menuwidth+'" onmouseover="bgColor=\'yellow\'" onmouseout="bgColor=\'white\'"><CENTER><A HREF="'+menul[0]+'" TAREGT="f_right" class=menulinks>'+menui[0]+'</A></CENTER></LAYER></ILAYER></TD></TR>')}
+
+for (i=1;i<=menui.length-1;i++)
+if (ie4||ns6) {document.write('<TR><TD BORDERCOLOR="white" ONCLICK="clickObj(this);parent.f_right.location=\''+menul[i]+'\'" onmouseover="className=\'menuh\'" onMouseout="className=\'menu\'"><CENTER><FONT SIZE="2" FACE=VERDANA>'+menui[i]+'</FONT></TD></TR>')}
+else if (ns4){document.write('<TR><TD BGCOLOR="white"><ILAYER><LAYER width="'+menuwidth+'" onmouseover="bgColor=\'yellow\'" onmouseout="bgColor=\'white\'"><CENTER><A HREF="'+menul[i]+'" TAREGT="f_right" class=menulinks>'+menui[i]+'</A></CENTER></LAYER></ILAYER></TD></TR>')}
+
+if (ie4||ns6) {document.write('<TR><TD BORDERCOLOR="white" ONCLICK="NewWindow(\'http://www.linderback.com/markuswebapplication/mail.aspx?receiver=info@linderback.com&subject=Hemsidan\', \'Namn\',420,310,false);" onmouseover="className=\'menuh\'" onMouseout="className=\'menu\'" valign="middle"><CENTER><FONT SIZE="2" FACE=VERDANA><img src="..//bilder//email.gif"></FONT></TD></TR>')}
+else if (ns4){document.write('<TR><TD BGCOLOR="white"><ILAYER><LAYER width="'+menuwidth+'" onmouseover="bgColor=\'yellow\'" onmouseout="bgColor=\'white\'"><CENTER><A HREF="'+menul[4]+'" TAREGT="f_right" class=menulinks><img src="..//bilder//email.gif"></A></CENTER></LAYER></ILAYER></TD></TR>')}
+
+if (ie4||ns6) {document.write('</TABLE></span>')}
+else if (ns4){document.write('</TABLE></TD></TR></TABLE></LAYER>')}
+
+firstrow.style.color="red";
+currentObj = firstrow;
+
+function menu3(){
+if (ns6||ie4||ns4)
+makeStatic()
+}
+
+window.onload=menu3
+
+//-->
+</SCRIPT>
+</body>
+</HTML>

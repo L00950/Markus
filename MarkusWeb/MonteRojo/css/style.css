@@ -1,0 +1,334 @@
+body {
+    background: #D6D6D6;
+ color: #404040;
+	/* background-image:url(../images/body-bg.gif);
+	background-repeat:repeat-x; */
+	
+	font-family: 'Muli', sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+text-transform: none;
+text-decoration: none;
+letter-spacing: 0em;
+word-spacing: 0em;
+line-height: 1.4;
+}
+
+#wrapper {
+    background-color: #FFFFFF;
+    margin: 0 auto;
+    width: 980px;
+	
+}
+
+a, a:visited {
+    color: #859E0C;
+    text-decoration: none;
+}
+a:hover {
+    color: #859E0C;
+    text-decoration: underline;
+}
+a img {
+    border: medium none;
+}
+.imgborder {   border: 2px solid #CCCCCC;
+    padding: 2px;
+}
+
+a:focus, a:hover, a:active {
+    outline: medium none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	color: #859E0C;
+	font-family: 'Stardos Stencil',cursive;
+	font-weight: bold;
+	text-decoration: none;
+	margin: 0 0 5px 0;
+	padding: 0;
+	}
+
+h1 {
+	font-size: 32px;
+	line-height:34px;
+	}
+	
+h2 {
+	font-size: 24px;
+	line-height:34px;
+	}
+	
+h2 a, h2 a:visited {
+	color: #444444;
+	text-decoration: none;
+	}
+
+h2 a:hover {
+	color: #CC3300;
+	text-decoration: none;
+	}
+	
+h3 {
+	font-size: 22px;
+	}
+	
+h4 {
+	font-size: 18px;
+	}
+	
+h5 {
+	font-size: 16px;
+	}
+	
+h6 {
+	font-size: 14px;
+	}
+
+p {
+	margin: 0;
+	padding: 0 0 10px 0;
+	}
+	
+ul {
+	list-style-type: square;
+	margin: 0;
+	padding: 0 0 15px 0;
+	}
+	
+ul li {
+	list-style-type: square;
+	margin: 0 0 0 20px;
+	padding: 0;
+	}
+	
+ul ul {
+	list-style-type: square;
+	margin: 0;
+	padding: 0;
+	}
+
+ol {
+	margin: 0;
+	padding: 0 0 15px 0;
+	}
+	
+ol li {
+	margin: 0 0 0 20px;
+	padding: 0;
+	}
+	
+ol ol {
+	margin: 0;
+	padding: 0;
+	}
+
+
+
+#header {
+    margin: 0 auto;
+    padding: 0;
+}
+#header .inner {
+	border-top:5px solid #859E0C
+}
+#logo {
+    float: left;
+    margin: 0;
+    overflow: hidden;
+    padding: 15px 0 0;
+}
+#logo h1 {
+    font-family: 'Stardos Stencil',cursive;
+    font-size: 50px;
+    font-weight: normal;
+    line-height: 36px;
+    margin: 0;
+    padding: 0 0 0 20px;
+}
+#logo h1 a {
+    color: #3473A8;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+#logo h1 a:hover {
+    color: #3473A8;
+    text-decoration: none;
+}
+#logo #slogan {
+    color: #999999;
+    font-size: 19px;
+    font-weight: normal;
+    margin: 0;
+    padding: 0 0 0 30px;
+}
+
+#kontaktinfo {
+    float: left;
+    margin: 0;
+    overflow: hidden;
+    padding: 15px 0 0;
+    font-family: 'Stardos Stencil',cursive;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 36px;
+    text-align: right;
+    vertical-align:bottom;
+}
+#kontaktinfo .inner {
+	border-top:5px solid #859E0C
+}
+
+#kontaktinfo h1 {
+    font-family: 'Stardos Stencil',cursive;
+    font-size: 50px;
+    font-weight: normal;
+    line-height: 36px;
+    margin: 0;
+    padding: 0 0 0 20px;
+}
+#kontaktinfo h1 a {
+    color: #3473A8;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+#kontaktinfo h1 a:hover {
+    color: #3473A8;
+    text-decoration: none;
+}
+
+/*----------------- nav ------------------*/
+
+#nav ul
+{
+list-style-type:none;
+margin:29px 0 0;
+padding:0;
+padding-top:6px;
+padding-bottom:6px;
+text-align:right;
+}
+#nav ul li
+{
+display:inline;
+}
+#nav ul li a:link, #nav ul li a:visited
+{
+color:#3473A8;
+font-family: 'Stardos Stencil',cursive;
+text-align:center;
+padding:6px;
+text-decoration:none;
+text-transform:uppercase;
+}
+#nav ul li a:hover, #nav ul li a:active
+{
+background-color:#859E0C;
+color:#FFF;
+}
+
+
+/*----------------------- banner ----------------*/
+#banner .inner {
+	height:220px;
+	background-image:url(../images/banner-mr.jpg);
+	background-repeat:no-repeat;
+	margin-top:5px;
+}
+
+#banner .inner h2 {
+      color: #FFFFFF;
+    font-family: 'Stardos Stencil',cursive;
+    font-size: 39px;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.4;
+    padding: 56px 335px 0 46px;
+    text-decoration: none;
+    text-transform: none;
+    word-spacing: 0;
+}
+
+#content .inner {
+ margin-top: 10px;
+}
+
+#main h2 {
+	color:#3473A8;
+}
+#main h3 {
+	color:#3473A8;
+	background-color:Yellow;
+	font-size:16px;
+}
+#main a, a:visited {
+    color: #3473A8;
+    text-decoration: underline;
+}
+#main a:hover {
+    color: #859E0C;
+    text-decoration: underline;
+}
+
+#home-bottom {
+	border-top:1px solid #D6D6D6;
+	margin:15px 0 0 0;
+	padding:15px 0 0 0;
+	background-color:#EBE7E0;
+}
+#home-bottom h2 {
+	margin-left:10px;
+	color:#3473A8;
+}
+
+#home-bottom a:link, #home-bottom a:visited {
+text-decoration:underline;
+}
+
+#home-bottom a:hover {
+	text-decoration:none;
+
+}
+
+#col1 {
+	
+}
+
+/*-------------- sidebar ------------------*/
+
+#address {
+	background-color: #3473A8;
+	color: #fff;
+	margin:20px 0;
+    padding: 15px;
+}
+#address h3 {
+	color:#fff;
+}
+
+
+/*------------------ footer ------------------*/
+
+#footer {
+	margin-top:15px;
+	
+}
+
+#footer .inner {
+	    border-top: 5px solid #859E0C;
+    font-size: 10px;
+    padding-top: 10px;
+    text-align: center;
+	
+}
+
+#footer .inner a {
+    text-decoration: none;
+}
+#footer .inner a:hover {
+    text-decoration:underline;
+}
