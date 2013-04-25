@@ -5,7 +5,7 @@
             <table style="font-family:Verdana; font-size:smaller">
                 <tr>
                     <td>
-                        Användare:
+                        E-post:
                     </td>
                     <td>
                         <asp:TextBox ID="användare" runat="server" Width="200px" AutoCompleteType="None"></asp:TextBox>

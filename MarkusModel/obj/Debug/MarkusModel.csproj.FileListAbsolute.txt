@@ -1,0 +1,5 @@
+C:\Users\Markus\Utveckling\Markus\MarkusModel\bin\Debug\MarkusModel.dll
+C:\Users\Markus\Utveckling\Markus\MarkusModel\bin\Debug\MarkusModel.pdb
+C:\Users\Markus\Utveckling\Markus\MarkusModel\obj\Debug\MarkusModel.csprojResolveAssemblyReference.cache
+C:\Users\Markus\Utveckling\Markus\MarkusModel\obj\Debug\MarkusModel.dll
+C:\Users\Markus\Utveckling\Markus\MarkusModel\obj\Debug\MarkusModel.pdb
