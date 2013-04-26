@@ -58,5 +58,18 @@ namespace MarkusModel
         public double DepåMäklare { get; set; }
         public double DepåBank { get; set; }
         public double Kryss { get; set; }
+
+        public double Bank
+        {
+            get { return FondBank + DepåBank; }
+        }
+        public double Mäklare
+        {
+            get { return FondMäklare + DepåMäklare; }
+        }
+        public double Totalt
+        {
+            get { return Bank + Mäklare + Kryss; }
+        }
     }
 }
