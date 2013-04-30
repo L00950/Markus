@@ -23,7 +23,7 @@
             <div style="height: 50px; border-top-left-radius: 5px; border-top-right-radius: 5px; background-color: navy; text-align: center; font-size: 40px; color: white">Danica Pension - <%=DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") %></div>
             <div style="height: 10px; background-color: lightblue"></div>
             <div style="">
-                <table style="width: 100%; height: 100px; font-size: 50px">
+                <table style="width: 100%; height: 100px; font-size: 40px">
                     <tr>
                         <td style="text-align: center; vertical-align: central">
                             <table style="width: 100%; text-align: right">
@@ -86,7 +86,7 @@
                                             <tr>
                                                 <td id="depåBar" runat="server" style="text-align: center; background-color: lightgreen"></td>
                                                 <td id="fondBar" runat="server" style="text-align: center; background-color: lightskyblue"></td>
-                                                <td id="kryssBar" runat="server" style="text-align: center; background-color: burlywood"></td>
+                                                <td id="kryssBar" runat="server" style="text-align: center; background-color: burlywood; font-size: 18px"></td>
                                             </tr>
                                         </table>
                                     </td>
@@ -97,16 +97,21 @@
                                             <tr>
                                                 <td id="bankBar" runat="server" style="text-align: center; background-color: lightgreen"></td>
                                                 <td id="mäklarBar" runat="server" style="text-align: center; background-color: lightskyblue"></td>
-                                                <td id="kryssBar2" runat="server" style="text-align: center; background-color: burlywood"></td>
+                                                <td id="kryssBar2" runat="server" style="text-align: center; background-color: burlywood; font-size: 18px"></td>
                                             </tr>
                                         </table>
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td colspan="4"><hr/></td>
+                                </tr>
+                                <tr>
                                     <td>
                                         <table>
                                             <tr>
-                                                <td></td>
+                                                <td id="volymDepå" runat="server" style="text-align: center; background-color: lightgreen"></td>
+                                                <td id="volymFond" runat="server" style="text-align: center; background-color: lightskyblue"></td>
+                                                <td id="volymKryss" runat="server" style="text-align: center; background-color: burlywood"></td>
                                             </tr>
                                         </table>
                                     </td>
