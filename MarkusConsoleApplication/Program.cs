@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System11.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
@@ -6,7 +6,7 @@ using MarkusModel;
 
 namespace MarkusConsoleApplication
 {
-    class Program
+    static class Program
     {
         static void Main(string[] args)
         {
