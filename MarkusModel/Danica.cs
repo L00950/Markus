@@ -67,6 +67,14 @@ namespace MarkusModel
         {
             get { return FondMäklare + DepåMäklare; }
         }
+        public double Depå
+        {
+            get { return DepåBank + DepåMäklare; }
+        }
+        public double Fond
+        {
+            get { return FondBank + FondMäklare; }
+        }
         public double Totalt
         {
             get { return Bank + Mäklare + Kryss; }

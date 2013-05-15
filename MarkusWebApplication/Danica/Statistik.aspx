@@ -110,8 +110,8 @@
                                     <td colspan="4"><hr/></td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        <table>
+                                    <td colspan="4">
+                                        <table style="width: 100%; border-spacing: 0">
                                             <tr>
                                                 <td id="volymDepå" runat="server" style="text-align: center; background-color: lightgreen"></td>
                                                 <td id="volymFond" runat="server" style="text-align: center; background-color: lightskyblue"></td>
