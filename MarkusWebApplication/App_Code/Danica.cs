@@ -7,7 +7,7 @@ namespace MarkusWebApplication
     {
         public static HttpCookie SkapaNyCookie()
         {
-            return new HttpCookie("userNameDanica") { Expires = DateTime.Now.AddMinutes(1) };
+            return new HttpCookie("userNameDanica") { Expires = DateTime.Now.AddDays(7) };
         }
     }
 }
