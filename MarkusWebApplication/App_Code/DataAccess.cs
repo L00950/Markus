@@ -9,9 +9,6 @@ namespace MarkusWebApplication
 	/// </summary>
 	public class DataAccess
 	{
-		public DataAccess()
-		{
-		}
 		public static DataSet FillBookings(int objectid)
 		{
 			SqlCommand com = new SqlCommand();

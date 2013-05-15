@@ -5,13 +5,19 @@ using MarkusModel;
 
 namespace Danica
 {
-    public partial class Statistik : System.Web.UI.Page
+    public partial class Default : System.Web.UI.Page
     {
         private const string Format = "# ### ##0";
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if(IsPostBack) return;
+
+            var cookie = Request.Cookies["userNameDanica"];
+            if (cookie == null)
+                Response.Redirect("Login.aspx");
+            Response.Cookies.Add(MarkusWebApplication.Danica.SkapaNyCookie());
+           
 
             var statistik = FilHanterare.Läs<ClaesStatistik>(@"c:\data\statistik.txt").ToList().FirstOrDefault();
             if (statistik == null) return;

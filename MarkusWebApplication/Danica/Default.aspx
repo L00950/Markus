@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Statistik.aspx.cs" Inherits="Danica.Statistik" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="Danica.Default" %>
 
 <!DOCTYPE html>
 
@@ -109,7 +109,7 @@
                                 <tr>
                                     <td colspan="4"><hr/></td>
                                 </tr>
-                                <tr>
+                                <tr style="visibility: hidden">
                                     <td colspan="4">
                                         <table style="width: 100%; border-spacing: 0">
                                             <tr>
