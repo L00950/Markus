@@ -18,8 +18,6 @@ namespace Danica
 
             var premier = statistik.Premier.First(_ => _.ÅretsVärde);
             var förraÅretsPremier = statistik.Premier.First(_ => _.ÅretsVärde == false);
-            var månadspermier = statistik.MånadsPremier;
-            //var förraÅretsPremierTillIdag = månadspermier.Sum(_ => _.)
 
             bankDepå.Text = SkrivVärde(premier.DepåBank, förraÅretsPremier.DepåBank);
             bankFond.Text = SkrivVärde(premier.FondBank, förraÅretsPremier.FondBank);
@@ -27,7 +25,7 @@ namespace Danica
             mäklareFond.Text = SkrivVärde(premier.FondMäklare, förraÅretsPremier.FondMäklare);
             kryss.Text = SkrivVärde(premier.Kryss, förraÅretsPremier.Kryss);
             depå.Text = SkrivVärde(premier.DepåPremier, förraÅretsPremier.DepåPremier);
-            fond.Text = SkrivVärde(premier.FondPremier, förraÅretsPremier.FondPremier);
+            fond.Text = SkrivVärde(premier.FondPremier + premier.Kryss, förraÅretsPremier.FondPremier + förraÅretsPremier.Kryss);
             summaBank.Text = SkrivVärde(premier.BankPremier, förraÅretsPremier.BankPremier);
             summaMäklare.Text = SkrivVärde(premier.MäklarPremier, förraÅretsPremier.MäklarPremier);
             summaKryss.Text = SkrivVärde(premier.Kryss, förraÅretsPremier.Kryss);

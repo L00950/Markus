@@ -10,6 +10,10 @@
         var milliSekunder = minuter * 60 * 1000;
         function init() {
             setTimeout(reLoad, milliSekunder);
+            if (screen.width < 1000) {
+                var t = document.all["huvudTabell"];
+                t.style.cssText = t.style.cssText.replace("40px", "30px");
+            }
         }
 
         function reLoad() {
@@ -20,10 +24,10 @@
 <body style="font-family: verdana" onload="init();">
     <form id="form1" runat="server">
         <div>
-            <div style="height: 50px; border-top-left-radius: 5px; border-top-right-radius: 5px; background-color: navy; text-align: center; font-size: 40px; color: white">Danica Pension - <%=DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") %></div>
+            <div style="height: 50px; border-top-left-radius: 5px; border-top-right-radius: 5px; background-color: navy; text-align: center; font-size: 40px; color: white">Danica Pension</div>
             <div style="height: 10px; background-color: lightblue"></div>
             <div style="">
-                <table style="width: 100%; height: 100px; font-size: 40px">
+                <table id="huvudTabell" style="width: 100%; height: 100px; font-size: 40px">
                     <tr>
                         <td style="text-align: center; vertical-align: central">
                             <table style="width: 100%; text-align: right">
