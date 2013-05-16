@@ -17,7 +17,7 @@
         }
 
         function reLoad() {
-            window.location = "statistik.aspx";
+            window.location = "http://linderback.com/markuswebapplication/danica/";
         }
     </script>
 </head>
