@@ -12,7 +12,6 @@ namespace MarkusConsoleApplication
         {
             if(args.Any(_ => _ == "BBS"))
                 LäsInMedlemmar();
-
         }
         static void LäsInMedlemmar()
         {
