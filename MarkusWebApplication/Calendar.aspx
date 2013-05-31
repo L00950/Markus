@@ -68,10 +68,10 @@
 						<input id="MonteRojo" type="button" value="Monte Rojo" runat="server" onserverclick="MonterojoServerClick"/>&nbsp;&nbsp;<input id="säkerhetskopiera" type="button" value="Säkerhetskopiera" runat="server" onserverclick="SäkerhetskopieraServerClick"/>&nbsp;&nbsp;<input id="logout" type="button" value="Logga ut" runat="server" onserverclick="LogoutServerClick"/>
 						</P>
                         <p>
-                            Antal bokningar:<asp:Label ID="antalBokningar" runat="server"></asp:Label><br />
-                            Datafil:<asp:Label ID="dataFil" runat="server"></asp:Label><br />
-                            Storlek:<asp:Label ID="filStorlek" runat="server"></asp:Label><br />
-                            Senast sparad:<asp:Label ID="senastSparad" runat="server"></asp:Label><br />
+                            Antal bokningar: <asp:Label ID="antalBokningar" runat="server"></asp:Label><br />
+                            Datafil: <asp:Label ID="dataFil" runat="server"></asp:Label><br />
+                            Storlek: <asp:Label ID="filStorlek" runat="server"></asp:Label><br />
+                            Senast sparad: <asp:Label ID="senastSparad" runat="server"></asp:Label><br />
                             <asp:Label ID="statusText" runat="server"></asp:Label>
                         </p>
 					</td>
