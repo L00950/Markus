@@ -22,8 +22,8 @@
                 </tr>
                 <tr>
                     <td>
-                        <asp:DataGrid runat="server" ID="lista" HeaderStyle="font-size:large">
-                            <HeaderStyle BackColor="Blue" Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Size="Large" Font-Strikeout="False" Font-Underline="False" />
+                        <asp:DataGrid runat="server" ID="lista" HeaderStyle="font-size:large" CellSpacing="10">
+                            <HeaderStyle BackColor="Silver" Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Size="Large" Font-Strikeout="False" Font-Underline="False" />
                             <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Size="X-Small" Font-Strikeout="False" Font-Underline="False" />
                         </asp:DataGrid>
                     </td>
