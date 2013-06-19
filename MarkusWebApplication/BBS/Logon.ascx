@@ -17,7 +17,7 @@
                     </td>
                     <td>
                         <asp:TextBox ID="lösenord" TextMode="Password" Width="200px" runat="server" AutoCompleteType="None"></asp:TextBox>
-                        <asp:Button ID="nyttLösenKnapp" runat="server" Text="Glömt lösen" 
+                        <asp:Button ID="nyttLösenKnapp" runat="server" Text="Nytt lösenord" 
                             style="font-family:Verdana; font-size:small" OnClick="NyttLösenKnappClick" />
                     </td>
                 </tr>
