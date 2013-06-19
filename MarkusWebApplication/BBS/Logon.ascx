@@ -7,18 +7,18 @@
                     <td>
                         E-post:
                     </td>
-                    <td>
+                    <td style="text-align: left">
                         <asp:TextBox ID="användare" runat="server" Width="200px" AutoCompleteType="None"></asp:TextBox>
-                        <asp:Button ID="nyttLösenKnapp" runat="server" Text="Glömt lösen" 
-                            style="font-family:Verdana; font-size:small" OnClick="NyttLösenKnappClick" />
                     </td>
                 </tr>
                 <tr>
                     <td>
                         Lösenord:
                     </td>
-                    <td style="text-align: left">
+                    <td>
                         <asp:TextBox ID="lösenord" TextMode="Password" Width="200px" runat="server" AutoCompleteType="None"></asp:TextBox>
+                        <asp:Button ID="nyttLösenKnapp" runat="server" Text="Glömt lösen" 
+                            style="font-family:Verdana; font-size:small" OnClick="NyttLösenKnappClick" />
                     </td>
                 </tr>
                 <tr>

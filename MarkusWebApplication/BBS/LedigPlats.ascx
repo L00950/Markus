@@ -6,7 +6,8 @@
                 <table>
                     <tr>
                         <td>
-                            Följande bryggplatser är lediga <b><%=Convert.ToDateTime(Request.QueryString["datum"]).ToString("yyyy-MM-dd")%></b>.
+                            Följande bryggplatser är lediga <b><%=Convert.ToDateTime(Request.QueryString["datum"]).ToString("yyyy-MM-dd")%></b>.<br />
+                            Kontakta gärna platsägaren för att dubbelkolla för säkerhets skull.
                         </td>
                     </tr>
                     <tr>
