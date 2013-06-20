@@ -90,8 +90,8 @@ namespace BBS
 
             var datumLista = HämtaMarkeradeDatum();
             var ledigaBryggplatser = FilHanterare.Läs<LedigBryggplats>(new LedigBryggplats().FilNamn()).ToList();
-            ledigaBryggplatser.RemoveAll(_ => _.BryggplatsId == BryggplatsId() && _.Dag < DateTime.Today);
-            ledigaBryggplatser.AddRange(from i in datumLista select new LedigBryggplats{BryggplatsId = BryggplatsId(), Dag = i});
+            ledigaBryggplatser.RemoveAll(_ => _.BryggplatsId == BryggplatsId() && _.Dag >= DateTime.Today);
+            ledigaBryggplatser.AddRange(from i in datumLista.Where(_ => _.Date >= DateTime.Today) select new LedigBryggplats{BryggplatsId = BryggplatsId(), Dag = i});
             FilHanterare.Spara(ledigaBryggplatser, new LedigBryggplats().FilNamn());
 
             LaddaKalender();
