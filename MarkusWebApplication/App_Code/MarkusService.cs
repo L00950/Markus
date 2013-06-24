@@ -6,9 +6,6 @@ using System.Net.Mail;
 using System.Web.Services;
 using MarkusModel;
 
-/// <summary>
-/// Summary description for MarkusService
-/// </summary>
 [WebService(Namespace = "http://linderback.com/markuswebapplication/markusservice")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
@@ -36,6 +33,14 @@ public class MarkusService : WebService {
     [WebMethod]
     public bool SendMail(string username, string password, string to, string subject, string body, Bilaga[] bilagor, out string errormessage)
     {
+        var mailAdress = new MailAdress {Namn = "Markus Linderbäck", Adress = "markus@linderback.com"};
+        return SendMail2(username, password, mailAdress, mailAdress, to, subject, body, bilagor, out errormessage);
+    }
+
+    [WebMethod]
+    public bool SendMail2(string username, string password, MailAdress from, MailAdress sender, string to,
+                          string subject, string body, Bilaga[] bilagor, out string errormessage)
+    {
         errormessage = "";
         try
         {
@@ -44,12 +49,12 @@ public class MarkusService : WebService {
                 throw new Exception("Wrong username or password");
 
             var message = new MailMessage();
-            
+
             message.To.Add(to);
             message.Subject = subject;
             message.Body = body;
-            message.Sender = new MailAddress("markus@linderback.com", "Markus Linderbäck");
-            message.From = new MailAddress("markus@linderback.com", "Markus Linderbäck");
+            message.Sender = new MailAddress(sender.Adress, sender.Namn);
+            message.From = new MailAddress(from.Adress, from.Namn);
 
             var folder = @"c:\data\" + DateTime.Now.ToString("yyyyMMdd_HHmmss");
             if (bilagor.Any())
@@ -57,7 +62,7 @@ public class MarkusService : WebService {
 
             foreach (var bilaga in bilagor)
             {
-                var filnamn =  folder + @"\" + bilaga.Namn;
+                var filnamn = folder + @"\" + bilaga.Namn;
                 var fil = new FileStream(filnamn, FileMode.CreateNew);
                 fil.Write(bilaga.Innehåll, 0, bilaga.Innehåll.Count());
                 fil.Close();
@@ -67,10 +72,10 @@ public class MarkusService : WebService {
             }
 
             var smtpClient = new SmtpClient("smtp.bredband.net")
-                                 {
-                                     UseDefaultCredentials = false,
-                                     Credentials = new System.Net.NetworkCredential("b248634", "jtk001")
-                                 };
+            {
+                UseDefaultCredentials = false,
+                Credentials = new System.Net.NetworkCredential("b248634", "jtk001")
+            };
             smtpClient.Send(message);
 
             return true;
@@ -103,5 +108,12 @@ public class MarkusService : WebService {
     public void Premier(ClaesStatistik statistik)
     {
         FilHanterare.Spara(new List<ClaesStatistik> { statistik }, @"c:\data\statistik.txt");
+    }
+
+    [Serializable]
+    public class MailAdress
+    {
+        public string Namn { get; set; }
+        public string Adress { get; set; }
     }
 }
