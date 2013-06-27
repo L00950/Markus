@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace MarkusModel
@@ -55,8 +56,37 @@ namespace MarkusModel
         }
     }
 
+    public class Loggpost
+    {
+        public string Plats;
+        public DateTime Tidpunkt;
+    }
+
     public static class MedlemsRegister
     {
+        public static void LäsVaktLogg(string bryggplatsId)
+        {
+            var vaktLogg = new List<Loggpost>();
+            var fil = @"c:\data\vaktlogg\" + bryggplatsId + ".csv";
+            if (!File.Exists(fil))
+                return;
+
+            TextReader reader = File.OpenText(fil);
+            var rad = reader.ReadLine();
+            while (rad != null)
+            {
+                var items = rad.Split(';');
+                vaktLogg.Add(new Loggpost
+                    {
+                        Plats = items[1],
+                        Tidpunkt = Convert.ToDateTime(items[3] + " " + items[2])
+                    });
+                rad = reader.ReadLine();
+            }
+            reader.Close();
+            reader.Dispose();
+        }
+
         public static void UppdateraMedlem(Medlem medlem)
         {
             var medlemmar = HämtaAllaMedlemmar().ToList();
