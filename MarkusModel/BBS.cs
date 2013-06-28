@@ -64,12 +64,12 @@ namespace MarkusModel
 
     public static class MedlemsRegister
     {
-        public static void LäsVaktLogg(string bryggplatsId)
+        public static List<Loggpost> LäsVaktLogg(string bryggplatsId)
         {
             var vaktLogg = new List<Loggpost>();
             var fil = @"c:\data\vaktlogg\" + bryggplatsId + ".csv";
             if (!File.Exists(fil))
-                return;
+                return vaktLogg;
 
             TextReader reader = File.OpenText(fil);
             var rad = reader.ReadLine();
@@ -85,6 +85,8 @@ namespace MarkusModel
             }
             reader.Close();
             reader.Dispose();
+
+            return vaktLogg;
         }
 
         public static void UppdateraMedlem(Medlem medlem)

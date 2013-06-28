@@ -26,14 +26,14 @@ namespace BBS
                 first = false;
                 row.Controls.Add(new TableCell{Text = bryggplats.Id + " (" + bryggplats.Båt + ")"});
                 var kalenderUrl = "'Default.aspx?sida=medlemskalender&id=" + Request.QueryString["id"] + "&bryggplats=" + bryggplats.Id + "'";
-                var kalenderButton = new HtmlInputButton();
-                kalenderButton.Value = "Kalender";
+                var kalenderButton = new HtmlInputButton {Value = "Kalender"};
                 kalenderButton.Attributes.Add("onclick", "javascript:window.location=" + kalenderUrl);
-                var vaktloggUrl = "Default.aspx?sida=vaktlogg&id=" + Request.QueryString["id"] + "&bryggplats=" + bryggplats.Id;
+                var vaktloggUrl = "'Default.aspx?sida=vaktlogg&id=" + Request.QueryString["id"] + "&bryggplats=" + bryggplats.Id + "'";
                 var cell = new TableCell();
-                var b = new Button { Text = "Vaktlogg", PostBackUrl = vaktloggUrl };
+                var vaktloggButton = new HtmlInputButton { Value = "Vaktlogg" };
+                vaktloggButton.Attributes.Add("onclick", "javascript:window.location=" + vaktloggUrl);
                 cell.Controls.Add(kalenderButton);
-                //cell.Controls.Add(b);
+                cell.Controls.Add(vaktloggButton);
                 row.Controls.Add(cell);
                 bryggplatsLista.Controls.Add(row);
             }
