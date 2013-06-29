@@ -187,8 +187,8 @@ namespace MarkusWebApplication
                 case 5: bokningar.InnerText = "Bokningar Hebbes Hus"; break;
                 case 6: bokningar.InnerText = "Bokningar Monte Rojo"; break;
             }
-			see2006.Attributes.Add("onclick", "showModalDialog('http://linderback.com/linderback/swe/" + ViewState["object"] + "/bokat1.htm' , 0, 'dialogWidth:625px;dialogHeight:600px')");
-			see2007.Attributes.Add("onclick", "showModalDialog('http://linderback.com/linderback/swe/" + ViewState["object"] + "/bokat2.htm' , 0, 'dialogWidth:625px;dialogHeight:600px')");
+			see2006.Attributes.Add("onclick", "showModalDialog('http://linderback.com/linderback/swe/" + ViewState["object"] + "/bokat1.asp' , 0, 'dialogWidth:625px;dialogHeight:600px')");
+			see2007.Attributes.Add("onclick", "showModalDialog('http://linderback.com/linderback/swe/" + ViewState["object"] + "/bokat2.asp' , 0, 'dialogWidth:625px;dialogHeight:600px')");
 		    
             if (Convert.ToInt32(ViewState["object"]) == 0) return;
 
