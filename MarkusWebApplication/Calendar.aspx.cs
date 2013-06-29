@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using MarkusModel;
@@ -191,7 +192,10 @@ namespace MarkusWebApplication
 		    
             if (Convert.ToInt32(ViewState["object"]) == 0) return;
 
-            bookings.DataSource = HanteraBokningar.HämtaBokningar((Hus)Convert.ToInt32(ViewState["object"]));
+		    var onjektsbokningar = HanteraBokningar.HämtaBokningar((Hus) Convert.ToInt32(ViewState["object"]));
+		    if (!sehistorik.Checked)
+                onjektsbokningar = onjektsbokningar.Where(_ => _.Avresa >= DateTime.Today);
+            bookings.DataSource = onjektsbokningar;
 		    bookings.DataBind();
 		}
 
@@ -255,6 +259,10 @@ namespace MarkusWebApplication
 
             CalendarEnd.SelectedDate = CalendarStart.SelectedDate;
             CalendarEnd.VisibleDate = CalendarEnd.SelectedDate;
+        }
+        protected void SeHistorikCheckedChanged(object sender, EventArgs e)
+        {
+            FillBookings();
         }
     }
 }

@@ -152,7 +152,13 @@
 								</tr>
 							</table>
 						</P>
-					    <P><input id="newbutton" type="button" value="Ny bokning" runat="server" onserverclick="NewbuttonServerClick"/><input id="see2006" type="button" value="Se 2013" runat="server"/><input id="see2007" type="button" value="Se 2014" runat="server"/><input id="goback" type="button" value="Översikt" runat="server" onserverclick="GobackServerClick"/></P>
+					    <P>
+					        <input id="newbutton" type="button" value="Ny bokning" runat="server" onserverclick="NewbuttonServerClick"/>
+                            <input id="see2006" type="button" value="Se 2013" runat="server"/>
+                            <input id="see2007" type="button" value="Se 2014" runat="server"/>
+                            <input id="goback" type="button" value="Översikt" runat="server" onserverclick="GobackServerClick"/>
+                            <asp:CheckBox id="sehistorik" Text="Se historik" runat="server" OnCheckedChanged="SeHistorikCheckedChanged" AutoPostBack="True"/>
+					    </P>
 						<asp:datagrid id="bookings" runat="server" BorderColor="White" BorderStyle="Ridge" CellSpacing="1"
 							BackColor="White" GridLines="None" CellPadding="3" BorderWidth="2px" AutoGenerateColumns="False">
 							<SelectedItemStyle Font-Bold="True" ForeColor="White" BackColor="#9471DE"></SelectedItemStyle>
