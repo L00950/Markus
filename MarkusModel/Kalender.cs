@@ -46,7 +46,7 @@ namespace MarkusModel
 			var cdtDate = new DateTime(year, month, 1);
 			while(cdtDate.DayOfWeek != DayOfWeek.Monday)
 				cdtDate = cdtDate.AddDays(-1);
-		    var filename = @"c:\inetpub\wwwroot\linderback\" + year + @"\" + objectid + @"\" + month + ".asp";
+            var filename = @"C:\Development\Markus\MarkusWeb\Linderback\" + year + @"\" + objectid + @"\" + month + ".asp";
 			// Ta bort gammla fil
 			if(System.IO.File.Exists(filename))
 				System.IO.File.Delete(filename);
