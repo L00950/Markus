@@ -11,13 +11,6 @@ using MarkusModel;
 // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
 // [System.Web.Script.Services.ScriptService]
 public class MarkusService : WebService {
-
-    public MarkusService () {
-
-        //Uncomment the following line if using designed components 
-        //InitializeComponent(); 
-    }
-
     [Serializable]
     public class Bilaga
     {
@@ -31,15 +24,15 @@ public class MarkusService : WebService {
     }
 
     [WebMethod]
-    public bool SendMail(string username, string password, string to, string subject, string body, Bilaga[] bilagor, out string errormessage)
+    public bool SendMail(string username, string password, string to, string subject, string body, MarkusService.Bilaga[] bilagor, out string errormessage)
     {
-        var mailAdress = new MailAdress {Namn = "Markus Linderbäck", Adress = "markus@linderback.com"};
+        var mailAdress = new MarkusService.MailAdress {Namn = "Markus Linderbäck", Adress = "markus@linderback.com"};
         return SendMail2(username, password, mailAdress, mailAdress, to, subject, body, bilagor, out errormessage);
     }
 
     [WebMethod]
-    public bool SendMail2(string username, string password, MailAdress from, MailAdress sender, string to,
-                          string subject, string body, Bilaga[] bilagor, out string errormessage)
+    public bool SendMail2(string username, string password, MarkusService.MailAdress from, MarkusService.MailAdress sender, string to,
+                          string subject, string body, MarkusService.Bilaga[] bilagor, out string errormessage)
     {
         errormessage = "";
         try
@@ -71,11 +64,7 @@ public class MarkusService : WebService {
                 message.Attachments.Add(attachment);
             }
 
-            var smtpClient = new SmtpClient("smtp.bredband.net")
-            {
-                UseDefaultCredentials = false,
-                Credentials = new System.Net.NetworkCredential("b248634", "jtk001")
-            };
+            var smtpClient = Gmail.GmailSmtpKlient();
             smtpClient.Send(message);
 
             return true;

@@ -43,6 +43,7 @@
     <Compile Include="BBS.cs" />
     <Compile Include="Danica.cs" />
     <Compile Include="FilHanterare.cs" />
+    <Compile Include="Gmail.cs" />
     <Compile Include="Kalender.cs" />
     <Compile Include="HanteraBokningar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -61,8 +61,7 @@ namespace MarkusWebApplication
 
                 try
                 {
-                    SmtpClient client = new SmtpClient("smtp.bredband.net");
-                    client.Credentials = new System.Net.NetworkCredential("b248634", "jtk001");
+                    var client = Gmail.GmailSmtpKlient();
                     client.Send(email.Value, receiver.Value, subject.Value, body);
                     if(receiver.Value == "markus@linderback.com")
                         Response.Redirect("mailskickat.htm");
