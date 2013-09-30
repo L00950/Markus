@@ -12,26 +12,17 @@
         function drawChart()
         {
             var data = google.visualization.arrayToDataTable([
-              ['Year', '2012', '2013'],
-              ['Jan', 1000, 400],
-              ['Feb', 1170, 460],
-              ['Mars', 660, 1120],
-              ['April', 1030, 540],
-              ['Maj', 1030, 540],
-              ['Juni', 1030, 540],
-              ['Juli', 1030, 540],
-              ['Augusti', 1030, 540],
-              ['September', 1030, 540],
-              ['Oktober', 1030, 540],
-              ['November', 1030, 540],
-              ['December', 1030, 1030]
+              ['Kanal', 'Procent'],
+              ['Mäklare', 1000],
+              ['Bank', 1170],
+              ['Kryss', 660]
             ]);
 
             var options = {
-                title: 'Premier'
+                title: 'Premier per kanal'
             };
 
-            var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
             chart.draw(data, options);
         }
     </script>

@@ -9,6 +9,13 @@ namespace Danica
     {
         private const string Format = "# ### ##0";
 
+        protected string BankPie;
+        protected string MäklarePie;
+        protected string KryssPie;
+
+        protected string DepåPie;
+        protected string FondPie;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if(IsPostBack) return;
@@ -34,22 +41,11 @@ namespace Danica
 
         private void SkrivTillBarer(ÅrsPremier premier)
         {
-            var depåVidd = Math.Round(premier.DepåPremier/premier.TotalaPremier*100, 0, MidpointRounding.AwayFromZero);
-            var fondVidd = Math.Round(premier.FondPremier/premier.TotalaPremier*100, 0, MidpointRounding.AwayFromZero);
-            depåBar.Width = depåVidd.ToString(CultureInfo.InvariantCulture) + "%";
-            depåBar.InnerText = "Depå " + depåBar.Width;
-            fondBar.Width = fondVidd.ToString(CultureInfo.InvariantCulture) + "%";
-            fondBar.InnerText = "Fond " + fondBar.Width;
-            var kryssVidd = 100 - depåVidd - fondVidd;
-            kryssBar.Width = kryssVidd.ToString(CultureInfo.InvariantCulture) + "%";
-            kryssBar.InnerText = "Kryss " + kryssBar.Width;
-            var bankVidd = Math.Round(premier.BankPremier/premier.TotalaPremier*100, 0, MidpointRounding.AwayFromZero);
-            bankBar.Width = bankVidd.ToString(CultureInfo.InvariantCulture) + "%";
-            bankBar.InnerText = "Bank " + bankBar.Width;
-            mäklarBar.Width = (100 - bankVidd - kryssVidd).ToString(CultureInfo.InvariantCulture) + "%";
-            mäklarBar.InnerText = "Mäklare " + mäklarBar.Width;
-            kryssBar2.Width = kryssVidd.ToString(CultureInfo.InvariantCulture) + "%";
-            kryssBar2.InnerText = "Kryss " + kryssBar2.Width;
+            BankPie = Math.Round(premier.BankPremier / premier.TotalaPremier * 100, 1, MidpointRounding.AwayFromZero).ToString().Replace(",", ".");
+            KryssPie = Math.Round(premier.Kryss / premier.TotalaPremier * 100, 1, MidpointRounding.AwayFromZero).ToString().Replace(",", ".");
+            MäklarePie = Math.Round(premier.MäklarPremier / premier.TotalaPremier * 100, 1, MidpointRounding.AwayFromZero).ToString().Replace(",", ".");
+            FondPie = Math.Round(premier.FondPremier / premier.TotalaPremier * 100, 1, MidpointRounding.AwayFromZero).ToString().Replace(",", ".");
+            DepåPie = Math.Round(premier.DepåPremier / premier.TotalaPremier * 100, 1, MidpointRounding.AwayFromZero).ToString().Replace(",", ".");
         }
 
         private void SkrivVärdeTillBarer(Värde värde)

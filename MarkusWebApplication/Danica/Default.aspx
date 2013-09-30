@@ -5,6 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Danica Pension - Statistik</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script>
         var minuter = 5;
         var milliSekunder = minuter * 60 * 1000;
@@ -19,15 +21,49 @@
         function reLoad() {
             window.location = "http://linderback.com/markuswebapplication/danica/";
         }
+       
+        google.load("visualization", "1", { packages: ["corechart"] });
+        google.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Kanal', 'Procent'],
+                ['Mäklare', <%=MäklarePie%>],
+                ['Bank', <%=BankPie%>],
+                ['Kryss', <%=KryssPie%>]
+            ]);
+
+            var options = {
+                title: 'Premier per kanal'
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+
+            var data2 = google.visualization.arrayToDataTable([
+                ['Produkt', 'Procent'],
+                ['Fond', <%=FondPie%>],
+                ['Depå', <%=DepåPie%>],
+                ['Kryss', <%=KryssPie%>]
+            ]);
+
+            var options2 = {
+                title: 'Premier per produkt'
+            };
+
+            var chart2 = new google.visualization.PieChart(document.getElementById('chart_div2'));
+            chart2.draw(data2, options2);
+        }
+
     </script>
 </head>
-<body style="font-family: verdana" onload="init();">
+<body style="font-family: Danske" onload="init();">
     <form id="form1" runat="server">
         <div>
             <div style="height: 50px; border-top-left-radius: 5px; border-top-right-radius: 5px; background-color: navy; text-align: center; font-size: 40px; color: white">Danica Pension</div>
             <div style="height: 10px; background-color: lightblue"></div>
             <div style="">
-                <table id="huvudTabell" style="width: 100%; height: 100px; font-size: 40px">
+                <table id="huvudTabell" style="width: 100%; height: 100px; font-size: 35px">
                     <tr>
                         <td style="text-align: center; vertical-align: central">
                             <table style="width: 100%; text-align: right">
@@ -88,20 +124,12 @@
                                     <td colspan="4">
                                         <table style="width: 100%; border-spacing: 0">
                                             <tr>
-                                                <td id="depåBar" runat="server" style="text-align: center; background-color: lightgreen"></td>
-                                                <td id="fondBar" runat="server" style="text-align: center; background-color: lightskyblue"></td>
-                                                <td id="kryssBar" runat="server" style="text-align: center; background-color: burlywood; font-size: 18px"></td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="4">
-                                        <table style="width: 100%; border-spacing: 0">
-                                            <tr>
-                                                <td id="bankBar" runat="server" style="text-align: center; background-color: lightgreen"></td>
-                                                <td id="mäklarBar" runat="server" style="text-align: center; background-color: lightskyblue"></td>
-                                                <td id="kryssBar2" runat="server" style="text-align: center; background-color: burlywood; font-size: 18px"></td>
+                                                <td style="width: 50%">
+                                                    <div id="chart_div" style="width: 100%; height: 400px;"></div>
+                                                </td>
+                                                <td style="width: 50%">
+                                                    <div id="chart_div2" style="width: 100%; height: 400px;"></div>
+                                                </td>
                                             </tr>
                                         </table>
                                     </td>
