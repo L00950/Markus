@@ -41,11 +41,11 @@ namespace Danica
 
         private void SkrivTillBarer(ÅrsPremier premier)
         {
-            BankPie = Math.Round(premier.BankPremier / premier.TotalaPremier * 100, 1, MidpointRounding.AwayFromZero).ToString().Replace(",", ".");
-            KryssPie = Math.Round(premier.Kryss / premier.TotalaPremier * 100, 1, MidpointRounding.AwayFromZero).ToString().Replace(",", ".");
-            MäklarePie = Math.Round(premier.MäklarPremier / premier.TotalaPremier * 100, 1, MidpointRounding.AwayFromZero).ToString().Replace(",", ".");
-            FondPie = Math.Round(premier.FondPremier / premier.TotalaPremier * 100, 1, MidpointRounding.AwayFromZero).ToString().Replace(",", ".");
-            DepåPie = Math.Round(premier.DepåPremier / premier.TotalaPremier * 100, 1, MidpointRounding.AwayFromZero).ToString().Replace(",", ".");
+            BankPie = Math.Round(premier.BankPremier * 0.000001, 0, MidpointRounding.AwayFromZero).ToString().Replace(",", ".");
+            KryssPie = Math.Round(premier.Kryss * 0.000001, 0, MidpointRounding.AwayFromZero).ToString().Replace(",", ".");
+            MäklarePie = Math.Round(premier.MäklarPremier * 0.000001, 0, MidpointRounding.AwayFromZero).ToString().Replace(",", ".");
+            FondPie = Math.Round(premier.FondPremier * 0.000001, 0, MidpointRounding.AwayFromZero).ToString().Replace(",", ".");
+            DepåPie = Math.Round(premier.DepåPremier * 0.000001, 0, MidpointRounding.AwayFromZero).ToString().Replace(",", ".");
         }
 
         private void SkrivVärdeTillBarer(Värde värde)

@@ -21,9 +21,10 @@
         function reLoad() {
             window.location = "http://linderback.com/markuswebapplication/danica/";
         }
-       
+
         google.load("visualization", "1", { packages: ["corechart"] });
         google.setOnLoadCallback(drawChart);
+        var colors = ['blue', 'indigo', 'darkblue'];
 
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
@@ -34,7 +35,8 @@
             ]);
 
             var options = {
-                title: 'Premier per kanal'
+                title: 'Premier per kanal',
+                colors: colors
             };
 
             var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
@@ -48,7 +50,8 @@
             ]);
 
             var options2 = {
-                title: 'Premier per produkt'
+                title: 'Premier per produkt',
+                colors: colors
             };
 
             var chart2 = new google.visualization.PieChart(document.getElementById('chart_div2'));
@@ -136,6 +139,9 @@
                                 </tr>
                                 <tr>
                                     <td colspan="4"><hr/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" style="font-size: 14px"><%=DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") %></td>
                                 </tr>
                                 <tr style="visibility: hidden">
                                     <td colspan="4">
