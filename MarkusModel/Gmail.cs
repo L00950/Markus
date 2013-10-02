@@ -10,4 +10,12 @@ public static class Gmail
                 EnableSsl = true
             };
     }
+    public static SmtpClient TeliaSmtpKlient()
+    {
+        return new SmtpClient("mailout.telia.com", 465) // alternativt 465
+        {
+            Credentials = new System.Net.NetworkCredential("markus.linderback@telia.com", "Markus01"),
+            EnableSsl = true
+        };
+    }
 }

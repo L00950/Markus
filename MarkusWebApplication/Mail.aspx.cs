@@ -1,22 +1,18 @@
 using System;
-using System.Net.Mail;
 
 namespace MarkusWebApplication
 {
-	/// <summary>
-	/// Summary description for Mail.
-	/// </summary>
 	public partial class Mail : System.Web.UI.Page
 	{
 	
-		protected void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, EventArgs e)
 		{
             if(!IsPostBack)
             {
                 if (Request.QueryString["receiver"] != "")
-                    this.receiver.Value = Request.QueryString["receiver"];
+                    receiver.Value = Request.QueryString["receiver"];
                 if (Request.QueryString["subject"] != "")
-                    this.subject.Value = Request.QueryString["subject"];
+                    subject.Value = Request.QueryString["subject"];
             }
 		}
 
@@ -40,24 +36,24 @@ namespace MarkusWebApplication
 		}
 		#endregion
 
-		protected void sendbutton_ServerClick(object sender, System.EventArgs e)
+		protected void sendbutton_ServerClick(object sender, EventArgs e)
 		{
-			if(this.email.Value == "")
-				this.errormessage.Text = "Please, enter your e-mail";
-			else if(this.name.Value == "")
-				this.errormessage.Text = "Please, enter your name";
+			if(email.Value == "")
+				errormessage.Text = "Please, enter your e-mail";
+			else if(name.Value == "")
+				errormessage.Text = "Please, enter your name";
 			else
 			{
-				string body = "Namn: " + this.name.Value + "\n\n";
-				if(this.address.Value != "")
-					body += "Adress: " + this.address.Value + "\n\n";
-				if(this.phone.Value != "")
-					body += "Tel: " + this.phone.Value + "\n\n";
-				body += "E-mail: " + this.email.Value + "\n\n";
-				body += "Meddelande: " + this.message.Value;
+				var body = "Namn: " + name.Value + "\n\n";
+				if(address.Value != "")
+					body += "Adress: " + address.Value + "\n\n";
+				if(phone.Value != "")
+					body += "Tel: " + phone.Value + "\n\n";
+				body += "E-mail: " + email.Value + "\n\n";
+				body += "Meddelande: " + message.Value;
 
 				if(Request.QueryString["receiver"] == "markus")
-					this.receiver.Value = "markus@linderback.com";
+					receiver.Value = "markus@linderback.com";
 
                 try
                 {
@@ -69,15 +65,8 @@ namespace MarkusWebApplication
                 }
                 catch (Exception ex)
                 {
-                    this.errormessage.Text = "Error! Message not send, please try again later! " + ex.Message;
+                    errormessage.Text = "Error! Message not send, please try again later! " + ex.Message;
                 }
-
-                //ClassLibrary.Mail mailObj = new ClassLibrary.Mail();
-                //bool retval = mailObj.SendMail("linderback.com", this.email.Value, this.receiver.Value, this.subject.Value, body);
-                //if(retval == true)
-                //Response.Redirect("mailsend.htm");
-                //else
-                //this.errormessage.Text = "Error! Message not send, please try again later!";
             }
 		}
 	}

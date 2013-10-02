@@ -16,8 +16,8 @@ namespace MarkusConsoleApplication
             {
                 try
                 {
-                    var smtp = Gmail.GmailSmtpKlient();
-                    smtp.Send("markus.linderback@gmail.com", "markus.linderback@danica.se", "Test", "Hej!");
+                    var smtp = Gmail.TeliaSmtpKlient();
+                    smtp.Send("markus.linderback@telia.com", "markus.linderback@danica.se", "Test", "Hej!");
 
                 }
                 catch (Exception e)
