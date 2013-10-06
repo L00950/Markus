@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MarkusModel;
 using TelldusWrapper;
 
 // se https://github.com/telldus/telldus/blob/master/bindings/dotnet/example/BasicListDevicesNetExample.zip
@@ -136,8 +137,16 @@ namespace ConsoleApplication2
         private void SkickaMail(string meddelande)
         {
             Console.WriteLine("Startar skicka mail");
-            var client = Gmail.GmailSmtpKlient();
-            client.Send("markus@linderback.com", "markus@linderback.com", "Larm Lidingö", meddelande);
+            var larm = FilHanterare.Läs<Larm>(@"c:\data\larm.txt").FirstOrDefault();
+            if (larm != null && larm.Aktiverat)
+            {
+                var client = Gmail.GmailSmtpKlient();
+                client.Send("markus@linderback.com", "markus@linderback.com", "Larm Lidingö", meddelande);
+            }
+            else
+            {
+                Console.WriteLine("Larm inaktivt, inget mail skickat");
+            }
             Console.WriteLine("Färdig med att skicka mail");
         }
     }

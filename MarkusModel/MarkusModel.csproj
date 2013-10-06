@@ -46,6 +46,7 @@
     <Compile Include="Gmail.cs" />
     <Compile Include="Kalender.cs" />
     <Compile Include="HanteraBokningar.cs" />
+    <Compile Include="Larm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
