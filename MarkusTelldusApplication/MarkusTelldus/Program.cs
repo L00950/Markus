@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using MarkusModel;
 using TelldusWrapper;
 
@@ -25,23 +26,26 @@ namespace ConsoleApplication2
 
     public class Enhet
     {
+        public string Protokoll;
+        public string Id;
         public string Huskod;
         public string Enhetskod;
     }
 
     public class MarkusTelldus
     {
-        //static DateTime _senasteMail;
         static readonly StaticDatum Locker = new StaticDatum
             {
-                EnheterAttLyssnaPå = new List<Enhet>{new Enhet{Huskod = "10429994", Enhetskod = "10"}},
+                EnheterAttLyssnaPå = new List<Enhet>
+                {
+                    new Enhet{Huskod = "10429994", Enhetskod = "10"},
+                    new Enhet{Protokoll = "fineoffset", Id = "162"}
+                },
                 SenasteMail = DateTime.MinValue
             };
 
         public void Kör()
         {
-            //_senasteMail = DateTime.MinValue;
-
             var obj = new TelldusNETWrapper();
 
             Console.WriteLine("Startar");
@@ -79,59 +83,78 @@ namespace ConsoleApplication2
         
         private int RawListeningCallbackFuntion(string data, int controllerId, int callbackId, Object obj)
         {
-            lock (Locker)
-            {
+            Console.WriteLine("Request {0} {1}", DateTime.Now.ToString("HH:mm:ss.fff"), data);
+            //lock (Locker)
+            //{
                 try
                 {
-                    var keypair = data.Split(';');
-                    var huskod = "";
-                    var enhetskod = "";
-                    var kommando = "";
-                    foreach (var s in keypair)
-                    {
-                        var värde = s.Split(':');
-                        if (värde[0].Equals("house", StringComparison.CurrentCultureIgnoreCase))
-                            huskod = värde[1];
-                        if (värde[0].Equals("unit", StringComparison.CurrentCultureIgnoreCase))
-                            enhetskod = värde[1];
-                        if (värde[0].Equals("method", StringComparison.CurrentCultureIgnoreCase))
-                            kommando = värde[1];
-                    }
-
-                    if (!Locker.EnheterAttLyssnaPå.Any(_ => _.Huskod == huskod && _.Enhetskod == enhetskod))
-                        return TelldusNETWrapper.TELLSTICK_SUCCESS;
-
-
-                    var now = DateTime.Now;
-                    if (now - Locker.SenasteMail < new TimeSpan(0, 0, 2))
-                        return TelldusNETWrapper.TELLSTICK_SUCCESS;
-
-                    Locker.SenasteMail = DateTime.Now;
-
-                    var tidpunkt = DateTime.Now.ToString("HH:mm:ss.fff");
-                    Console.WriteLine(huskod + " " + enhetskod + " " + kommando + " " + tidpunkt);
-
-                    if (huskod == "10429994" && enhetskod == "10" && kommando == "turnon")
-                    {
-                        Console.WriteLine("PIR Entre PÅ");
-                        var tråd = new System.Threading.Thread(() => SkickaMail("Larm från entre " + tidpunkt));
-                        tråd.Start();
-                    }
-                    else if (huskod == "10429994" && enhetskod == "10" && kommando == "turnoff")
-                        Console.WriteLine("PIR Entre AV");
-                    else
-                    {
-                        Console.WriteLine("Annat kommando: " + enhetskod + " " + huskod + " " + kommando);
-                    }
+                    new Thread(() => HanteraRequest(data)).Start();
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine("Exception: " + e.Message);
                 }
+                catch
+                {
+                    Console.WriteLine("Okänt exception...");
+                }
+                    //}
+
+                    //Console.WriteLine("data:{0} controllerId:{1} callbackId:{2} obj:{3}", data, controllerId, callbackId, obj);
+                return TelldusNETWrapper.TELLSTICK_SUCCESS;
+        }
+
+        private void HanteraRequest(string data)
+        {
+            var keypair = data.Split(';');
+            var huskod = "";
+            var enhetskod = "";
+            var kommando = "";
+            var protokoll = "";
+            var id = "";
+            var temp = "";
+            foreach (var s in keypair)
+            {
+                var värde = s.Split(':');
+                if (värde[0].Equals("house", StringComparison.CurrentCultureIgnoreCase))
+                    huskod = värde[1];
+                if (värde[0].Equals("unit", StringComparison.CurrentCultureIgnoreCase))
+                    enhetskod = värde[1];
+                if (värde[0].Equals("method", StringComparison.CurrentCultureIgnoreCase))
+                    kommando = värde[1];
+                if (värde[0].Equals("protocol", StringComparison.CurrentCultureIgnoreCase))
+                    protokoll = värde[1];
+                if (värde[0].Equals("id", StringComparison.CurrentCultureIgnoreCase))
+                    id = värde[1];
+                if (värde[0].Equals("temp", StringComparison.CurrentCultureIgnoreCase))
+                    temp = värde[1];
             }
 
-            //Console.WriteLine("data:{0} controllerId:{1} callbackId:{2} obj:{3}", data, controllerId, callbackId, obj);
-            return TelldusNETWrapper.TELLSTICK_SUCCESS;
+            if (Locker.EnheterAttLyssnaPå.Any(_ => _.Huskod == huskod && _.Enhetskod == enhetskod))
+            {
+                var now = DateTime.Now;
+                if (now - Locker.SenasteMail < new TimeSpan(0, 0, 4))
+                    return;
+
+                Locker.SenasteMail = DateTime.Now;
+
+                var tidpunkt = DateTime.Now.ToString("HH:mm:ss.fff");
+                Console.WriteLine(huskod + " " + enhetskod + " " + kommando + " " + tidpunkt);
+
+                if (huskod == "10429994" && enhetskod == "10" && kommando == "turnon")
+                {
+                    Console.WriteLine("PIR Entre PÅ");
+                    new Thread(() => SkickaMail("Larm från entre " + tidpunkt)).Start();
+                }
+                else if (huskod == "10429994" && enhetskod == "10" && kommando == "turnoff")
+                    Console.WriteLine("PIR Entre AV");
+                else
+                    Console.WriteLine("Annat kommando: " + enhetskod + " " + huskod + " " + kommando);
+            }
+            else if (Locker.EnheterAttLyssnaPå.Any(_ => _.Protokoll == protokoll && _.Id == id))
+                Console.WriteLine("Tid: {0} Temp: {1}", DateTime.Now.ToString("HH:mm:ss"), temp);
+            else
+                Console.WriteLine("Okänd enhet: {0}", data);
         }
 
         private void SkickaMail(string meddelande)
@@ -141,7 +164,7 @@ namespace ConsoleApplication2
             if (larm != null && larm.Aktiverat)
             {
                 var client = Gmail.GmailSmtpKlient();
-                client.Send("markus@linderback.com", "markus@linderback.com", "Larm Lidingö", meddelande);
+                client.Send("markus@linderback.com", "markus@linderback.com,camilla@linderback.com", "Larm Lidingö", meddelande);
             }
             else
             {
