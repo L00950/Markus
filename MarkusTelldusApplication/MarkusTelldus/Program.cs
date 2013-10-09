@@ -39,6 +39,7 @@ namespace ConsoleApplication2
                 EnheterAttLyssnaPå = new List<Enhet>
                 {
                     new Enhet{Huskod = "10429994", Enhetskod = "10"},
+                    new Enhet{Huskod = "10427074", Enhetskod = "10"},
                     new Enhet{Protokoll = "fineoffset", Id = "162"}
                 },
                 SenasteMail = DateTime.MinValue
@@ -133,10 +134,13 @@ namespace ConsoleApplication2
             if (Locker.EnheterAttLyssnaPå.Any(_ => _.Huskod == huskod && _.Enhetskod == enhetskod))
             {
                 var now = DateTime.Now;
-                if (now - Locker.SenasteMail < new TimeSpan(0, 0, 4))
-                    return;
+                lock (Locker)
+                {
+                    if (now - Locker.SenasteMail < new TimeSpan(0, 0, 4))
+                        return;
 
-                Locker.SenasteMail = DateTime.Now;
+                    Locker.SenasteMail = DateTime.Now;
+                }
 
                 var tidpunkt = DateTime.Now.ToString("HH:mm:ss.fff");
                 Console.WriteLine(huskod + " " + enhetskod + " " + kommando + " " + tidpunkt);
@@ -145,6 +149,11 @@ namespace ConsoleApplication2
                 {
                     Console.WriteLine("PIR Entre PÅ");
                     new Thread(() => SkickaMail("Larm från entre " + tidpunkt)).Start();
+                }
+                if (huskod == "10427074" && enhetskod == "10" && kommando == "turnon")
+                {
+                    Console.WriteLine("PIR Inne PÅ");
+                    new Thread(() => SkickaMail("Larm från inne " + tidpunkt)).Start();
                 }
                 else if (huskod == "10429994" && enhetskod == "10" && kommando == "turnoff")
                     Console.WriteLine("PIR Entre AV");
