@@ -44,16 +44,16 @@ namespace ConsoleApplication2
 
     public class MarkusTelldus
     {
-        static readonly StaticDatum Locker = new StaticDatum
-            {
-                EnheterAttLyssnaPå = new List<Enhet>
+        private static readonly Object Locker = new Object();
+
+        private static DateTime SenasteMail = DateTime.MinValue;
+
+        private static readonly List<Enhet> EnheterAttLyssnaPå = new List<Enhet>
                 {
                     new Enhet{Huskod = "10429994", Enhetskod = "10"},
                     new Enhet{Huskod = "10427074", Enhetskod = "10"},
                     new Enhet{Protokoll = "fineoffset", Id = "162"}
-                },
-                SenasteMail = DateTime.MinValue
-            };
+                };
 
         private static readonly List<Kamera> Kameror = new List<Kamera>
             {
@@ -154,16 +154,19 @@ namespace ConsoleApplication2
                     temp = värde[1];
             }
 
-            if (Locker.EnheterAttLyssnaPå.Any(_ => _.Huskod == huskod && _.Enhetskod == enhetskod))
+            if (EnheterAttLyssnaPå.Any(_ => _.Huskod == huskod && _.Enhetskod == enhetskod))
             {
                 var now = DateTime.Now;
+                var fortsätt = true;
                 lock (Locker)
                 {
-                    if (now - Locker.SenasteMail < new TimeSpan(0, 0, 4))
-                        return;
-
-                    Locker.SenasteMail = DateTime.Now;
+                    if (now - SenasteMail < new TimeSpan(0, 0, 4))
+                        fortsätt = false;
+                    else
+                        SenasteMail = DateTime.Now;
                 }
+                if (!fortsätt)
+                    return;
 
                 var tidpunkt = DateTime.Now.ToString("HH:mm:ss.fff");
                 Console.WriteLine(huskod + " " + enhetskod + " " + kommando + " " + tidpunkt);
@@ -183,7 +186,7 @@ namespace ConsoleApplication2
                 else
                     Console.WriteLine("Annat kommando: " + enhetskod + " " + huskod + " " + kommando);
             }
-            else if (Locker.EnheterAttLyssnaPå.Any(_ => _.Protokoll == protokoll && _.Id == id))
+            else if (EnheterAttLyssnaPå.Any(_ => _.Protokoll == protokoll && _.Id == id))
                 Console.WriteLine("Tid: {0} Temp: {1}", DateTime.Now.ToString("HH:mm:ss"), temp);
             else
                 Console.WriteLine("Okänd enhet: {0}", data);
@@ -197,7 +200,7 @@ namespace ConsoleApplication2
             {
                 new Thread(HämtaBilder).Start();
                 var client = Gmail.GmailSmtpKlient();
-                client.Send("markus@linderback.com", "markus@linderback.com,camilla@linderback.com", "Larm Lidingö", meddelande);
+                client.Send("markus@linderback.com", "markus@linderback.com", "Larm Lidingö", meddelande);
             }
             else
             {
@@ -211,7 +214,7 @@ namespace ConsoleApplication2
             try
             {
                 var start = DateTime.Now;
-                while (DateTime.Now - start < new TimeSpan(0, 0, 4))
+                while (DateTime.Now - start < new TimeSpan(0, 0, 10))
                 {
                     HämtaBild(Kameror.First(_ => _.Id == "Entre"));
                     //HämtaBild(Kameror.First(_ => _.Id == "Baksida"));
