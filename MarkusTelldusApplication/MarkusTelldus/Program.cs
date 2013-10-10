@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using MarkusModel;
 using TelldusWrapper;
@@ -32,6 +34,14 @@ namespace ConsoleApplication2
         public string Enhetskod;
     }
 
+    public class Kamera
+    {
+        public string Id;
+        public string Url;
+        public string User;
+        public string Password;
+    }
+
     public class MarkusTelldus
     {
         static readonly StaticDatum Locker = new StaticDatum
@@ -43,6 +53,24 @@ namespace ConsoleApplication2
                     new Enhet{Protokoll = "fineoffset", Id = "162"}
                 },
                 SenasteMail = DateTime.MinValue
+            };
+
+        private static readonly List<Kamera> Kameror = new List<Kamera>
+            {
+                new Kamera
+                    {
+                        Id = "Entre", 
+                        Password = "jtk001", 
+                        User = "admin", 
+                        Url = "http://192.168.1.84/image.jpg"
+                    },
+                new Kamera
+                    {
+                        Id = "Baksida",
+                        Password = "jtk001",
+                        User = "admin",
+                        Url = "http://192.168.1.83/img/snapshot.cgi"
+                    }
             };
 
         public void Kör()
@@ -85,24 +113,19 @@ namespace ConsoleApplication2
         private int RawListeningCallbackFuntion(string data, int controllerId, int callbackId, Object obj)
         {
             Console.WriteLine("Request {0} {1}", DateTime.Now.ToString("HH:mm:ss.fff"), data);
-            //lock (Locker)
-            //{
-                try
-                {
-                    new Thread(() => HanteraRequest(data)).Start();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Exception: " + e.Message);
-                }
-                catch
-                {
-                    Console.WriteLine("Okänt exception...");
-                }
-                    //}
-
-                    //Console.WriteLine("data:{0} controllerId:{1} callbackId:{2} obj:{3}", data, controllerId, callbackId, obj);
-                return TelldusNETWrapper.TELLSTICK_SUCCESS;
+            try
+            {
+                new Thread(() => HanteraRequest(data)).Start();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception: " + e.Message);
+            }
+            catch
+            {
+                Console.WriteLine("Okänt exception...");
+            }
+            return TelldusNETWrapper.TELLSTICK_SUCCESS;
         }
 
         private void HanteraRequest(string data)
@@ -172,6 +195,7 @@ namespace ConsoleApplication2
             var larm = FilHanterare.Läs<Larm>(@"c:\data\larm.txt").FirstOrDefault();
             if (larm != null && larm.Aktiverat)
             {
+                new Thread(HämtaBilder).Start();
                 var client = Gmail.GmailSmtpKlient();
                 client.Send("markus@linderback.com", "markus@linderback.com,camilla@linderback.com", "Larm Lidingö", meddelande);
             }
@@ -180,6 +204,64 @@ namespace ConsoleApplication2
                 Console.WriteLine("Larm inaktivt, inget mail skickat");
             }
             Console.WriteLine("Färdig med att skicka mail");
+        }
+
+        private void HämtaBilder()
+        {
+            try
+            {
+                var start = DateTime.Now;
+                while (DateTime.Now - start < new TimeSpan(0, 0, 4))
+                {
+                    HämtaBild(Kameror.First(_ => _.Id == "Entre"));
+                    //HämtaBild(Kameror.First(_ => _.Id == "Baksida"));
+                    Thread.Sleep(1000);
+                }
+            }
+            catch (WebException exception)
+            {
+                Console.WriteLine(exception.Message);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception.Message);
+            }
+        }
+
+        private void HämtaBild(Kamera kamera)
+        {
+            byte[] lnFile;
+
+            var lxRequest = (HttpWebRequest)WebRequest.Create(kamera.Url);
+            lxRequest.Credentials = new NetworkCredential(kamera.User, kamera.Password);
+            using (var lxResponse = (HttpWebResponse)lxRequest.GetResponse())
+            {
+                using (var lxBr = new BinaryReader(lxResponse.GetResponseStream()))
+                {
+                    using (var lxMs = new MemoryStream())
+                    {
+                        byte[] lnBuffer = lxBr.ReadBytes(1024);
+                        while (lnBuffer.Length > 0)
+                        {
+                            lxMs.Write(lnBuffer, 0, lnBuffer.Length);
+                            lnBuffer = lxBr.ReadBytes(1024);
+                        }
+                        lnFile = new byte[(int)lxMs.Length];
+                        lxMs.Position = 0;
+                        lxMs.Read(lnFile, 0, lnFile.Length);
+                        lxMs.Close();
+                        lxBr.Close();
+                    }
+                }
+                lxResponse.Close();
+            }
+
+            var filnamn = String.Format(@"c:\data\larm\{0}_{1}.jpg", DateTime.Now.ToString("yyyyMMdd_HHmmssfff"), kamera.Id);
+            using (var fileStream = new FileStream(filnamn, FileMode.Create))
+            {
+                fileStream.Write(lnFile, 0, lnFile.Length);
+                fileStream.Close();     
+            }
         }
     }
 }
