@@ -214,9 +214,10 @@ namespace ConsoleApplication2
             try
             {
                 var start = DateTime.Now;
+                var mapp = start.ToString("yyyyMMdd_HHmmssfff");
                 while (DateTime.Now - start < new TimeSpan(0, 0, 10))
                 {
-                    HämtaBild(Kameror.First(_ => _.Id == "Entre"));
+                    HämtaBild(mapp, Kameror.First(_ => _.Id == "Entre"));
                     //HämtaBild(Kameror.First(_ => _.Id == "Baksida"));
                     Thread.Sleep(1000);
                 }
@@ -231,8 +232,12 @@ namespace ConsoleApplication2
             }
         }
 
-        private void HämtaBild(Kamera kamera)
+        private void HämtaBild(string mapp, Kamera kamera)
         {
+            var folder = @"c:\data\larm\" + mapp;
+            if (!Directory.Exists(folder))
+                Directory.CreateDirectory(folder);
+                
             byte[] lnFile;
 
             var lxRequest = (HttpWebRequest)WebRequest.Create(kamera.Url);
@@ -259,7 +264,7 @@ namespace ConsoleApplication2
                 lxResponse.Close();
             }
 
-            var filnamn = String.Format(@"c:\data\larm\{0}_{1}.jpg", DateTime.Now.ToString("yyyyMMdd_HHmmssfff"), kamera.Id);
+            var filnamn = String.Format(folder + @"\{0}_{1}.jpg", DateTime.Now.ToString("yyyyMMdd_HHmmssfff"), kamera.Id);
             using (var fileStream = new FileStream(filnamn, FileMode.Create))
             {
                 fileStream.Write(lnFile, 0, lnFile.Length);
