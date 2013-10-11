@@ -16,7 +16,7 @@ namespace ConsoleApplication2
         static void Main(string[] args)
         {
             var markusTelldus = new MarkusTelldus();
-            markusTelldus.Kör();
+            markusTelldus.Kör(args);
         }
     }
 
@@ -73,7 +73,7 @@ namespace ConsoleApplication2
                     }
             };
 
-        public void Kör()
+        public void Kör(string[] args)
         {
             var obj = new TelldusNETWrapper();
 
@@ -101,7 +101,11 @@ namespace ConsoleApplication2
                                   name, husKod, enhetsKod);
             }
 
-            var eventId = obj.tdRegisterRawDeviceEvent(RawListeningCallbackFuntion, null);
+            int eventId;
+            if(args.Contains("silent"))
+                eventId = obj.tdRegisterRawDeviceEvent(RawListeningCallbackFuntion, null);
+            else
+                eventId = obj.tdRegisterDeviceEvent(DeviceEventFunction, null);
 
             Console.WriteLine("Redo att ta emot request...");
             Console.ReadKey();
@@ -109,7 +113,13 @@ namespace ConsoleApplication2
             Console.WriteLine("Avslutar");
             obj.unregisterCallback(eventId);
         }
-        
+
+        private int DeviceEventFunction(int deviceid, int method, string data, int callbackid, object obj)
+        {
+            Console.WriteLine("DeviceId: {0} Method: {1} Data: {2} CallbackId: {3} Objekt: {4}", deviceid, method, data, callbackid, obj);
+            return TelldusNETWrapper.TELLSTICK_SUCCESS;
+        }
+
         private int RawListeningCallbackFuntion(string data, int controllerId, int callbackId, Object obj)
         {
             Console.WriteLine("Request {0} {1}", DateTime.Now.ToString("HH:mm:ss.fff"), data);
