@@ -28,10 +28,12 @@ namespace ConsoleApplication2
 
     public class Enhet
     {
+        public string Namn;
         public string Protokoll;
         public string Id;
         public string Huskod;
         public string Enhetskod;
+        public DateTime SenasteLarm;
     }
 
     public class Kamera
@@ -47,12 +49,17 @@ namespace ConsoleApplication2
         private static readonly Object Locker = new Object();
 
         private static DateTime SenasteMail = DateTime.MinValue;
+        private static bool debug = false;
+
+        const string TERMOMETER = "Termometer";
+
 
         private static readonly List<Enhet> EnheterAttLyssnaPå = new List<Enhet>
                 {
-                    new Enhet{Huskod = "10429994", Enhetskod = "10"},
-                    new Enhet{Huskod = "10427074", Enhetskod = "10"},
-                    new Enhet{Protokoll = "fineoffset", Id = "162"}
+                    new Enhet{Namn="PIR Entre", Huskod = "10429994", Enhetskod = "10", SenasteLarm = DateTime.Now},
+                    new Enhet{Namn="PIR Baksida", Huskod = "10427074", Enhetskod = "10", SenasteLarm = DateTime.Now},
+                    new Enhet{Namn=TERMOMETER, Protokoll = "fineoffset", Id = "162"},
+                    new Enhet{Namn="Garagedörr", Huskod = "54888742", Enhetskod = "4", SenasteLarm = DateTime.Now}
                 };
 
         private static readonly List<Kamera> Kameror = new List<Kamera>
@@ -66,7 +73,7 @@ namespace ConsoleApplication2
                     },
                 new Kamera
                     {
-                        Id = "Baksida",
+                        Id = "Vardagsrum",
                         Password = "jtk001",
                         User = "admin",
                         Url = "http://192.168.1.83/img/snapshot.cgi"
@@ -75,6 +82,9 @@ namespace ConsoleApplication2
 
         public void Kör(string[] args)
         {
+            if (args.Contains("debug"))
+                debug = true;
+
             var obj = new TelldusNETWrapper();
 
             Console.WriteLine("Startar");
@@ -100,15 +110,23 @@ namespace ConsoleApplication2
                 Console.WriteLine("DeviceId:{0} DeviceTyp:{1} Namn:{2} Huskod:{3} Enhetskod:{4}", deviceId, deviceTypeId,
                                   name, husKod, enhetsKod);
             }
+            TelldusNETWrapper.tdClose();
 
             int eventId;
-            if(args.Contains("silent"))
-                eventId = obj.tdRegisterRawDeviceEvent(RawListeningCallbackFuntion, null);
-            else
-                eventId = obj.tdRegisterDeviceEvent(DeviceEventFunction, null);
+            eventId = obj.tdRegisterRawDeviceEvent(RawListeningCallbackFuntion, null);
+            //eventId = obj.tdRegisterDeviceEvent(DeviceEventFunction, null);
 
             Console.WriteLine("Redo att ta emot request...");
-            Console.ReadKey();
+            var tryckt = Console.ReadKey();
+            while (tryckt.KeyChar != 'q')
+            {
+                Console.Clear();
+                if (tryckt.KeyChar == 't')
+                {
+                    MeddelaDetektion();
+                }
+                tryckt = Console.ReadKey();
+            }
 
             Console.WriteLine("Avslutar");
             obj.unregisterCallback(eventId);
@@ -116,13 +134,15 @@ namespace ConsoleApplication2
 
         private int DeviceEventFunction(int deviceid, int method, string data, int callbackid, object obj)
         {
-            Console.WriteLine("DeviceId: {0} Method: {1} Data: {2} CallbackId: {3} Objekt: {4}", deviceid, method, data, callbackid, obj);
+            Console.WriteLine("DeviceId: {0} Method: {1} Data: {2} CallbackId: {3} Tid: {4}", deviceid, method, data, callbackid, DateTime.Now.ToString("HH:mm:ss,fff"));
             return TelldusNETWrapper.TELLSTICK_SUCCESS;
         }
 
         private int RawListeningCallbackFuntion(string data, int controllerId, int callbackId, Object obj)
         {
-            Console.WriteLine("Request {0} {1}", DateTime.Now.ToString("HH:mm:ss.fff"), data);
+            if(debug)
+                Console.WriteLine("Request {0} {1}", DateTime.Now.ToString("HH:mm:ss.fff"), data);
+
             try
             {
                 new Thread(() => HanteraRequest(data)).Start();
@@ -164,6 +184,13 @@ namespace ConsoleApplication2
                     temp = värde[1];
             }
 
+            var enhet = HittaEnhet(huskod, enhetskod, protokoll, id);
+            if (enhet == null)
+                return;
+
+            if (enhet.Namn == TERMOMETER)
+                Console.WriteLine("Tid: {0} Temp: {1}", DateTime.Now.ToString("HH:mm:ss"), temp);
+
             if (EnheterAttLyssnaPå.Any(_ => _.Huskod == huskod && _.Enhetskod == enhetskod))
             {
                 var now = DateTime.Now;
@@ -178,37 +205,48 @@ namespace ConsoleApplication2
                 if (!fortsätt)
                     return;
 
-                var tidpunkt = DateTime.Now.ToString("HH:mm:ss.fff");
+                var tidpunkt = DateTime.Now.ToString("HH:mm:ss,fff");
                 Console.WriteLine(huskod + " " + enhetskod + " " + kommando + " " + tidpunkt);
 
                 if (huskod == "10429994" && enhetskod == "10" && kommando == "turnon")
                 {
                     Console.WriteLine("PIR Entre PÅ");
-                    new Thread(() => SkickaMail("Larm från entre " + tidpunkt)).Start();
+                    new Thread(() => HanteraEvent("Larm från entre " + tidpunkt)).Start();
                 }
                 if (huskod == "10427074" && enhetskod == "10" && kommando == "turnon")
                 {
                     Console.WriteLine("PIR Inne PÅ");
-                    new Thread(() => SkickaMail("Larm från inne " + tidpunkt)).Start();
+                    new Thread(() => HanteraEvent("Larm från baksidan " + tidpunkt)).Start();
                 }
-                else if (huskod == "10429994" && enhetskod == "10" && kommando == "turnoff")
-                    Console.WriteLine("PIR Entre AV");
-                else
+                if (huskod == "54888742" && enhetskod == "4" && kommando == "turnon")
+                {
+                    Console.WriteLine("Garagedörr öppnas");
+                    new Thread(() => HanteraEvent("Larm från garagedörr " + tidpunkt)).Start();
+                }
+                else if (debug)
                     Console.WriteLine("Annat kommando: " + enhetskod + " " + huskod + " " + kommando);
             }
-            else if (EnheterAttLyssnaPå.Any(_ => _.Protokoll == protokoll && _.Id == id))
-                Console.WriteLine("Tid: {0} Temp: {1}", DateTime.Now.ToString("HH:mm:ss"), temp);
-            else
+            else if(debug)
                 Console.WriteLine("Okänd enhet: {0}", data);
         }
 
-        private void SkickaMail(string meddelande)
+        private Enhet HittaEnhet(string huskod, string enhetskod, string protokoll, string id)
+        {
+            var termomteter = EnheterAttLyssnaPå.First(_ => _.Namn == TERMOMETER);
+            if (protokoll == termomteter.Protokoll && id == termomteter.Id)
+                return termomteter;
+
+            return EnheterAttLyssnaPå.FirstOrDefault(_ => _.Huskod == huskod && _.Enhetskod == enhetskod);
+        }
+
+        private void HanteraEvent(string meddelande)
         {
             Console.WriteLine("Startar skicka mail");
             var larm = FilHanterare.Läs<Larm>(@"c:\data\larm.txt").FirstOrDefault();
             if (larm != null && larm.Aktiverat)
             {
                 new Thread(HämtaBilder).Start();
+                new Thread(MeddelaDetektion).Start();
                 var client = Gmail.GmailSmtpKlient();
                 client.Send("markus@linderback.com", "markus@linderback.com", "Larm Lidingö", meddelande);
             }
@@ -217,6 +255,22 @@ namespace ConsoleApplication2
                 Console.WriteLine("Larm inaktivt, inget mail skickat");
             }
             Console.WriteLine("Färdig med att skicka mail");
+        }
+
+        private void MeddelaDetektion()
+        {
+            Console.WriteLine("Meddela detektion start: " + DateTime.Now.ToString("HH:mm:ss,fff"));
+            Thread.Sleep(2000);
+            if(TelldusNETWrapper.tdLastSentCommand(12,
+                                                    TelldusNETWrapper.TELLSTICK_TURNON |
+                                                    TelldusNETWrapper.TELLSTICK_TURNOFF) == TelldusNETWrapper.TELLSTICK_TURNOFF)
+                TelldusNETWrapper.tdTurnOn(12);
+            Thread.Sleep(2000);
+            if (TelldusNETWrapper.tdLastSentCommand(12,
+                                                    TelldusNETWrapper.TELLSTICK_TURNON |
+                                                    TelldusNETWrapper.TELLSTICK_TURNOFF) == TelldusNETWrapper.TELLSTICK_TURNON)
+                TelldusNETWrapper.tdTurnOff(12);
+            Console.WriteLine("Meddela detektion slut: " + DateTime.Now.ToString("HH:mm:ss,fff"));
         }
 
         private void HämtaBilder()
@@ -228,7 +282,7 @@ namespace ConsoleApplication2
                 while (DateTime.Now - start < new TimeSpan(0, 0, 10))
                 {
                     HämtaBild(mapp, Kameror.First(_ => _.Id == "Entre"));
-                    //HämtaBild(Kameror.First(_ => _.Id == "Baksida"));
+                    HämtaBild(mapp, Kameror.First(_ => _.Id == "Vardagsrum"));
                     Thread.Sleep(1000);
                 }
             }
@@ -247,39 +301,52 @@ namespace ConsoleApplication2
             var folder = @"c:\data\larm\" + mapp;
             if (!Directory.Exists(folder))
                 Directory.CreateDirectory(folder);
-                
-            byte[] lnFile;
 
-            var lxRequest = (HttpWebRequest)WebRequest.Create(kamera.Url);
-            lxRequest.Credentials = new NetworkCredential(kamera.User, kamera.Password);
-            using (var lxResponse = (HttpWebResponse)lxRequest.GetResponse())
+            try
             {
-                using (var lxBr = new BinaryReader(lxResponse.GetResponseStream()))
+                byte[] lnFile;
+
+                var lxRequest = (HttpWebRequest)WebRequest.Create(kamera.Url);
+                lxRequest.Credentials = new NetworkCredential(kamera.User, kamera.Password);
+                lxRequest.Timeout = 300;
+                using (var lxResponse = (HttpWebResponse)lxRequest.GetResponse())
                 {
-                    using (var lxMs = new MemoryStream())
+                    using (var lxBr = new BinaryReader(lxResponse.GetResponseStream()))
                     {
-                        byte[] lnBuffer = lxBr.ReadBytes(1024);
-                        while (lnBuffer.Length > 0)
+                        using (var lxMs = new MemoryStream())
                         {
-                            lxMs.Write(lnBuffer, 0, lnBuffer.Length);
-                            lnBuffer = lxBr.ReadBytes(1024);
+                            byte[] lnBuffer = lxBr.ReadBytes(1024);
+                            while (lnBuffer.Length > 0)
+                            {
+                                lxMs.Write(lnBuffer, 0, lnBuffer.Length);
+                                lnBuffer = lxBr.ReadBytes(1024);
+                            }
+                            lnFile = new byte[(int)lxMs.Length];
+                            lxMs.Position = 0;
+                            lxMs.Read(lnFile, 0, lnFile.Length);
+                            lxMs.Close();
+                            lxBr.Close();
                         }
-                        lnFile = new byte[(int)lxMs.Length];
-                        lxMs.Position = 0;
-                        lxMs.Read(lnFile, 0, lnFile.Length);
-                        lxMs.Close();
-                        lxBr.Close();
                     }
+                    lxResponse.Close();
                 }
-                lxResponse.Close();
+
+                var filnamn = String.Format(folder + @"\{0}_{1}.jpg", DateTime.Now.ToString("yyyyMMdd_HHmmssfff"), kamera.Id);
+                using (var fileStream = new FileStream(filnamn, FileMode.Create))
+                {
+                    fileStream.Write(lnFile, 0, lnFile.Length);
+                    fileStream.Close();
+                }
+            }
+            catch (ArgumentOutOfRangeException exception)
+            {
+                Console.WriteLine("Timeout exception från " + kamera.Id + ": " + exception.Message);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Exception från " + kamera.Id + ": " + exception.Message);
             }
 
-            var filnamn = String.Format(folder + @"\{0}_{1}.jpg", DateTime.Now.ToString("yyyyMMdd_HHmmssfff"), kamera.Id);
-            using (var fileStream = new FileStream(filnamn, FileMode.Create))
-            {
-                fileStream.Write(lnFile, 0, lnFile.Length);
-                fileStream.Close();     
-            }
         }
     }
 }
