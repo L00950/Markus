@@ -112,8 +112,7 @@ namespace ConsoleApplication2
             }
             TelldusNETWrapper.tdClose();
 
-            int eventId;
-            eventId = obj.tdRegisterRawDeviceEvent(RawListeningCallbackFuntion, null);
+            var eventId = obj.tdRegisterRawDeviceEvent(RawListeningCallbackFuntion, null);
             //eventId = obj.tdRegisterDeviceEvent(DeviceEventFunction, null);
 
             Console.WriteLine("Redo att ta emot request...");
@@ -248,7 +247,7 @@ namespace ConsoleApplication2
                 new Thread(HämtaBilder).Start();
                 new Thread(MeddelaDetektion).Start();
                 var client = Gmail.GmailSmtpKlient();
-                client.Send("markus@linderback.com", "markus@linderback.com", "Larm Lidingö", meddelande);
+                client.Send("markus@linderback.com", "markus@linderback.com,camilla@linderback.com", "Larm Lidingö", meddelande);
             }
             else
             {

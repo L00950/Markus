@@ -1,2 +1,2 @@
-copy bin\debug\*.* \\Zotac\c\MarkusTelldusApplication /y
+copy bin\debug\*.* \\192.168.1.72\c\MarkusTelldusApplication /y
 pause...
