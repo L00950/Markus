@@ -62,16 +62,16 @@ datasource.Init(function () {
               if (!err) {
 
                   // Only track configured devicesb
-                  for (sensor in config.tellstick.sensors) {
+                  for (item in config.tellstick.sensors) {
 
-                      if (config.tellstick.sensors[sensor].id == row.id) {
+                      if (config.tellstick.sensors[item].id == row.id) {
 
                           // Prepare
                           var idx = 's_' + row.id + '' + row.type
 
                           // Inject value_diff and name 
                           row.value_diff = 0;
-                          row.name = config.tellstick.sensors[sensor].name;
+                          row.name = config.tellstick.sensors[item].name;
 
                           cache.telldus_sensors[idx] = row;
 
@@ -209,9 +209,9 @@ datasource.Init(function () {
             if (protocol == "temperature" && (model == "fineoffset" || model == "mandolyn") && Number(value) != NaN && Number(type) != NaN && Number(id) != NaN && Number(value) == value) {
 
                 // Only track configured sensors
-                for (sensor in config.tellstick.sensors) {
+                for (item in config.tellstick.sensors) {
 
-                    if (config.tellstick.sensors[sensor].id == id) {
+                    if (config.tellstick.sensors[item].id == id) {
 
                         // Check if value has changed, to prevent excessive emits
                         var value_changed = (cache.telldus_sensors['s_' + id + '' + type] == undefined || value != cache.telldus_sensors['s_' + id + '' + type].value) ? true : false;
@@ -226,7 +226,7 @@ datasource.Init(function () {
                         cache.telldus_sensors['s_' + id + '' + type] = {
                             id: id,
                             type: type,
-                            name: config.tellstick.sensors[sensor].name,
+                            name: config.tellstick.sensors[item].name,
                             ts: ts,
                             message: model,
                             protocol: protocol,
