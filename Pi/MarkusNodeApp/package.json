@@ -1,0 +1,29 @@
+{
+  "name": "huset.js",
+  "version": "0.0.0",
+  "description": "Huset.js - a node.js tellstick duo server with superpowers",
+  "main": "datasource.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Hexagon/huset.js.git"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/Hexagon/huset.js/issues"
+  },
+  "homepage": "https://github.com/Hexagon/huset.js",
+  "dependencies": {
+	"forever": "~0.10.11",
+	"socket.io": "~0.9.16",
+	"sqlite3": "~2.2.0",
+	"telldus": "~0.0.7"
+  }
+}

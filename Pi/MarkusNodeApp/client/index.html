@@ -1,0 +1,293 @@
+<!doctype html>
+<html>
+  <head>
+
+    <meta charset="utf-8" />
+
+    <title>Barrstigen 8 - Lidingö</title>
+
+    <link href="home.png" rel="icon" type="image/x-icon" />
+
+    <!-- Mobile viewport fix -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Vendor css -->
+    <link rel="stylesheet" href="css/vendor/bootstrap-switch.css" type="text/css" />
+
+    <!-- App css -->
+    <link rel="stylesheet" href="themes/default/base.css" type="text/css" />
+
+    <!-- Vendor js -->
+    <script type="text/javascript" src="js/vendor/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="js/vendor/d3.min.js"></script>
+    <script type="text/javascript" src="js/vendor/bootstrap-switch.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    
+    <!-- App js -->
+    <script type="text/javascript" src="js/base.js"></script>
+    <script type="text/javascript" src="js/helper.chart.js"></script>
+
+    <!-- App plugins js -->
+    <script type="text/javascript" src="js/temperature.js"></script>
+    <!--<script type="text/javascript" src="js/electricity.js"></script>-->
+    <script type="text/javascript" src="js/control.js"></script>
+    <!--<script type="text/javascript" src="js/weather.js"></script>
+    <script type="text/javascript" src="js/calendar.js"></script>-->
+
+    <script>
+
+      var iosocket,
+        devicegroups;
+
+      function createSensor(data) {
+
+        var id = data.id;
+        var type = data.type;
+        var name = data.name;
+
+        $('#sensor_container').prepend('<div class="box box-w-200 box-h-100 bg-dark" id="sensor_'+id+'"><div class="content box-w-120 box-h-100"><div id="indicator_' + data.id + '1" class="icon-temp-indicator">&nbsp;</div><h4>'+name+'</h4><h1 class="fg-light"><span id="' + data.id + '1"></span>&deg;C</h1></div><div class="content box-w-80 box-h-100 right"><h5 class="fg-light-red"><span id="max_' + data.id + '1"></span>&deg;C</h5><h5 class="fg-light-blue"><span id="min_' + data.id + '1"></span>&deg;C</h5><h5 class="fg-light"><span id="' + data.id + '2"></span>%RH</h5></div></div></div>');
+
+      }
+
+      function processSensor (data) {
+
+        // Create sensor if it don't exist
+        if( !document.getElementById('sensor_'+data.id))
+          createSensor(data);
+
+
+        console.log('Incoming sensor: ', data);
+        $('#'+data.id+''+data.type).html(data.value);
+        $('#min_'+data.id+''+data.type).html(data.min);
+        $('#max_'+data.id+''+data.type).html(data.max);
+        console.log('#indicator_'+data.id+''+data.type);
+        if(data.value_diff==0) $('#indicator_'+data.id+''+data.type).css('background-image',"URL('themes/default/img/temp-stable.png')");
+        else if (data.value_diff<0) $('#indicator_'+data.id+''+data.type).css('background-image',"URL('themes/default/img/temp-down.png')");
+        else $('#indicator_'+data.id+''+data.type).css('background-image',"URL('themes/default/img/temp-up.png')");
+
+      }
+      
+      function processLarmHistory(data) {
+          console.log('processLarmHistory');
+          console.log(data);
+            if (!document.getElementById('larmhistory'))
+                createLarmHistory(data);
+      }
+      
+      function dateToString(datum) {
+          var date = new Date(datum);
+          return date.getFullYear() + '-' + fill(2, (date.getMonth() + 1)) + '-' + fill(2, date.getDate()) + ' ' + fill(2, date.getHours()) + ':' + fill(2, date.getMinutes()) + ':' + fill(2, date.getSeconds()) + '.' + fill(3, date.getMilliseconds());
+      }
+      function fill(antal, text) {
+          while (text.toString().length < antal)
+              text = '0' + text;
+          return text;
+      }
+
+        function createLarmHistory(data) {
+            console.log('createLarmHistory');
+            console.log(data);
+            var content = '<div id="larmpicture" class="icon-temp-indicator" style="background-image: url(http://linderback.com:8081/themes/default/img/larm.jpeg);"></div><H3>Larmhistorik</H3>';
+            for (index in data) {
+                var row = data[index];
+                console.log('Rad:' + index + row);
+                var date = new Date(Number(row.ts) * 1000);
+                content += ('<H5 style="color:' + (row.larm == 1 ? 'red' : 'green') + '">' + dateToString(date) + '  --  ' + row.name + '</H5>');
+            }
+            $('#larmhistory_container').html(content);
+        }
+
+      function processDeviceGroups(data) {
+
+        // Cache devicegroups
+        devicegroups = data;
+        devicegroups.push({'id':'_1','name':'Larm'});
+
+        // Check for device group
+        for( idx in devicegroups ) {
+
+          var dg = devicegroups[idx];
+
+          // Only create devicegroup if it does not already exist
+          if( $('#devicegroup_'+dg.id).length == 0 ) {
+            var container_switch = $('<div class="box box-w-300 box-h-adaptive bg-dark" style="padding-right:5px;" id="devicegroup_'+dg.id+'"><h3>'+dg.name+'</h3></div>');
+            $('#devices').append(container_switch);
+          }
+        }
+      }
+      function processLarm(data) {
+          var state = data.state;
+          if (!document.getElementById('larm')) {
+              createLarm(data);
+          } else {
+              if (parseInt(state) == 1) {
+                  $('#larm').bootstrapSwitch('setState', true);
+              } else {
+                  $('#larm').bootstrapSwitch('setState', false);
+              }
+          }
+      }
+
+      function createLarm(data) {
+          var state = data.state;
+          console.log('Skapar larmkontroll');
+          var larm = $('<div class="make-switch switch-mini float-right"  data-on="success" data-off="default" id="larm"><input type="checkbox" checked></div><h4>Larm</h4></div>');
+          $('#devicegroup__1').append(larm);
+
+          console.log($('Larm tillagt i #devicegroup__1'));
+
+          // Enable switch
+          $('#larm').bootstrapSwitch();
+
+          if (parseInt(state) == 1) {
+              $('#larm').bootstrapSwitch('setState', true);
+          } else {
+              $('#larm').bootstrapSwitch('setState', false);
+          }
+
+          // Event handlers
+          //$('#larm').attr('data', id);
+          $('#larm').on('switch-change', function (e, data) {
+              if (data.value == true) {
+                  iosocket.emit('message', { 'msg': 'larm', 'state': '1' });
+              } else {
+                  iosocket.emit('message', { 'msg': 'larm', 'state': '0' });
+              }
+          });
+      }
+
+      function createDevice(data) {
+
+        var id = data.id;
+        var state = data.status;
+        var name = data.name;
+        var devicegroup = '_1';
+
+        // Search for specific devicegroup
+        for( idx in devicegroups )
+          for( idx_device in devicegroups[idx].devices )
+            if ( devicegroups[idx].devices[idx_device] == id )
+                devicegroup = devicegroups[idx].id;
+
+        if (devicegroup == "_1") {
+            console.log($('Device ' + id + ' finns inte i nagon grupp'));
+            return;
+        }
+
+        var device_switch = $('<div class="make-switch switch-mini float-right"  data-on="success" data-off="default" id="device_'+id+'"><input type="checkbox" checked></div><h4>'+name+'</h4></div>');
+        $('#devicegroup_'+devicegroup).append(device_switch);
+        
+        console.log($('#devicegroup_'+devicegroup));
+
+        // Enable switch
+        $('#device_'+id).bootstrapSwitch();
+
+        if(state=='ON') {
+          $('#device_'+id).bootstrapSwitch('setState', true);
+        } else {
+          $('#device_'+id).bootstrapSwitch('setState', false);  
+        }
+
+        // Event handlers
+        $('#device_'+id).attr('data',id);
+        $('#device_'+id).on('switch-change', function (e, data) {
+          id = e.target.id.replace('device_','');
+          if(data.value == true) {
+            iosocket.emit('message',{'msg':'telldus_device_on','id':id});
+          } else {
+            iosocket.emit('message',{'msg':'telldus_device_off','id':id});
+          }
+        });
+
+      }
+      function processDevice(data) {
+
+        var id = data.id;
+        var state = data.status;
+        var name = data.name;
+
+        // Create device if it doesn't exist
+        if( !document.getElementById('device_'+data.id)) {
+          createDevice(data);
+
+        // Update device if it exists
+        } else {
+          if(state=='ON') {
+            $('#device_'+id).bootstrapSwitch('setState', true);
+          } else {
+            $('#device_'+id).bootstrapSwitch('setState', false);  
+          }
+        }
+
+      }
+
+      function processEliqDatanow (data) {
+        console.log('Incoming eliq_datanow:', data);
+        var power = data.power;
+        var unit = "Wh";
+        if( data.power > 1500 ) {
+          power = Math.round(data.power/10)/100;
+          unit = "kWh";
+        }
+        $('#eliq_datanow').html('<h4>Förbrukning nu</h4><h2>'+power+' '+unit);
+      }
+
+      function processElspotNow (data) {
+        console.log('Incoming elspot_now:', data);
+          $('#spot_1').html('<h4>Elpris live</h4><h2>' + data.full_price + ' öre/KWh');
+      }
+
+      function processEliqDataday (data) {
+
+        // Update daily total
+        console.log('Incoming eliq_dataday:', data);
+        var power = 0;
+        for( i in data.data) {
+          power+=data.data[i].energy;
+        }
+        var unit = "Wh";
+        if( power > 1500 ) {
+          power = Math.round(power/10)/100;
+          unit = "kWh";
+        }
+        $('#eliq_dataday').html('<h4>Förbrukning dygn</h4><h2>'+power+' '+unit);
+
+        // Update
+        gen_chart_json('eliq_chart_dataday',data.data,null,'Elförbrukning','time_start','energy');
+
+      }
+
+      $(function(){
+        iosocket = io.connect();
+        iosocket.on('connect', function () {
+          iosocket.on('message', function(message) {
+              console.log(message);
+            // On connect, a complete bunch of messages are sent in one message
+            if(message.msg=="initial_data") {
+                console.log('Forst i InitialData');
+              processDeviceGroups (message.data.devicegroups);
+              for( sensor in message.data.telldus_sensors ) {
+                processSensor(message.data.telldus_sensors[sensor]);
+              }
+              for( device in message.data.telldus_devices ) {
+                processDevice(message.data.telldus_devices[device]);
+              }
+              processLarm(message.data.larm);
+              processLarmHistory(message.data.larmhistory);
+            }
+
+            // Single message handlers
+            if (message.msg == "larm") processLarm(message.data);
+            if (message.msg == "tellstick_sensor_update") processSensor(message.data);
+            if (message.msg == "tellstick_device_update") processDevice(message.data);
+            if (message.msg == "larmhistory") processLarmHistory(message.data);
+          });
+        });
+      });
+
+    </script>
+  </head>
+  <body>
+    <!-- Woop Woop -->
+  </body>
+</html>

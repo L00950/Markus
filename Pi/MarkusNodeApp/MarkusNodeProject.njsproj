@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4e1bd74d-70ad-4be6-9c7b-8489534852f1}</ProjectGuid>
+    <ProjectHome />
+    <ProjectView>ProjectFiles</ProjectView>
+    <StartupFile>huset.js</StartupFile>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <Name>MarkusNodeProject</Name>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <ItemGroup>
+    <Content Include="config.json" />
+    <Content Include="package.json" />
+    <Compile Include="datasource.js" />
+    <Compile Include="eliq.js" />
+    <Compile Include="elspot.js" />
+    <Compile Include="huset.js" />
+    <Compile Include="server.js" />
+    <Compile Include="sms.js" />
+    <Compile Include="triggers.js" />
+    <Content Include="client\index.html" />
+    <Content Include="client\home.png" />
+    <Content Include="docs\huset-screenshot.png" />
+    <Compile Include="triggers\example.device.js" />
+    <Compile Include="triggers\example.rawevent.js" />
+    <Compile Include="triggers\example.sensor.js" />
+    <Compile Include="triggers\example.time.js" />
+    <Compile Include="client\js\base.js" />
+    <Compile Include="client\js\calendar.js" />
+    <Compile Include="client\js\control.js" />
+    <Compile Include="client\js\helper.chart.js" />
+    <Compile Include="client\js\temperature.js" />
+    <Compile Include="client\js\weather.js" />
+    <Content Include="client\css\vendor\bootstrap-switch.css" />
+    <Compile Include="client\js\vendor\bootstrap-switch.min.js" />
+    <Compile Include="client\js\vendor\d3.min.js" />
+    <Compile Include="client\js\vendor\jquery-2.0.3.min.js" />
+    <Content Include="client\themes\default\base.css" />
+    <Content Include="client\themes\default\img\temp-down.png" />
+    <Content Include="client\themes\default\img\temp-stable.png" />
+    <Content Include="client\themes\default\img\temp-up.png" />
+    <Content Include="client\themes\default\img\upcoming.png" />
+    <Content Include="client\themes\default\img\bg.jpg" />
+    <Content Include="client\themes\default\symbols\symboler.readme.txt" />
+    <Content Include="client\themes\default\symbols\---.png" />
+    <Content Include="client\themes\default\symbols\1.png" />
+    <Content Include="client\themes\default\symbols\10.png" />
+    <Content Include="client\themes\default\symbols\11.png" />
+    <Content Include="client\themes\default\symbols\12.png" />
+    <Content Include="client\themes\default\symbols\13.png" />
+    <Content Include="client\themes\default\symbols\14.png" />
+    <Content Include="client\themes\default\symbols\15.png" />
+    <Content Include="client\themes\default\symbols\2.png" />
+    <Content Include="client\themes\default\symbols\20.png" />
+    <Content Include="client\themes\default\symbols\21.png" />
+    <Content Include="client\themes\default\symbols\22.png" />
+    <Content Include="client\themes\default\symbols\24.png" />
+    <Content Include="client\themes\default\symbols\3.png" />
+    <Content Include="client\themes\default\symbols\4.png" />
+    <Content Include="client\themes\default\symbols\5.png" />
+    <Content Include="client\themes\default\symbols\6.png" />
+    <Content Include="client\themes\default\symbols\7.png" />
+    <Content Include="client\themes\default\symbols\8.png" />
+    <Content Include="client\themes\default\symbols\9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="client" />
+    <Folder Include="client\css\" />
+    <Folder Include="client\css\vendor" />
+    <Folder Include="client\js" />
+    <Folder Include="client\js\vendor" />
+    <Folder Include="client\themes\" />
+    <Folder Include="client\themes\default" />
+    <Folder Include="client\themes\default\img" />
+    <Folder Include="client\themes\default\symbols" />
+    <Folder Include="docs" />
+    <Folder Include="triggers" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

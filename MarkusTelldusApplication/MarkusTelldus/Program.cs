@@ -77,6 +77,20 @@ namespace ConsoleApplication2
                         Password = "jtk001",
                         User = "admin",
                         Url = "http://192.168.1.83/img/snapshot.cgi"
+                    },
+                new Kamera
+                    {
+                        Id = "Baksida",
+                        Password = "jtk001",
+                        User = "admin",
+                        Url = "http://192.168.1.86/image.jpg"
+                    },
+                new Kamera
+                    {
+                        Id = "Vardagsrum2",
+                        Password = "jtk001",
+                        User = "admin",
+                        Url = "http://192.168.1.88/image.jpg"
                     }
             };
 
@@ -280,8 +294,8 @@ namespace ConsoleApplication2
                 var mapp = start.ToString("yyyyMMdd_HHmmssfff");
                 while (DateTime.Now - start < new TimeSpan(0, 0, 10))
                 {
-                    HämtaBild(mapp, Kameror.First(_ => _.Id == "Entre"));
-                    HämtaBild(mapp, Kameror.First(_ => _.Id == "Vardagsrum"));
+                    foreach (var kamera in Kameror)
+                        HämtaBild(mapp, kamera);
                     Thread.Sleep(1000);
                 }
             }
@@ -307,7 +321,7 @@ namespace ConsoleApplication2
 
                 var lxRequest = (HttpWebRequest)WebRequest.Create(kamera.Url);
                 lxRequest.Credentials = new NetworkCredential(kamera.User, kamera.Password);
-                lxRequest.Timeout = 300;
+                lxRequest.Timeout = 500;
                 using (var lxResponse = (HttpWebResponse)lxRequest.GetResponse())
                 {
                     using (var lxBr = new BinaryReader(lxResponse.GetResponseStream()))

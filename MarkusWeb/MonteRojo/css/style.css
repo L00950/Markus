@@ -15,6 +15,11 @@ word-spacing: 0em;
 line-height: 1.4;
 }
 
+table {
+    border-collapse: separate;
+    border-spacing: 10px;
+}
+
 #wrapper {
     background-color: #FFFFFF;
     margin: 0 auto;

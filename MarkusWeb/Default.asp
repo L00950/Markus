@@ -40,6 +40,8 @@ elseif(InStr(1, strServerName, "batterier.se", vbTextCompare)>0) then
 	"<frame src=""/batterier/default.htm"" scrolling=no>" & _
 	"</frameset>")
 elseif(InStr(1, strServerName, "linderback.com", vbTextCompare)>0) then
+    Response.Redirect("linderback/default.htm")
+elseif(InStr(1, strServerName, "l.com", vbTextCompare)>0) then
 	Response.Write( _
 	"<frameset rows=""0,*"" border=0 noresize=0 scroll=0>" & _
 	"<frame src=""/varme/blankwhite.htm"" scrolling=no>" & _
