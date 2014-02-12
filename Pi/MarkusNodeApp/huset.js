@@ -1,10 +1,8 @@
-    // Include node.js modules
 var fs = require('fs')
   , socketio = require('socket.io')
   , telldus = require('telldus')
   , path = require('path')
 
-  // Include huset.js modules
   , server = require('./server.js')
   , datasource = require('./datasource.js')
   , sms = require('./sms.js')
@@ -19,6 +17,7 @@ function dateToString(datum) {
     var date = new Date(datum);
     return date.getFullYear() + '-' + fill(2, (date.getMonth() + 1)) + '-' + fill(2, date.getDate()) + ' ' + fill(2, date.getHours()) + ':' + fill(2, date.getMinutes()) + ':' + fill(2, date.getSeconds()) + '.' + fill(3, date.getMilliseconds());
 }
+
 function fill(antal, text) {
     while (text.toString().length < antal)
         text = '0' + text;
@@ -29,6 +28,7 @@ console.log('Initiating datasource ...');
 datasource.Init(function () {
 
     console.log('Creating cache ...');
+
     var cache = { telldus_devices: {}, telldus_sensors: {}, eliq_datanow: null, eliq_dataday: null, elspot_now: null, devicegroups: null, larm: {}, larmhistory: {} };
     var larm = 0;
     var senasteDeviceAction = Date.now();
@@ -77,16 +77,16 @@ datasource.Init(function () {
 
                           // Get min/max
                           var ts = Math.round((new Date()).getTime() / 1000) - 3600 * 24;
-                          var statement_inner = datasource.db.prepare("SELECT min(value) as val_min, max(value) as val_max FROM telldus_sensor_history WHERE id=? AND type=? AND ts>" + ts);
-                          statement_inner.each(
+                          var statementInner = datasource.db.prepare("SELECT min(value) as val_min, max(value) as val_max FROM telldus_sensor_history WHERE id=? AND type=? AND ts>" + ts);
+                          statementInner.each(
                             [row.id, row.type],
-                            function (err_inner, row_inner) {
+                            function (errInner, rowInner) {
                                 if (!err) {
-                                    cache.telldus_sensors[idx].min = row_inner.val_min;
-                                    cache.telldus_sensors[idx].max = row_inner.val_max;
+                                    cache.telldus_sensors[idx].min = rowInner.val_min;
+                                    cache.telldus_sensors[idx].max = rowInner.val_max;
                                 }
                             }
-                          ); statement_inner.finalize();
+                          ); statementInner.finalize();
                       }
 
                   }
@@ -214,12 +214,12 @@ datasource.Init(function () {
                     if (config.tellstick.sensors[item].id == id) {
 
                         // Check if value has changed, to prevent excessive emits
-                        var value_changed = (cache.telldus_sensors['s_' + id + '' + type] == undefined || value != cache.telldus_sensors['s_' + id + '' + type].value) ? true : false;
-                        var value_diff = (cache.telldus_sensors['s_' + id + '' + type] == undefined) ? 0 : value - cache.telldus_sensors['s_' + id + '' + type].value;
-                        var value_min = (cache.telldus_sensors['s_' + id + '' + type] == undefined) ? value : cache.telldus_sensors['s_' + id + '' + type].min;
-                        var value_max = (cache.telldus_sensors['s_' + id + '' + type] == undefined) ? value : cache.telldus_sensors['s_' + id + '' + type].max;
-                        value_min = (value < value_min) ? value : value_min;
-                        value_max = (value > value_max) ? value : value_max;
+                        var valueChanged = (cache.telldus_sensors['s_' + id + '' + type] == undefined || value != cache.telldus_sensors['s_' + id + '' + type].value) ? true : false;
+                        var valueDiff = (cache.telldus_sensors['s_' + id + '' + type] == undefined) ? 0 : value - cache.telldus_sensors['s_' + id + '' + type].value;
+                        var valueMin = (cache.telldus_sensors['s_' + id + '' + type] == undefined) ? value : cache.telldus_sensors['s_' + id + '' + type].min;
+                        var valueMax = (cache.telldus_sensors['s_' + id + '' + type] == undefined) ? value : cache.telldus_sensors['s_' + id + '' + type].max;
+                        valueMin = (value < valueMin) ? value : valueMin;
+                        valueMax = (value > valueMax) ? value : valueMax;
 
                         // Update cache
 
@@ -231,17 +231,17 @@ datasource.Init(function () {
                             message: model,
                             protocol: protocol,
                             value: value,
-                            value_diff: value_diff,
-                            min: value_min,
-                            max: value_max
+                            value_diff: valueDiff,
+                            min: valueMin,
+                            max: valueMax
                         };
 
                         // Notify triggers
-                        if (value_changed)
+                        if (valueChanged)
                             triggers.notifySensorUpdate(id, type);
 
                         // Insert in database
-                        if (config.tellstick.sensor_history === 1 && value_changed)
+                        if (config.tellstick.sensor_history === 1 && valueChanged)
                             try {
                                 datasource.db.prepare("INSERT INTO telldus_sensor_history (id,message,protocol,type,value,ts) VALUES(?,?,?,?,?,?)").run(id, model, protocol, type, value, ts).finalize();
                             } catch (err) {
@@ -249,7 +249,7 @@ datasource.Init(function () {
                             }
 
                         // Broadcast sensor value to all clients
-                        if (config.tellstick.sensor_emit === 1 && config.server.live_stream === 1 && value_changed)
+                        if (config.tellstick.sensor_emit === 1 && config.server.live_stream === 1 && valueChanged)
                             io.sockets.emit('message', { msg: "tellstick_sensor_update", data: cache.telldus_sensors['s_' + id + '' + type] });
                     }
                 }
@@ -260,13 +260,11 @@ datasource.Init(function () {
         });
         console.log('\tStarting device event listener ...');
         telldus.addDeviceEventListener(function (device, status) {
-            // Update cache (preserve name)
             var now = Date.now();
             if (now - senasteDeviceAction < 500) return;
             senasteDeviceAction = now;
             var name = cache.telldus_devices['d_' + device].name;
             if (now - cache.telldus_devices['d_' + device].lastaction < 4000) {
-                //console.log('Dubbel action:' + name + ' Status:' + status.name);
                 return;
             }
             cache.telldus_devices['d_' + device] = {
@@ -303,13 +301,13 @@ datasource.Init(function () {
 
                 if (larmenhet === true) {
                     // Prepare data
-                    var l_status_num = (status.name === 'ON') ? 1 : 0;
+                    var lStatusNum = (status.name === 'ON') ? 1 : 0;
                     var ts = now / 1000;
                     
 
                     // Execute statement
                     try {
-                        datasource.db.prepare("INSERT INTO telldus_device_history (id,status,ts) VALUES(?,?,?)").run(device, l_status_num, ts).finalize();
+                        datasource.db.prepare("INSERT INTO telldus_device_history (id,status,ts) VALUES(?,?,?)").run(device, lStatusNum, ts).finalize();
                     } catch (err) {
                         console.error('DB insert failed: ', err);
                     }
@@ -344,7 +342,7 @@ datasource.Init(function () {
                     cache.larmhistory[3] = cache.larmhistory[2];
                     cache.larmhistory[2] = cache.larmhistory[1];
                     cache.larmhistory[1] = cache.larmhistory[0];
-                    cache.larmhistory[0] = { id: device, status: l_status_num, ts: ts, name: cache.telldus_devices['d_' + device].name, larm: larm };
+                    cache.larmhistory[0] = { id: device, status: lStatusNum, ts: ts, name: cache.telldus_devices['d_' + device].name, larm: larm };
                 }
                 io.sockets.emit('message', { msg: "larmhistory", data: cache.larmhistory });
             }
@@ -352,9 +350,10 @@ datasource.Init(function () {
         });
         console.log('\tStarting raw device event listener ...');
         telldus.addRawDeviceEventListener(function (controllerId, data) {
-            console.log('Rawdata: ' + data)
+            if(config.telldus.lograwevent === 1)
+                console.log('Rawdata: ' + data);
 
-          // Notify triggers
+            // Notify triggers
 //          triggers.notifyRawDeviceUpdate(data);
 
         });
@@ -366,13 +365,13 @@ datasource.Init(function () {
         eliq.onDatanowUpdate = function (data) {
 
             // Check if value has changed
-            var value_changed = (cache.eliq_datanow == null || cache.eliq_datanow.power != data.power) ? true : false;
+            var valueChanged = (cache.eliq_datanow == null || cache.eliq_datanow.power != data.power) ? true : false;
 
             // Save to cache
             cache.eliq_datanow = data;
 
             // Emit update
-            if (config.server.live_stream === 1 && value_changed)
+            if (config.server.live_stream === 1 && valueChanged)
                 io.sockets.emit('message', { msg: "eliq_datanow", data: data });
 
         };

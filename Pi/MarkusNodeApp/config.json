@@ -49,6 +49,7 @@
     "sensor_history": 1,
     "device_emit": 1,
     "sensor_emit": 1,
+	"lograwevent": 0,
     "devicegroups": [
       {
         "id": 1,
