@@ -132,25 +132,6 @@ datasource.Init(function () {
                 if (err)
                     console.log(err);
             });
-
-        console.log('\tLarm status...');
-        cache.larm = { state: larm }; // av vid startup
-        //sql = "select state from larm";
-        //datasource.db.each(
-        //    sql,
-        //    function (err, row) {
-        //        if (!err) {
-        //            cache.larm = { state: row.state };
-        //            console.log(row.state);
-        //        } else {
-        //            console.log(err);
-        //        }
-        //    },
-        //    function (err) {
-        //        console.log(err);
-        //    }
-        //    );
-
     }
 
     console.log('Initiating websockets ...');
@@ -312,22 +293,6 @@ datasource.Init(function () {
                     } catch (err) {
                         console.error('DB insert failed: ', err);
                     }
-                    //var larmhistoryIndex = 0;
-                    //datasource.db.each(
-                    //  "select * from telldus_device_history order by ts desc limit 10",
-                    //  function (err, row) {
-                    //      if (!err) {
-                    //          var item = { id: row.id, status: row.status, ts: row.ts, name: cache.telldus_devices['d_'+row.id].name };
-                    //          console.log(larmhistoryIndex + ':' + item.name);
-                    //          cache.larmhistory[larmhistoryIndex++] = item;
-                    //      } else {
-                    //          console.log(err);
-                    //      }
-                    //  },
-                    //  function (err) {
-                    //      if(err)
-                    //        console.log(err);
-                    //  });
 
                     cache.larmhistory = markusarray.insertFirst(cache.larmhistory, { id: device, status: lStatusNum, ts: ts, name: cache.telldus_devices['d_' + device].name, larm: larm });
                 }
