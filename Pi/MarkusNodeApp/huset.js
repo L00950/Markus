@@ -9,6 +9,7 @@ var fs = require('fs')
   , eliq = require('./eliq.js')
   , elspot = require('./elspot.js')
   , triggers = require('./triggers.js')
+  , markusarray = require('./MarkusArray.js')
 
   // Include configuration
   , config = require('./config.json');
@@ -328,21 +329,7 @@ datasource.Init(function () {
                     //        console.log(err);
                     //  });
 
-                    cache.larmhistory[14] = cache.larmhistory[13];
-                    cache.larmhistory[13] = cache.larmhistory[12];
-                    cache.larmhistory[12] = cache.larmhistory[11];
-                    cache.larmhistory[11] = cache.larmhistory[10];
-                    cache.larmhistory[10] = cache.larmhistory[9];
-                    cache.larmhistory[9] = cache.larmhistory[8];
-                    cache.larmhistory[8] = cache.larmhistory[7];
-                    cache.larmhistory[7] = cache.larmhistory[6];
-                    cache.larmhistory[6] = cache.larmhistory[5];
-                    cache.larmhistory[5] = cache.larmhistory[4];
-                    cache.larmhistory[4] = cache.larmhistory[3];
-                    cache.larmhistory[3] = cache.larmhistory[2];
-                    cache.larmhistory[2] = cache.larmhistory[1];
-                    cache.larmhistory[1] = cache.larmhistory[0];
-                    cache.larmhistory[0] = { id: device, status: lStatusNum, ts: ts, name: cache.telldus_devices['d_' + device].name, larm: larm };
+                    cache.larmhistory = markusarray.insertFirst(cache.larmhistory, { id: device, status: lStatusNum, ts: ts, name: cache.telldus_devices['d_' + device].name, larm: larm });
                 }
                 io.sockets.emit('message', { msg: "larmhistory", data: cache.larmhistory });
             }
@@ -350,7 +337,7 @@ datasource.Init(function () {
         });
         console.log('\tStarting raw device event listener ...');
         telldus.addRawDeviceEventListener(function (controllerId, data) {
-            if(config.telldus.lograwevent === 1)
+            if(config.tellstick.lograwevent === 1)
                 console.log('Rawdata: ' + data);
 
             // Notify triggers
