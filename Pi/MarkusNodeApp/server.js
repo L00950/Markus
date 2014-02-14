@@ -79,9 +79,8 @@ var server = http.createServer(function(req, res) {
           fs.createReadStream(indexFilename)
           .pipe(res);
       }
-      else
-      {
-
+      else {
+          console.log(unescape(uri));
         // JSON proxy
         if ( unescape(uri).substring(1,12) == '/proxy/json/' ) {
 
@@ -93,6 +92,24 @@ var server = http.createServer(function(req, res) {
             console.log(body);
           });*/
 
+        } else if (unescape(uri).substring(0, 11) == '/proxy/cam/') {
+            http.get('http://192.168.1.87/image.jpg', function(result) {
+                result.on('data', function(chunk) {
+                    //res.writeHead(200,
+                    //    {
+                    //        'Content-Type': 'image/jpeg'
+                    //    });
+                    res.write(chunk);
+                    //res.end();
+                });
+                result.on('end', function() {
+                    res.end();
+                });
+                result.on('error', function(e) {
+                    console.log('Error:' + e.message);
+                });
+            });
+            console.log('proxy cam requested');
         } else {
           // 404 - Not found
           res.writeHead(404,
