@@ -30,7 +30,7 @@ datasource.Init(function () {
 
     console.log('Creating cache ...');
 
-    var cache = { telldus_devices: {}, telldus_sensors: {}, eliq_datanow: null, eliq_dataday: null, elspot_now: null, devicegroups: null, larm: {}, larmhistory: {} };
+    var cache = { telldus_devices: {}, telldus_sensors: {}, eliq_datanow: null, eliq_dataday: null, elspot_now: null, devicegroups: null, larm: {}, larmhistory: [] };
     var larm = 0;
     var senasteDeviceAction = Date.now();
 
@@ -293,7 +293,6 @@ datasource.Init(function () {
                     } catch (err) {
                         console.error('DB insert failed: ', err);
                     }
-
                     cache.larmhistory = markusarray.insertFirst(cache.larmhistory, { id: device, status: lStatusNum, ts: ts, name: cache.telldus_devices['d_' + device].name, larm: larm });
                 }
                 io.sockets.emit('message', { msg: "larmhistory", data: cache.larmhistory });

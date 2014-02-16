@@ -6,13 +6,19 @@
     <ProjectGuid>{4e1bd74d-70ad-4be6-9c7b-8489534852f1}</ProjectGuid>
     <ProjectHome />
     <ProjectView>ProjectFiles</ProjectView>
-    <StartupFile>huset.js</StartupFile>
+    <StartupFile>Test.js</StartupFile>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <Name>MarkusNodeProject</Name>
+    <NodeExePath />
+    <NodeExeArguments />
+    <ScriptArguments />
+    <NodejsPort />
+    <StartWebBrowser>False</StartWebBrowser>
+    <LaunchUrl />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
@@ -23,8 +29,10 @@
     <Compile Include="eliq.js" />
     <Compile Include="elspot.js" />
     <Compile Include="huset.js" />
+    <Compile Include="MarkusArray.js" />
     <Compile Include="server.js" />
     <Compile Include="sms.js" />
+    <Compile Include="Test.js" />
     <Compile Include="triggers.js" />
     <Content Include="client\index.html" />
     <Content Include="client\home.png" />
