@@ -68,7 +68,7 @@ datasource.Init(function () {
                       if (config.tellstick.sensors[item].id == row.id) {
 
                           // Prepare
-                          var idx = 's_' + row.id + '' + row.type
+                          var idx = 's_' + row.id + '' + row.type;
 
                           // Inject value_diff and name 
                           row.value_diff = 0;
@@ -257,19 +257,16 @@ datasource.Init(function () {
             };
             var larmenhet = false;
             for (index in config.tellstick.larmdevices) {
-                console.log('Index:' + index);
-                console.log('Device:' + device);
                 if (config.tellstick.larmdevices[index] == device)
                     larmenhet = true;
             }
-            console.log('Larmenhet:' + larmenhet);
-            console.log(dateToString(now) + ' Action:' + name + ' status.name:' + status.name + 'status:' + status);
+            console.log(dateToString(now) + ' Action:' + name + ' status.name:' + status.name);
 
             if (status.name === 'OFF' && larmenhet) {
                 console.log('Status OFF gor vi inget med pa larmenheter');
                 return;
             }
-            console.log(dateToString(now) + ' Tar hand om larm...');
+            console.log(dateToString(now) + ' Tar hand om larm fran ' + name);
 
             // Notify triggers
             //triggers.notifyDeviceUpdate(device);
@@ -302,7 +299,7 @@ datasource.Init(function () {
         console.log('\tStarting raw device event listener ...');
         telldus.addRawDeviceEventListener(function (controllerId, data) {
             if(config.tellstick.lograwevent === 1)
-                console.log('Rawdata: ' + data);
+                console.log(dateToString(Date.now()) + ' Rawdata: ' + data);
 
             // Notify triggers
 //          triggers.notifyRawDeviceUpdate(data);
@@ -346,13 +343,13 @@ datasource.Init(function () {
         elspot.onNowUpdate = function (data) {
 
             // Check if value has changed
-            var value_changed = (cache.elspot_now == null || cache.elspot_now.full_price != data.full_price) ? true : false;
+            var valueChanged = (cache.elspot_now == null || cache.elspot_now.full_price != data.full_price) ? true : false;
 
             // Save to cache
             cache.elspot_now = data;
 
             // Emit update
-            if (config.server.live_stream === 1 && value_changed)
+            if (config.server.live_stream === 1 && valueChanged)
                 io.sockets.emit('message', { msg: "elspot_now", data: data });
 
         };

@@ -93,23 +93,27 @@ var server = http.createServer(function(req, res) {
           });*/
 
         } else if (unescape(uri).substring(0, 11) == '/proxy/cam/') {
-            http.get('http://192.168.1.87/image.jpg', function(result) {
-                result.on('data', function(chunk) {
-                    //res.writeHead(200,
-                    //    {
-                    //        'Content-Type': 'image/jpeg'
-                    //    });
-                    res.write(chunk);
-                    //res.end();
+            var kamera = unescape(uri).substring(11, unescape(uri).length);
+            var adress = '';
+            for (item in config.cameras) {
+                if (config.cameras[item].id == kamera)
+                    adress = config.cameras[item].adress;
+            }
+            if (adress != '') {
+                http.get(adress, function(result) {
+                    result.on('data', function(chunk) {
+                        res.write(chunk);
+                    });
+                    result.on('end', function() {
+                        res.end();
+                    });
+                    result.on('error', function(error) {
+                        console.log('Error:' + error.message);
+                    });
                 });
-                result.on('end', function() {
-                    res.end();
-                });
-                result.on('error', function(e) {
-                    console.log('Error:' + e.message);
-                });
-            });
-            console.log('proxy cam requested');
+            } else {
+                res.end();
+            }
         } else {
           // 404 - Not found
           res.writeHead(404,

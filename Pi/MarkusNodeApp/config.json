@@ -43,6 +43,27 @@
     "file": "db/data.sqlite3",
     "script": "db/create.sql"
   },
+  "cameras": [
+  {
+  "id": "vardagsrum2",
+  "adress": "http://192.168.1.88/image.jpg"
+  },
+    {
+  "id": "kitchen",
+  "adress": "http://192.168.1.87/image.jpg"
+  },
+  {
+  "id": "baksidan",
+  "adress": "http://192.168.1.86/image.jpg"
+  },
+  {
+  "id": "entre",
+  "adress": "http://192.168.1.84/image.jpg"
+  },
+  {
+  "id": "vardagsrum",
+  "adress": "http://192.168.1.83/img/snapshot.cgi"
+  }],
   "tellstick": {
     "enable": 1,
     "device_history": 1,
