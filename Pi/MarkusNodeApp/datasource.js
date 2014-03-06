@@ -7,9 +7,9 @@ module.exports = {
   Init: function (callback) {
 
     // Initiate sqlite3 database
-    var db_file = path.join(__dirname, config.database.file);
-    var exists = fs.existsSync(db_file);
-    db = new sqlite3.Database(db_file);
+    var dbFile = path.join(__dirname, config.database.file);
+    var exists = fs.existsSync(dbFile);
+    var db = new sqlite3.Database(dbFile);
     this.db = db;
 
     // Create
@@ -28,4 +28,4 @@ module.exports = {
     }
 
   }
-}
+};

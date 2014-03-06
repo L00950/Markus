@@ -266,8 +266,8 @@
             if(message.msg=="initial_data") {
                 console.log('Forst i InitialData');
               processDeviceGroups (message.data.devicegroups);
-              for( sensor in message.data.telldus_sensors ) {
-                processSensor(message.data.telldus_sensors[sensor]);
+              for( item in message.data.telldus_sensors ) {
+                processSensor(message.data.telldus_sensors[item]);
               }
               for( device in message.data.telldus_devices ) {
                 processDevice(message.data.telldus_devices[device]);

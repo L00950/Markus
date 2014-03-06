@@ -21,9 +21,10 @@
   },
   "homepage": "https://github.com/Hexagon/huset.js",
   "dependencies": {
-	"forever": "~0.10.11",
-	"socket.io": "~0.9.16",
-	"sqlite3": "~2.2.0",
-	"telldus": "~0.0.7"
+    "forever": "~0.10.11",
+    "socket.io": "~0.9.16",
+    "sqlite3": "~2.2.0",
+    "telldus": "~0.0.7",
+    "socket.io-client": "~0.9.16"
   }
 }
