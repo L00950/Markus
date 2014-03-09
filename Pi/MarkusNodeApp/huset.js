@@ -9,7 +9,8 @@ var fs = require('fs')
   , eliq = require('./eliq.js')
   , elspot = require('./elspot.js')
   , triggers = require('./triggers.js')
-  , markusarray = require('./MarkusArray.js')
+  , markusarray = require('./markusarray.js')
+, markusmail = require('./markusmail.js')
 
   // Include configuration
   , config = require('./config.json');
@@ -267,6 +268,7 @@ datasource.Init(function () {
                 return;
             }
             console.log(dateToString(now) + ' Tar hand om larm fran ' + name);
+            markusmail.sendmail('markus@linderback.com', 'markus@linderback.com', 'Larm:' + name, '');
 
             // Notify triggers
             //triggers.notifyDeviceUpdate(device);

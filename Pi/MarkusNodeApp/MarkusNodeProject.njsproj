@@ -6,7 +6,7 @@
     <ProjectGuid>{4e1bd74d-70ad-4be6-9c7b-8489534852f1}</ProjectGuid>
     <ProjectHome />
     <ProjectView>ProjectFiles</ProjectView>
-    <StartupFile>Client.js</StartupFile>
+    <StartupFile>test.js</StartupFile>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
@@ -25,15 +25,16 @@
   <ItemGroup>
     <Content Include="config.json" />
     <Content Include="package.json" />
-    <Compile Include="Client.js" />
+    <Compile Include="client.js" />
     <Compile Include="datasource.js" />
     <Compile Include="eliq.js" />
     <Compile Include="elspot.js" />
     <Compile Include="huset.js" />
-    <Compile Include="MarkusArray.js" />
+    <Compile Include="markusarray.js" />
     <Compile Include="server.js" />
     <Compile Include="sms.js" />
-    <Compile Include="Test.js" />
+    <Compile Include="markusmail.js" />
+    <Compile Include="test.js" />
     <Compile Include="triggers.js" />
     <Content Include="client\index.html" />
     <Content Include="client\home.png" />
