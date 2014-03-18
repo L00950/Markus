@@ -10,7 +10,7 @@ var fs = require('fs')
   , elspot = require('./elspot.js')
   , triggers = require('./triggers.js')
   , markusarray = require('./markusarray.js')
-, markusmail = require('./markusmail.js')
+  , markusmail = require('./markusmail.js')
 
   // Include configuration
   , config = require('./config.json');
@@ -267,8 +267,10 @@ datasource.Init(function () {
                 console.log('Status OFF gor vi inget med pa larmenheter');
                 return;
             }
-            console.log(dateToString(now) + ' Tar hand om larm fran ' + name);
-            markusmail.sendmail('markus@linderback.com', 'markus@linderback.com', 'Larm:' + name, '');
+            if (larmenhet && larm) {
+                console.log(dateToString(now) + ' Tar hand om larm fran ' + name);
+                markusmail.sendmail('markus@linderback.com', 'markus@linderback.com', 'Larm:' + name, '');
+            }
 
             // Notify triggers
             //triggers.notifyDeviceUpdate(device);
