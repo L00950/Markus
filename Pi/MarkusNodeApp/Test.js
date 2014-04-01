@@ -1,6 +1,13 @@
 ﻿//var mail = require('./markusmail');
 
 //mail.sendmail('markus@linderback.com', 'markus@linderback.com', 'Testmail', 'Innehåll...');
+
+var log = require('./markuslogger').logger;
+log.error('Error');
+log.info(5%2);
+log.info(4%2);
+
+
 var countdown = 5;
 var fs = require('fs');
 http = require('http');
