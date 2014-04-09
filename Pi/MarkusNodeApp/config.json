@@ -46,7 +46,7 @@
   "cameras": [
   {
   "id": "vardagsrum2",
-  "adress": "http://192.168.1.88/image.jpg"
+  "adress": "http://192.168.1.77/image.jpg"
   },
     {
   "id": "kitchen",
@@ -54,11 +54,11 @@
   },
   {
   "id": "baksidan",
-  "adress": "http://192.168.1.86/image.jpg"
+  "adress": "http://192.168.1.74/image.jpg"
   },
   {
   "id": "entre",
-  "adress": "http://192.168.1.84/image.jpg"
+  "adress": "http://192.168.1.76/image.jpg"
   },
   {
   "id": "vardagsrum",
