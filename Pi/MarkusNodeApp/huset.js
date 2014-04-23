@@ -1,19 +1,18 @@
-var fs = require('fs')
-  , socketio = require('socket.io')
-  , telldus = require('telldus')
-  , path = require('path')
+var fs = require( 'fs' )
+    , socketio = require( 'socket.io' )
+    , telldus = require( 'telldus' )
+    , path = require( 'path' )
 
-  , server = require('./server.js')
-  , datasource = require('./datasource.js')
-  , sms = require('./sms.js')
-  , eliq = require('./eliq.js')
-  , elspot = require('./elspot.js')
-  , triggers = require('./triggers.js')
-  , markusarray = require('./markusarray.js')
-  , markusmail = require('./markusmail.js')
-
-  // Include configuration
-  , config = require('./config.json');
+    , server = require( './server.js' )
+    , datasource = require( './datasource.js' )
+    , sms = require( './sms.js' )
+    , eliq = require( './eliq.js' )
+    , elspot = require( './elspot.js' )
+    , triggers = require( './triggers.js' )
+    , markusarray = require( './markusarray.js' )
+    , markusmail = require( './markusmail.js' )
+    , tabilder = require( './tabilder.js' )
+    , config = require( './config.json' );
 
 function dateToString(datum) {
     var date = new Date(datum);
@@ -34,6 +33,10 @@ datasource.Init(function () {
     var cache = { telldus_devices: {}, telldus_sensors: {}, eliq_datanow: null, eliq_dataday: null, elspot_now: null, devicegroups: null, larm: {}, larmhistory: [] };
     var larm = 0;
     var senasteDeviceAction = Date.now();
+
+    var larmTo = Date.now();
+    var larmIntervall = null;
+    var larmId = '';
 
     console.log('Initiating triggers:');
     triggers.Init(cache);
@@ -270,6 +273,17 @@ datasource.Init(function () {
             if (larmenhet && larm) {
                 console.log(dateToString(now) + ' Tar hand om larm fran ' + name);
                 markusmail.sendmail('markus@linderback.com', 'markus@linderback.com', 'Larm:' + name, '');
+
+                larmTo = Date.now() + 1000 * 60 * 10;
+                if (larmIntervall == null) {
+                    larmIntervall = setInterval(function() {
+                        if (Date.now() > larmTo) {
+                            larmIntervall.clearInterval();
+                            larmIntervall = null;
+                        }
+                        console.log('ta bilder...');
+                    }, 1000);
+                }
             }
 
             // Notify triggers

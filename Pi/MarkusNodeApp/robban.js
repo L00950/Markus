@@ -19,4 +19,4 @@ var timer = setInterval(function() {
 
     client.on('close', function() {
         });
-    }, 1000*60);
+    }, 1000*60*10);

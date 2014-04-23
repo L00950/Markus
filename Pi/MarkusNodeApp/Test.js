@@ -1,4 +1,4 @@
-﻿//var mail = require('./markusmail');
+//var mail = require('./markusmail');
 
 //mail.sendmail('markus@linderback.com', 'markus@linderback.com', 'Testmail', 'Innehåll...');
 
@@ -11,6 +11,15 @@ log.info(4%2);
 var countdown = 5;
 var fs = require('fs');
 http = require('http');
+
+var o = null;
+if (o == null) {
+    o = setInterval(function() {
+        console.log('bilder...');
+    }, 1000);
+}
+
+
 
 fs.exists('client/larm', function(exists) {
     if (exists) {
