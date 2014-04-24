@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{4e1bd74d-70ad-4be6-9c7b-8489534852f1}</ProjectGuid>
     <ProjectHome />
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
     <StartupFile>test.js</StartupFile>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -36,6 +36,8 @@
     <Compile Include="server.js" />
     <Compile Include="sms.js" />
     <Compile Include="markusmail.js" />
+    <Compile Include="tabilder.js" />
+    <Compile Include="telldus.js" />
     <Compile Include="test.js" />
     <Compile Include="triggers.js" />
     <Content Include="client\index.html" />
