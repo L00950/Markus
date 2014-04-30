@@ -26,6 +26,7 @@
     <Content Include="config.json" />
     <Content Include="package.json" />
     <Compile Include="client.js" />
+    <Compile Include="lyssna.js" />
     <Compile Include="markuslogger.js" />
     <Compile Include="robban.js" />
     <Compile Include="datasource.js" />
