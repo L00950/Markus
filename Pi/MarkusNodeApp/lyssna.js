@@ -13,4 +13,4 @@ telldus.addSensorEventListener(function(id, protocol, model, type, value, ts) {
     console.log('SensorEvent: ' + protocol + " " + model + " " + value + " " + id + " " + ts);
 });
 
-console.log('Lyssnar...');
+console.log('Lyssnar... Avbryt med CTRL-C');
