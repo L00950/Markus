@@ -12,6 +12,7 @@ var fs = require( 'fs' )
     , markusarray = require( './markusarray.js' )
     , markusmail = require( './markusmail.js' )
     , tabilder = require( './tabilder.js' )
+    , exec = require('child_process').exec
     , config = require( './config.json' );
 
 function dateToString(datum) {
@@ -373,6 +374,32 @@ datasource.Init(function () {
         };
         elspot.Start();
     }
+
+    var senasthemma = Date.now();
+    setInterval(function() {
+    exec('ping -c 1 192.168.1.75', function(error, stdout, stderr) {
+        if (error === null) {
+            senasthemma = Date.now();
+        }
+    });
+    exec('ping -c 1 192.168.1.79', function(error, stdout, stderr) {
+        if (error === null) {
+            senasthemma = Date.now();
+        }
+        });
+    exec('ping -c 1 192.168.1.81', function(error, stdout, stderr) {
+        if (error === null) {
+            senasthemma = Date.now();
+        }
+        });
+    }, 1000 * 10);
+
+    setInterval(function() {
+        if (Date.now() - senasthemma > 1000 * 60 * 60 && !larm) {
+            senasthemma = Date.now();
+            mail.sendmail('markus@linderback.com', 'markus@linderback.com', 'Larm - Ingen hemma?', 'Starta larmet på http://linderback.com:8081');
+        }
+    }, 1000 * 60 * 10);
 });
 
     // Super sweet errorhandling.. Until someone figures out the ECONNRESET problem
