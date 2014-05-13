@@ -69,6 +69,10 @@
   "adress": "http://192.168.1.84/image.jpg"
   },
   {
+  "id": "gc",
+  "adress": "http://192.168.0.51/image/jpeg.cgi"
+  },
+  {
   "id": "vardagsrum",
   "adress": "http://192.168.1.86/img/snapshot.cgi"
   }],
