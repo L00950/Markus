@@ -395,8 +395,9 @@ datasource.Init(function () {
     }, 1000 * 10);
 
     setInterval(function() {
-        if (Date.now() - senasthemma > 1000 * 60 * 60 && !larm) {
+        if (((Date.now() - senasthemma) > 1000 * 60 * 60) && larm == false) {
             senasthemma = Date.now();
+            console.log('Ingen hemma och larmet av');
             mail.sendmail('markus@linderback.com', 'markus@linderback.com', 'Larm - Ingen hemma?', 'Starta larmet på http://linderback.com:8081');
         }
     }, 1000 * 60 * 10);
