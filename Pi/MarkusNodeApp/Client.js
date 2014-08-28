@@ -1,10 +1,11 @@
 ﻿var net = require('net');
 var exec = require('child_process').exec;
+var os = require('os');
 
 var client = new net.Socket;
 var start = Date.now();
 client.connect(8089, 'linderback.com', function() {
-    client.write('enablevpn');
+    client.write('enablevpn:'+ os.hostname());
 });
 
 client.on('data', function(data) {
