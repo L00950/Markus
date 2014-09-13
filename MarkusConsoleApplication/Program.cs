@@ -13,6 +13,8 @@ namespace MarkusConsoleApplication
                 LäsInMedlemmar.Kör();
             if (args.Any(_ => _.Equals("UppdateraKalender")))
                 UppdateraKalendern.Kör();
+            if (args.Any(_ => _.Equals("nykalender")))
+                UppdateraKalendern.Skapafil();
             if (args.Any(_ => _.Equals("test")))
             {
                 try

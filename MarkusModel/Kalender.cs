@@ -14,34 +14,38 @@ namespace MarkusModel
 	    private readonly int _secondyear;
 	    private List<DateTime> _bokadeDatum;
 
-		public void CreateCalendar(int objectid)
-		{
-            // Hämta bokade datum
+        private void HämtaBokadeDatum(int objectid)
+        {
             _bokadeDatum = new List<DateTime>();
-		    var bokningar = HanteraBokningar.HämtaBokningar((Hus) objectid);
-		    foreach (var bokning in bokningar)
-		    {
-		        var tmpDate = bokning.Ankomst;
-                while(tmpDate <= bokning.Avresa)
+            var bokningar = HanteraBokningar.HämtaBokningar((Hus)objectid);
+            foreach (var bokning in bokningar)
+            {
+                var tmpDate = bokning.Ankomst;
+                while (tmpDate <= bokning.Avresa)
                 {
-                    if(!_bokadeDatum.Contains(tmpDate))
+                    if (!_bokadeDatum.Contains(tmpDate))
                         _bokadeDatum.Add(tmpDate);
                     tmpDate = tmpDate.AddDays(1);
                 }
-		    }
+            }
+        }
+		public void CreateCalendar(int objectid)
+		{
+            HämtaBokadeDatum(objectid);
 
 			// Första året
 			for(var i=1;i<=12;i++)
 			{
-                CreateMonth(objectid, _firstyear, i);
+                SkapaMånadTillFil(objectid, _firstyear, i);
 			}
 			// Andra året
 			for(var i=1;i<=12;i++)
 			{
-                CreateMonth(objectid, _secondyear, i);
+                SkapaMånadTillFil(objectid, _secondyear, i);
 			}
 		}
-		private void CreateMonth(int objectid, int year, int month)
+
+        private void SkapaMånadTillFil(int objectid, int year, int month)
 		{
 			var cdtDate = new DateTime(year, month, 1);
 			while(cdtDate.DayOfWeek != DayOfWeek.Monday)
@@ -53,7 +57,7 @@ namespace MarkusModel
 
 			// Skapa ny fil
 			var writer = new System.IO.StreamWriter(filename);
-			writer.WriteLine(GetBefore(month));
+			writer.WriteLine(SkapaDataFöreFörFil(month));
 			string szTmp;
 			CreateWeek(objectid, ref cdtDate, month, out szTmp);
 			writer.WriteLine(szTmp);
@@ -62,10 +66,52 @@ namespace MarkusModel
 				CreateWeek(objectid, ref cdtDate, month, out szTmp);
 				writer.WriteLine(szTmp);
 			}
-			writer.WriteLine(GetAfter());
+			writer.WriteLine(SkapaDataEfterFörFil());
 			writer.Close();
 		}
-	
+
+        public string SkapaÅr(int objectid)
+        {
+            HämtaBokadeDatum(objectid);
+
+            var månad = 1;
+            var str = "<table>";
+            for (var tertial = 0; tertial < 3; tertial++)
+            {
+                str += "<tr>";
+                for (var kolumn = 0; kolumn < 4; kolumn++)
+                {
+                    str += "<td>";
+                    str += SkapaMånad(objectid, _firstyear, månad++);
+                    str += "</td>";
+                }
+                str += "</tr>";
+            }
+            str += "</table>";
+            return str;
+        }
+
+        private string SkapaMånad(int objectid, int year, int month)
+        {
+            var str = "";
+            var cdtDate = new DateTime(year, month, 1);
+            while (cdtDate.DayOfWeek != DayOfWeek.Monday)
+                cdtDate = cdtDate.AddDays(-1);
+
+            // Skapa ny fil
+            str += SkapaDataFöre(month);
+            string szTmp;
+            CreateWeek(objectid, ref cdtDate, month, out szTmp);
+            str += szTmp;
+            while (cdtDate.Month == month)
+            {
+                CreateWeek(objectid, ref cdtDate, month, out szTmp);
+                str += szTmp;
+            }
+            str += SkapaDataEfter();
+
+            return str;
+        }
 
 		private void CreateWeek(int objectid, ref DateTime cdtStartDate, int nMonth, out string szReturn)
 		{
@@ -93,51 +139,92 @@ namespace MarkusModel
 			szReturn += "</tr>";
 		}
 
-		private static string GetBefore(int month)
+        private static string Månadsnamn(int månad)
+        {
+            var strmonth = "";
+            switch (månad)
+            {
+                case 1:
+                    strmonth = "January";
+                    break;
+                case 2:
+                    strmonth = "February";
+                    break;
+                case 3:
+                    strmonth = "March";
+                    break;
+                case 4:
+                    strmonth = "April";
+                    break;
+                case 5:
+                    strmonth = "May";
+                    break;
+                case 6:
+                    strmonth = "June";
+                    break;
+                case 7:
+                    strmonth = "July";
+                    break;
+                case 8:
+                    strmonth = "August";
+                    break;
+                case 9:
+                    strmonth = "September";
+                    break;
+                case 10:
+                    strmonth = "October";
+                    break;
+                case 11:
+                    strmonth = "November";
+                    break;
+                case 12:
+                    strmonth = "December";
+                    break;
+                default:
+                    strmonth = "";
+                    break;
+            }
+            return strmonth;
+        }
+
+        private static string SkapaDataFöre(int month)
+        {
+            var strmonth = Månadsnamn(month);
+            var szTmp = "<table  style=\"TEXT-ALIGN: center; FONT-FAMILY: Verdana; FONT-SIZE: 8pt\" cellspacing=\"0\" cellpadding=\"0\">\n" +
+                           "<tr>\n" +
+                           "<td colspan=8 style=\"font-size:20px;\">\n" +
+                           strmonth + "\n" +
+                           "</td>\n" +
+                           "</tr>\n" +
+                           "<tr>\n" +
+                           "<td width=15>\n" +
+                           "Mo\n" +
+                           "</td>\n" +
+                           "<td width=15>\n" +
+                           "Tu\n" +
+                           "</td>\n" +
+                           "<td width=15>\n" +
+                           "We\n" +
+                           "</td>\n" +
+                           "<td width=15>\n" +
+                           "Th\n" +
+                           "</td>\n" +
+                           "<td width=15>\n" +
+                           "Fr\n" +
+                           "</td>\n" +
+                           "<td width=15>\n" +
+                           "Sa\n" +
+                           "</td>\n" +
+                           "<td width=15>\n" +
+                           "Su\n" +
+                           "</td>\n" +
+                           "</tr>";
+            return szTmp;
+        }
+
+		private static string SkapaDataFöreFörFil(int month)
 		{
-			string strmonth;
-			switch(month)
-			{
-				case 1:
-					strmonth = "January";
-					break;
-				case 2:
-					strmonth = "February";
-					break;
-				case 3:
-					strmonth = "March";
-					break;
-				case 4:
-					strmonth = "April";
-					break;
-				case 5:
-					strmonth = "May";
-					break;
-				case 6:
-					strmonth = "June";
-					break;
-				case 7:
-					strmonth = "July";
-					break;
-				case 8:
-					strmonth = "August";
-					break;
-				case 9:
-					strmonth = "September";
-					break;
-				case 10:
-					strmonth = "October";
-					break;
-				case 11:
-					strmonth = "November";
-					break;
-				case 12:
-					strmonth = "December";
-					break;
-				default:
-					strmonth = "";
-					break;
-			}
+		    var strmonth = Månadsnamn(month);
 		    var szTmp = "<HTML>\n"+
 		                   "<HEAD>\n"+
 		                   "<META NAME=\"GENERATOR\" Content=\"Microsoft Visual Studio 6.0\">\n"+
@@ -187,7 +274,13 @@ namespace MarkusModel
 		                   "</tr>";
 			return szTmp;
 		}
-		private static string GetAfter()
+
+        private static string SkapaDataEfter()
+        {
+            return "</table>\n";
+        }
+
+        private static string SkapaDataEfterFörFil()
 		{
 			return "</table>\n</body>\n</HTML>";
 		}
