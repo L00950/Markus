@@ -75,19 +75,19 @@ namespace MarkusModel
             HämtaBokadeDatum(objectid);
 
             var månad = 1;
-            var str = "<table>";
+            var str = "<table>\n";
             for (var tertial = 0; tertial < 3; tertial++)
             {
-                str += "<tr>";
+                str += "<tr>\n";
                 for (var kolumn = 0; kolumn < 4; kolumn++)
                 {
-                    str += "<td>";
+                    str += "<td>\n";
                     str += SkapaMånad(objectid, _firstyear, månad++);
-                    str += "</td>";
+                    str += "</td>\n";
                 }
-                str += "</tr>";
+                str += "</tr>\n";
             }
-            str += "</table>";
+            str += "</table>\n";
             return str;
         }
 
@@ -190,7 +190,7 @@ namespace MarkusModel
         private static string SkapaDataFöre(int month)
         {
             var strmonth = Månadsnamn(month);
-            var szTmp = "<table  style=\"TEXT-ALIGN: center; FONT-FAMILY: Verdana; FONT-SIZE: 8pt\" cellspacing=\"0\" cellpadding=\"0\">\n" +
+            var szTmp = "<table style=\"TEXT-ALIGN: center; FONT-FAMILY: Verdana; FONT-SIZE: 8pt\" cellspacing=\"0\" cellpadding=\"0\">\n" +
                            "<tr>\n" +
                            "<td colspan=8 style=\"font-size:20px;\">\n" +
                            strmonth + "\n" +
