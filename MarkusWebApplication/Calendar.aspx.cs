@@ -176,7 +176,7 @@ namespace MarkusWebApplication
         }
 		private void UpdateWeb()
 		{
-            new Kalender(Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["firstyear"])).CreateCalendar(Convert.ToInt32(ViewState["object"]));
+		    new Kalender().SkapaKalendrarFörObjekt(6);
 		}
 		private void FillBookings()
 		{

@@ -5,13 +5,9 @@ namespace MarkusModel
 {
 	public class Kalender
 	{
-        public Kalender(int firstyear)
+        public Kalender()
         {
-            _firstyear = firstyear;
-            _secondyear = firstyear + 1;
         }
-	    private readonly int _firstyear;
-	    private readonly int _secondyear;
 	    private List<DateTime> _bokadeDatum;
 
         private void HämtaBokadeDatum(int objectid)
@@ -29,6 +25,24 @@ namespace MarkusModel
                 }
             }
         }
+
+	    public void SkapaKalendrarFörObjekt(int objectid)
+	    {
+            const string mall = @"C:\Development\Markus\MarkusWeb\MonteRojo\default_mall.htm";
+            var reader = new System.IO.StreamReader(mall);
+            var innehåll = reader.ReadToEnd();
+            reader.Close();
+            innehåll = innehåll.Replace("#kalender1#", SkapaÅr(objectid, DateTime.Today.Year));
+            innehåll = innehåll.Replace("#kalender2#", SkapaÅr(objectid, DateTime.Today.Year + 1));
+
+            const string fil = @"C:\Development\Markus\MarkusWeb\MonteRojo\default.asp";
+            if (System.IO.File.Exists(fil))
+                System.IO.File.Delete(fil);
+
+            var writer = new System.IO.StreamWriter(fil);
+            writer.Write(innehåll);
+            writer.Close();
+	    }
 		public void CreateCalendar(int objectid)
 		{
             HämtaBokadeDatum(objectid);
@@ -36,12 +50,12 @@ namespace MarkusModel
 			// Första året
 			for(var i=1;i<=12;i++)
 			{
-                SkapaMånadTillFil(objectid, _firstyear, i);
+                SkapaMånadTillFil(objectid, DateTime.Today.Year, i);
 			}
 			// Andra året
 			for(var i=1;i<=12;i++)
 			{
-                SkapaMånadTillFil(objectid, _secondyear, i);
+                SkapaMånadTillFil(objectid, DateTime.Today.Year + 1, i);
 			}
 		}
 
@@ -70,7 +84,7 @@ namespace MarkusModel
 			writer.Close();
 		}
 
-        public string SkapaÅr(int objectid)
+        public string SkapaÅr(int objectid, int år)
         {
             HämtaBokadeDatum(objectid);
 
@@ -82,7 +96,7 @@ namespace MarkusModel
                 for (var kolumn = 0; kolumn < 4; kolumn++)
                 {
                     str += "<td>\n";
-                    str += SkapaMånad(objectid, _firstyear, månad++);
+                    str += SkapaMånad(objectid, år, månad++);
                     str += "</td>\n";
                 }
                 str += "</tr>\n";
