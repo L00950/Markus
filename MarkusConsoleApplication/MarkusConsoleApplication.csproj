@@ -48,7 +48,6 @@
     <Compile Include="Schema\Markus.cs">
       <DependentUpon>Markus.xsd</DependentUpon>
     </Compile>
-    <Compile Include="UppdateraKalendern.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

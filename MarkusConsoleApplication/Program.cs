@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using ConsoleApplication;
 using System.Web.Script.Serialization;
 
 namespace MarkusConsoleApplication
@@ -12,9 +11,7 @@ namespace MarkusConsoleApplication
             if(args.Any(_ => _.Equals("BBS")))
                 LäsInMedlemmar.Kör();
             if (args.Any(_ => _.Equals("UppdateraKalender")))
-                UppdateraKalendern.Kör();
-            if (args.Any(_ => _.Equals("nykalender")))
-                UppdateraKalendern.Skapafil();
+                new MarkusModel.Kalender().SkapaKalendrarFörObjekt(6);
             if (args.Any(_ => _.Equals("test")))
             {
                 try
