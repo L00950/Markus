@@ -1,0 +1,48 @@
+{
+    "ipadresser": [
+        {
+            "ip": "192.168.1.1",
+            "namn": "Router Lidingo"
+        },
+        {
+            "ip": "192.168.1.242",
+            "namn": "Raspen Ryda"
+        },
+        {
+            "ip": "192.168.9.1",
+            "namn": "Router Ryda Storahuset 2"
+        },
+        {
+            "ip": "192.168.9.241",
+            "namn": "Router Ryda Storahuset 2"
+        },
+        {
+            "ip": "192.168.9.242",
+            "namn": "Router Ryda Garaget"
+        },
+        {
+            "ip": "192.168.9.243",
+            "namn": "Router Ryda Hebbes hus"
+        },
+        {
+            "ip": "192.168.9.244",
+            "namn": "Router Ryda Lilla huset"
+        },
+        {
+            "ip": "192.168.9.245",
+            "namn": "Router Ryda 12an"
+        },
+        {
+            "ip": "192.168.1.244",
+            "namn": "Raspen Rimforsa"
+        },
+        {
+            "ip": "192.168.66.1",
+            "namn": "Router Rimforsa"
+        },
+        {
+            "ip": "192.168.1.1",
+            "namn": "Router Lidingo"
+        }
+    ]
+}

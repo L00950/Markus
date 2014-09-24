@@ -163,3 +163,4 @@ pip-log.txt
 .DS_Store
 Pi/huset/huset.js/node_modules/
 Pi/MarkusNodeApp/node_modules/
+Pi/MarkusNodeApp/.ntvs_analysis.dat
