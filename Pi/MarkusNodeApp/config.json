@@ -1,110 +1,129 @@
 {
-  "server": {
-    "port": 8081,
-    "live_stream": 1,
-    "require_auth": 0,
-    "username": "",
-    "password": "",
-    "mimetypes": {
-      "html": "text/html",
-      "jpeg": "image/jpeg",
-      "jpg": "image/jpeg",
-      "png": "image/png",
-      "js": "text/javascript",
-      "css": "text/css"
+    "server": {
+        "port": 8081,
+        "live_stream": 1,
+        "require_auth": 0,
+        "username": "",
+        "password": "",
+        "mimetypes": {
+            "html": "text/html",
+            "jpeg": "image/jpeg",
+            "jpg": "image/jpeg",
+            "png": "image/png",
+            "js": "text/javascript",
+            "css": "text/css"
+        }
+    },
+    "debug": {
+        "enabled": 1
+    },
+    "triggers": {
+        "time_tick_ms": 10000
+    },
+    "eliq": {
+        "enable": 0,
+        "realtime_delay_ms": 20000,
+        "daily_delay_ms": 120000,
+        "accesstoken": ""
+    },
+    "elspot": {
+        "enable": 0,
+        "realtime_delay_ms": 120000,
+        "price_premium": 4,
+        "price_tax": 29.3,
+        "price_vat_percentage": 25
+    },
+    "sms": {
+        "number": "",
+        "user": "",
+        "password": "",
+        "originator": "Huset.js"
+    },
+    "database": {
+        "file": "db/data.sqlite3",
+        "script": "db/create.sql"
+    },
+    "cameras": [
+        {
+            "id": "vardagsrum2",
+            "adress": "http://192.168.1.77/image.jpg"
+        },
+        {
+            "id": "kitchen",
+            "adress": "http://192.168.1.87/image.jpg"
+        },
+        {
+            "id": "baksidan",
+            "adress": "http://192.168.1.74/image.jpg"
+        },
+        {
+            "id": "entre",
+            "adress": "http://192.168.1.76/image.jpg"
+        },
+        {
+            "id": "hallen",
+            "adress": "http://192.168.1.85/image.jpg"
+        },
+        {
+            "id": "upperfloor",
+            "adress": "http://192.168.1.84/image.jpg"
+        },
+        {
+            "id": "gc",
+            "adress": "http://192.168.0.51/image/jpeg.cgi"
+        },
+        {
+            "id": "vardagsrum",
+            "adress": "http://192.168.1.86/img/snapshot.cgi"
+        }
+    ],
+    "vpn": [
+        {
+            "name": "spain",
+            "enabled": true
+        },
+        {
+            "name": "ryda",
+            "enabled": true
+        },
+        {
+            "name": "rimforsa",
+            "enabled": true
+        },
+        {
+            "name": "italy",
+            "enabled": true
+        }
+    ],
+    "tellstick": {
+        "enable": 1,
+        "device_history": 1,
+        "sensor_history": 1,
+        "device_emit": 1,
+        "sensor_emit": 1,
+        "lograwevent": 0,
+        "devicegroups": [
+            {
+                "id": 1,
+                "name": "Belysning",
+                "devices": [ 1, 2, 10 ]
+            },
+            {
+                "id": 2,
+                "name": "Annat",
+                "devices": [ 3, 8, 9 ]
+            }
+        ],
+        "sensors": [
+            {
+                "name": "Ute",
+                "id": 105
+            },
+            {
+                "name": "Inne",
+                "id": 162
+            }
+        ],
+        "larmdevices": [ 4, 5, 7, 11 ]
     }
-  },
-  "debug": {
-    "enabled": 1
-  },
-  "triggers": {
-    "time_tick_ms": 10000
-  },
-  "eliq": {
-    "enable": 0,
-    "realtime_delay_ms": 20000,
-    "daily_delay_ms": 120000,
-    "accesstoken": ""
-  },
-  "elspot": {
-    "enable": 0,
-    "realtime_delay_ms": 120000,
-    "price_premium": 4,
-    "price_tax": 29.3,
-    "price_vat_percentage": 25
-  },
-  "sms": {
-    "number": "",
-    "user": "",
-    "password": "",
-    "originator": "Huset.js"
-  },
-  "database": {
-    "file": "db/data.sqlite3",
-    "script": "db/create.sql"
-  },
-  "cameras": [
-  {
-  "id": "vardagsrum2",
-  "adress": "http://192.168.1.77/image.jpg"
-  },
-    {
-  "id": "kitchen",
-  "adress": "http://192.168.1.87/image.jpg"
-  },
-  {
-  "id": "baksidan",
-  "adress": "http://192.168.1.74/image.jpg"
-  },
-  {
-  "id": "entre",
-  "adress": "http://192.168.1.76/image.jpg"
-  },
-  {
-  "id": "hallen",
-  "adress": "http://192.168.1.85/image.jpg"
-  },
-  {
-  "id": "upperfloor",
-  "adress": "http://192.168.1.84/image.jpg"
-  },
-  {
-  "id": "gc",
-  "adress": "http://192.168.0.51/image/jpeg.cgi"
-  },
-  {
-  "id": "vardagsrum",
-  "adress": "http://192.168.1.86/img/snapshot.cgi"
-  }],
-  "tellstick": {
-    "enable": 1,
-    "device_history": 1,
-    "sensor_history": 1,
-    "device_emit": 1,
-    "sensor_emit": 1,
-	"lograwevent": 0,
-    "devicegroups": [
-      {
-        "id": 1,
-        "name": "Belysning",
-        "devices": [1,2,10]
-      },
-      {
-        "id": 2,
-        "name": "Annat",
-        "devices": [3,8,9]
-      }
-    ],
-    "sensors": [
-      {
-         "name": "Ute",
-         "id": 105
-      },
-      {
-         "name": "Inne",
-         "id": 162
-      }
-    ],
-	"larmdevices": [4,5,7,11]
-  }
 }

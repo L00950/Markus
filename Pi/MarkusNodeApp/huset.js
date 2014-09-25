@@ -13,7 +13,8 @@ var fs = require( 'fs' )
     , markusmail = require( './markusmail.js' )
     , tabilder = require( './tabilder.js' )
     , exec = require('child_process').exec
-    , config = require( './config.json' );
+    , config = require('./config.json')
+    , net = require('net');
 
 function dateToString(datum) {
     var date = new Date(datum);
@@ -31,9 +32,11 @@ datasource.Init(function () {
 
     console.log('Creating cache ...');
 
-    var cache = { telldus_devices: {}, telldus_sensors: {}, eliq_datanow: null, eliq_dataday: null, elspot_now: null, devicegroups: null, larm: {}, larmhistory: [] };
+    var cache = { telldus_devices: {}, telldus_sensors: {}, eliq_datanow: null, eliq_dataday: null, elspot_now: null, devicegroups: null, larm: {}, larmhistory: [], vpn: config.vpn };
+    console.log(cache);
     var larm = 0;
     var senasteDeviceAction = Date.now();
+
 
     var larmTo = Date.now();
     var larmIntervall = null;
@@ -401,6 +404,26 @@ datasource.Init(function () {
             mail.sendmail('markus@linderback.com', 'markus@linderback.com', 'Larm - Ingen hemma?', 'Starta larmet på http://linderback.com:8081');
         }
     }, 1000 * 60 * 10);
+
+    console.log('Startar VPN-tjänst...');
+    net.createServer(function (socket) {
+        console.log('connected');
+        
+        socket.on('data', function (data) {
+            var meddelande = data.toString();
+            console.log('Mottaget:' + data);
+            if (meddelande.indexOf('enablevpn') > -1) {
+                if (meddelande.indexOf('RYDA') > -1) {
+                    console.log('RYDA frågar efter enablevpn');
+                    socket.write('0');
+                } else {
+                    console.log('Annan än RYDA frågar efter enablevpn');
+                    socket.write('1');
+                }
+            }
+        });
+    }).listen(8089);
+
 });
 
     // Super sweet errorhandling.. Until someone figures out the ECONNRESET problem
