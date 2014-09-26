@@ -379,29 +379,47 @@ datasource.Init(function () {
     }
 
     var senasthemma = Date.now();
-    setInterval(function() {
-    exec('ping -c 1 192.168.1.75', function(error, stdout, stderr) {
-        if (error === null) {
-            senasthemma = Date.now();
-        }
-    });
-    exec('ping -c 1 192.168.1.79', function(error, stdout, stderr) {
-        if (error === null) {
-            senasthemma = Date.now();
-        }
+    console.log('Startar intervall för att pinga iPhone...');
+    var iPhoneIntervall = setInterval(function () {
+        console.log('Pingar iPhones...');
+        exec('ping -c 1 192.168.1.75', function(error, stdout, stderr) {
+            if (error === null) {
+                console.log('192.168.1.75 svarar');
+                senasthemma = Date.now();
+            } else {
+                console.log('192.168.1.75 svarar inte');
+            }
         });
-    exec('ping -c 1 192.168.1.81', function(error, stdout, stderr) {
-        if (error === null) {
-            senasthemma = Date.now();
-        }
+        exec('ping -c 1 192.168.1.79', function(error, stdout, stderr) {
+            if (error === null) {
+                console.log('192.168.1.79 svarar');
+                senasthemma = Date.now();
+            } else {
+                console.log('192.168.1.79 svarar inte');
+            }
         });
-    }, 1000 * 10);
+        exec('ping -c 1 192.168.1.81', function(error, stdout, stderr) {
+            if (error === null) {
+                console.log('192.168.1.81 svarar');
+                senasthemma = Date.now();
+            } else {
+                console.log('192.168.1.81 svarar inte');
+            }
+        });
+    }, 1000 * 20);
 
-    setInterval(function() {
-        if (((Date.now() - senasthemma) > 1000 * 60 * 60) && larm == false) {
-            senasthemma = Date.now();
-            console.log('Ingen hemma och larmet av');
-            mail.sendmail('markus@linderback.com', 'markus@linderback.com', 'Larm - Ingen hemma?', 'Starta larmet på http://linderback.com:8081');
+    var hemmakontrollIntervall = setInterval(function () {
+        console.log('Kollar om någon är hemma. Larm: ' + larm);
+        console.log('Senaste tid någon var hemma: ' + senasthemma);
+        if (larm == 0) {
+            console.log('Larm av');
+            if (((Date.now() - senasthemma) > 1000 * 60 * 60) && larm == 0) {
+                senasthemma = Date.now();
+                console.log('Ingen hemma och larmet av');
+                markusmail.sendmail('markus@linderback.com', 'markus@linderback.com', 'Larm - Ingen hemma?', 'Starta larmet på http://linderback.com:8081');
+            }
+        } else {
+            console.log('Larm på');
         }
     }, 1000 * 60 * 10);
 
