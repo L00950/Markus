@@ -204,32 +204,32 @@ namespace MarkusModel
         private static string SkapaDataFöre(int month)
         {
             var strmonth = Månadsnamn(month);
-            var szTmp = "<table style=\"TEXT-ALIGN: center; FONT-FAMILY: Verdana; FONT-SIZE: 8pt\" cellspacing=\"0\" cellpadding=\"0\">\n" +
+            var szTmp = "<table style=\"text-align: center; font-family: Verdana; font-size: 8pt; border-spacing: 7px\" cellspacing=\"0\" cellpadding=\"0\">\n" +
                            "<tr>\n" +
                            "<td colspan=8 style=\"font-size:20px;\">\n" +
                            strmonth + "\n" +
                            "</td>\n" +
                            "</tr>\n" +
                            "<tr>\n" +
-                           "<td width=15>\n" +
+                           "<td width=17>\n" +
                            "Mo\n" +
                            "</td>\n" +
-                           "<td width=15>\n" +
+                           "<td width=17>\n" +
                            "Tu\n" +
                            "</td>\n" +
-                           "<td width=15>\n" +
+                           "<td width=17>\n" +
                            "We\n" +
                            "</td>\n" +
-                           "<td width=15>\n" +
+                           "<td width=17>\n" +
                            "Th\n" +
                            "</td>\n" +
-                           "<td width=15>\n" +
+                           "<td width=17>\n" +
                            "Fr\n" +
                            "</td>\n" +
-                           "<td width=15>\n" +
+                           "<td width=17>\n" +
                            "Sa\n" +
                            "</td>\n" +
-                           "<td width=15>\n" +
+                           "<td width=17>\n" +
                            "Su\n" +
                            "</td>\n" +
                            "</tr>";
