@@ -35,6 +35,8 @@ datasource.Init(function () {
     var cache = { telldus_devices: {}, telldus_sensors: {}, eliq_datanow: null, eliq_dataday: null, elspot_now: null, devicegroups: null, larm: {}, larmhistory: [], vpn: config.vpn };
     console.log(cache);
     var larm = 0;
+    var senasthemma = Date.now();
+
     var senasteDeviceAction = Date.now();
 
 
@@ -155,6 +157,7 @@ datasource.Init(function () {
             if (config.debug.enabled) console.log('Transmitting initial cache ...');
             // uppdatera cache med status på larm
             cache.larm = { state: larm };
+            cache.senasthemma = { tid: senasthemma };
             io.sockets.emit('message', { msg: 'initial_data', data: cache });
 
             // On incoming message callback (has currently no use)
@@ -378,14 +381,14 @@ datasource.Init(function () {
         elspot.Start();
     }
 
-    var senasthemma = Date.now();
     console.log('Startar intervall för att pinga iPhone...');
     var iPhoneIntervall = setInterval(function () {
         console.log('Pingar iPhones...');
         exec('ping -c 1 192.168.1.75', function(error, stdout, stderr) {
             if (error === null) {
                 console.log('192.168.1.75 svarar');
-                senasthemma = Date.now();
+                cache.senasthemma = { tid: Date.now() };
+                io.sockets.emit('message', { msg: "senasthemma", data: cache.senasthemma });
             } else {
                 console.log('192.168.1.75 svarar inte');
             }
@@ -393,7 +396,8 @@ datasource.Init(function () {
         exec('ping -c 1 192.168.1.79', function(error, stdout, stderr) {
             if (error === null) {
                 console.log('192.168.1.79 svarar');
-                senasthemma = Date.now();
+                cache.senasthemma = { tid: Date.now() };
+                io.sockets.emit('message', { msg: "senasthemma", data: cache.senasthemma });
             } else {
                 console.log('192.168.1.79 svarar inte');
             }
@@ -401,7 +405,8 @@ datasource.Init(function () {
         exec('ping -c 1 192.168.1.81', function(error, stdout, stderr) {
             if (error === null) {
                 console.log('192.168.1.81 svarar');
-                senasthemma = Date.now();
+                cache.senasthemma = { tid: Date.now() };
+                io.sockets.emit('message', { msg: "senasthemma", data: cache.senasthemma });
             } else {
                 console.log('192.168.1.81 svarar inte');
             }

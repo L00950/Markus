@@ -42,7 +42,6 @@
       function createSensor(data) {
 
         var id = data.id;
-        var type = data.type;
         var name = data.name;
 
         $('#sensor_container').prepend('<div class="box box-w-200 box-h-100 bg-dark" id="sensor_'+id+'"><div class="content box-w-120 box-h-100"><div id="indicator_' + data.id + '1" class="icon-temp-indicator">&nbsp;</div><h4>'+name+'</h4><h1 class="fg-light"><span id="' + data.id + '1"></span>&deg;C</h1></div><div class="content box-w-80 box-h-100 right"><h5 class="fg-light-red"><span id="max_' + data.id + '1"></span>&deg;C</h5><h5 class="fg-light-blue"><span id="min_' + data.id + '1"></span>&deg;C</h5><h5 class="fg-light"><span id="' + data.id + '2"></span>%RH</h5></div></div></div>');
@@ -78,6 +77,12 @@
           var date = new Date(datum);
           return date.getFullYear() + '-' + fill(2, (date.getMonth() + 1)) + '-' + fill(2, date.getDate()) + ' ' + fill(2, date.getHours()) + ':' + fill(2, date.getMinutes()) + ':' + fill(2, date.getSeconds()) + '.' + fill(3, date.getMilliseconds());
       }
+
+      function dateToString2(datum) {
+          var date = new Date(datum);
+          return date.getFullYear() + '-' + fill(2, (date.getMonth() + 1)) + '-' + fill(2, date.getDate()) + ' ' + fill(2, date.getHours()) + ':' + fill(2, date.getMinutes()) + ':' + fill(2, date.getSeconds());
+      }
+
       function fill(antal, text) {
           while (text.toString().length < antal)
               text = '0' + text;
@@ -87,7 +92,7 @@
         function createLarmHistory(data) {
             console.log('createLarmHistory');
             console.log(data);
-            var content = '<div id="larmpicture" class="icon-temp-indicator" style="background-image: url(http://linderback.com:8081/themes/default/img/larm.jpeg);"></div><H3>Larmhistorik</H3>';
+            var content = '<div id="larmpicture" class="box box-w-300 box-h-adaptive bg-dark" style="padding-right:5px;"></div><H3>Larmhistorik</H3>';
             for (index in data) {
                 var row = data[index];
                 console.log('Rad:' + index + row);
@@ -110,8 +115,8 @@
 
           // Only create devicegroup if it does not already exist
           if( $('#devicegroup_'+dg.id).length == 0 ) {
-            var container_switch = $('<div class="box box-w-300 box-h-adaptive bg-dark" style="padding-right:5px;" id="devicegroup_'+dg.id+'"><h3>'+dg.name+'</h3></div>');
-            $('#devices').append(container_switch);
+            var containerSwitch = $('<div class="box box-w-300 box-h-adaptive bg-dark" style="padding-right:5px;" id="devicegroup_'+dg.id+'"><h3>'+dg.name+'</h3></div>');
+            $('#devices').append(containerSwitch);
           }
         }
       }
@@ -131,7 +136,7 @@
       function createLarm(data) {
           var state = data.state;
           console.log('Skapar larmkontroll');
-          var larm = $('<div class="make-switch switch-mini float-right"  data-on="success" data-off="default" id="larm"><input type="checkbox" checked></div><h4>Larm</h4></div>');
+          var larm = $('<div class="make-switch switch-mini float-right"  data-on="success" data-off="default" id="larm"><input type="checkbox" checked></div><h4>Larm</h4>');
           $('#devicegroup__1').append(larm);
 
           console.log($('Larm tillagt i #devicegroup__1'));
@@ -147,13 +152,16 @@
 
           // Event handlers
           //$('#larm').attr('data', id);
-          $('#larm').on('switch-change', function (e, data) {
-              if (data.value == true) {
+          $('#larm').on('switch-change', function (e, larmstatus) {
+              if (larmstatus.value == true) {
                   iosocket.emit('message', { 'msg': 'larm', 'state': '1' });
               } else {
                   iosocket.emit('message', { 'msg': 'larm', 'state': '0' });
               }
           });
+
+          var senasthemma = $('<div style="padding-right:5px;" id=senasthemma/>');
+          $('#devicegroup__1').append(senasthemma);
       }
 
       function createDevice(data) {
@@ -165,8 +173,8 @@
 
         // Search for specific devicegroup
         for( idx in devicegroups )
-          for( idx_device in devicegroups[idx].devices )
-            if ( devicegroups[idx].devices[idx_device] == id )
+          for(var deviceIndex in devicegroups[idx].devices )
+            if ( devicegroups[idx].devices[deviceIndex] == id )
                 devicegroup = devicegroups[idx].id;
 
         if (devicegroup == "_1") {
@@ -174,8 +182,8 @@
             return;
         }
 
-        var device_switch = $('<div class="make-switch switch-mini float-right"  data-on="success" data-off="default" id="device_'+id+'"><input type="checkbox" checked></div><h4>'+name+'</h4></div>');
-        $('#devicegroup_'+devicegroup).append(device_switch);
+        var deviceSwitch = $('<div class="make-switch switch-mini float-right"  data-on="success" data-off="default" id="device_'+id+'"><input type="checkbox" checked></div><h4>'+name+'</h4>');
+        $('#devicegroup_'+devicegroup).append(deviceSwitch);
         
         console.log($('#devicegroup_'+devicegroup));
 
@@ -190,9 +198,9 @@
 
         // Event handlers
         $('#device_'+id).attr('data',id);
-        $('#device_'+id).on('switch-change', function (e, data) {
+        $('#device_'+id).on('switch-change', function (e, switchStatus) {
           id = e.target.id.replace('device_','');
-          if(data.value == true) {
+          if(switchStatus.value == true) {
             iosocket.emit('message',{'msg':'telldus_device_on','id':id});
           } else {
             iosocket.emit('message',{'msg':'telldus_device_off','id':id});
@@ -204,7 +212,6 @@
 
         var id = data.id;
         var state = data.status;
-        var name = data.name;
 
         // Create device if it doesn't exist
         if( !document.getElementById('device_'+data.id)) {
@@ -236,6 +243,11 @@
         console.log('Incoming elspot_now:', data);
           $('#spot_1').html('<h4>Elpris live</h4><h2>' + data.full_price + ' öre/KWh');
       }
+
+        function processSenastHemma(data) {
+            console.log('Incoming senast hemma:' + data);
+            $('#senasthemma').html('<h4>Senast hemma:<div class="float-right">' + dateToString2(data.tid) + '</div></h4>');
+        }
 
       function processEliqDataday (data) {
 
@@ -274,6 +286,7 @@
               }
               processLarm(message.data.larm);
               processLarmHistory(message.data.larmhistory);
+                processSenastHemma(message.data.senasthemma);
             }
 
             // Single message handlers
@@ -281,6 +294,7 @@
             if (message.msg == "tellstick_sensor_update") processSensor(message.data);
             if (message.msg == "tellstick_device_update") processDevice(message.data);
             if (message.msg == "larmhistory") processLarmHistory(message.data);
+            if (message.msg == "senasthemma") processSenastHemma(message.data);
           });
         });
       });
