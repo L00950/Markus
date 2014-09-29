@@ -32,10 +32,9 @@ datasource.Init(function () {
 
     console.log('Creating cache ...');
 
-    var cache = { telldus_devices: {}, telldus_sensors: {}, eliq_datanow: null, eliq_dataday: null, elspot_now: null, devicegroups: null, larm: {}, larmhistory: [], vpn: config.vpn };
+    var cache = { telldus_devices: {}, telldus_sensors: {}, eliq_datanow: null, eliq_dataday: null, elspot_now: null, devicegroups: null, larm: {}, larmhistory: [], vpn: config.vpn, senasthemma: {tid: Date.now()} };
     console.log(cache);
     var larm = 0;
-    var senasthemma = Date.now();
 
     var senasteDeviceAction = Date.now();
 
@@ -157,7 +156,6 @@ datasource.Init(function () {
             if (config.debug.enabled) console.log('Transmitting initial cache ...');
             // uppdatera cache med status på larm
             cache.larm = { state: larm };
-            cache.senasthemma = { tid: senasthemma };
             io.sockets.emit('message', { msg: 'initial_data', data: cache });
 
             // On incoming message callback (has currently no use)
@@ -387,7 +385,7 @@ datasource.Init(function () {
         exec('ping -c 1 192.168.1.75', function(error, stdout, stderr) {
             if (error === null) {
                 console.log('192.168.1.75 svarar');
-                cache.senasthemma = { tid: Date.now() };
+                cache.senasthemma.tid = Date.now();
                 io.sockets.emit('message', { msg: "senasthemma", data: cache.senasthemma });
             } else {
                 console.log('192.168.1.75 svarar inte');
@@ -396,7 +394,7 @@ datasource.Init(function () {
         exec('ping -c 1 192.168.1.79', function(error, stdout, stderr) {
             if (error === null) {
                 console.log('192.168.1.79 svarar');
-                cache.senasthemma = { tid: Date.now() };
+                cache.senasthemma.tid = Date.now();
                 io.sockets.emit('message', { msg: "senasthemma", data: cache.senasthemma });
             } else {
                 console.log('192.168.1.79 svarar inte');
@@ -405,28 +403,27 @@ datasource.Init(function () {
         exec('ping -c 1 192.168.1.81', function(error, stdout, stderr) {
             if (error === null) {
                 console.log('192.168.1.81 svarar');
-                cache.senasthemma = { tid: Date.now() };
+                cache.senasthemma.tid = Date.now();
                 io.sockets.emit('message', { msg: "senasthemma", data: cache.senasthemma });
             } else {
                 console.log('192.168.1.81 svarar inte');
             }
         });
-    }, (1000 * 20));
+    }, (1000 * 20)); // varje 20 sekunder
 
     var hemmakontrollIntervall = setInterval(function () {
         console.log('Kollar om någon är hemma. Larm: ' + larm);
-        console.log('Senaste tid någon var hemma: ' + senasthemma);
+        console.log('Senaste tid någon var hemma: ' + dateToString(cache.senasthemma.tid));
         if (larm == 0) {
             console.log('Larm av');
-            if (((Date.now() - senasthemma) > (1000 * 60 * 60)) && larm == 0) {
-                senasthemma = Date.now();
+            if (((Date.now() - cache.senasthemma.tid) > (1000 * 60 * 60)) && larm == 0) {
                 console.log('Ingen hemma och larmet av');
                 markusmail.sendmail('markus@linderback.com', 'markus@linderback.com', 'Larm - Ingen hemma?', 'Starta larmet på http://linderback.com:8081');
             }
         } else {
             console.log('Larm på');
         }
-    }, (1000 * 60 * 10));
+    }, (1000 * 60 * 60)); // varje timme
 
     console.log('Startar VPN-tjänst...');
     net.createServer(function (socket) {
