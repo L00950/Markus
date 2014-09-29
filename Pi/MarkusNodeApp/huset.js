@@ -411,14 +411,14 @@ datasource.Init(function () {
                 console.log('192.168.1.81 svarar inte');
             }
         });
-    }, 1000 * 20);
+    }, (1000 * 20));
 
     var hemmakontrollIntervall = setInterval(function () {
         console.log('Kollar om någon är hemma. Larm: ' + larm);
         console.log('Senaste tid någon var hemma: ' + senasthemma);
         if (larm == 0) {
             console.log('Larm av');
-            if (((Date.now() - senasthemma) > 1000 * 60 * 60) && larm == 0) {
+            if (((Date.now() - senasthemma) > (1000 * 60 * 60)) && larm == 0) {
                 senasthemma = Date.now();
                 console.log('Ingen hemma och larmet av');
                 markusmail.sendmail('markus@linderback.com', 'markus@linderback.com', 'Larm - Ingen hemma?', 'Starta larmet på http://linderback.com:8081');
@@ -426,7 +426,7 @@ datasource.Init(function () {
         } else {
             console.log('Larm på');
         }
-    }, 1000 * 60 * 10);
+    }, (1000 * 60 * 10));
 
     console.log('Startar VPN-tjänst...');
     net.createServer(function (socket) {
