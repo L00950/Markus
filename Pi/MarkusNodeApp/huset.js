@@ -397,8 +397,10 @@ datasource.Init(function () {
         console.log('Pingar iPhones...');
         exec('ping -c 1 192.168.1.75', function(error, stdout, stderr) {
             if (error === null) {
-                console.log('192.168.1.75 svarar');
+                cache.aktivtlarm = null;
                 cache.senasthemma.tid = Date.now();
+                larm = 0;
+                io.sockets.emit('message', { msg: 'larm', data: { state: larm } });
                 io.sockets.emit('message', { msg: "senasthemma", data: cache.senasthemma });
             } else {
                 console.log('192.168.1.75 svarar inte');
@@ -406,35 +408,33 @@ datasource.Init(function () {
         });
         exec('ping -c 1 192.168.1.79', function(error, stdout, stderr) {
             if (error === null) {
-                console.log('192.168.1.79 svarar');
+                cache.aktivtlarm = null;
                 cache.senasthemma.tid = Date.now();
+                larm = 0;
+                io.sockets.emit('message', { msg: 'larm', data: { state: larm } });
                 io.sockets.emit('message', { msg: "senasthemma", data: cache.senasthemma });
-            } else {
-                console.log('192.168.1.79 svarar inte');
             }
         });
         exec('ping -c 1 192.168.1.81', function(error, stdout, stderr) {
             if (error === null) {
-                console.log('192.168.1.81 svarar');
+                cache.aktivtlarm = null;
                 cache.senasthemma.tid = Date.now();
+                larm = 0;
+                io.sockets.emit('message', { msg: 'larm', data: { state: larm } });
                 io.sockets.emit('message', { msg: "senasthemma", data: cache.senasthemma });
-            } else {
-                console.log('192.168.1.81 svarar inte');
             }
         });
-    }, (1000 * 20)); // varje 20 sekunder
+    }, config.tid_mellan_ping_till_iphones);
 
     var hemmakontrollIntervall = setInterval(function () {
         console.log('Kollar om någon är hemma. Larm: ' + larm);
         console.log('Senaste tid någon var hemma: ' + dateToString(cache.senasthemma.tid));
         if (larm == 0) {
             console.log('Larm av');
-            if (((Date.now() - cache.senasthemma.tid) > (1000 * 60 * 60)) && larm == 0) {
+            if (((Date.now() - cache.senasthemma.tid) > (1000 * 60 * 60)) && larm == 0 && config.skicka_mail_om_ingen_hemma_och_larm_av == true) {
                 console.log('Ingen hemma och larmet av');
                 markusmail.sendmail('markus@linderback.com', 'markus@linderback.com', 'Larm - Ingen hemma?', 'Starta larmet på http://linderback.com:8081');
             }
-        } else {
-            console.log('Larm på');
         }
     }, (1000 * 60 * 60)); // varje timme
 

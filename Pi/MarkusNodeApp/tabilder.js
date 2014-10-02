@@ -1,19 +1,17 @@
 var fs = require('fs')
     , http = require('http')
-    , markusmail = require('./markusmail.js');
-
-var larmtid = 1000 * 10 * 1;
-var sendmail = false;
+    , markusmail = require('./markusmail.js')
+    , config = require('./config.json');
 
 module.exports = {
     handleLarm: function (cache, name) {
         if (cache.aktivtlarm == null) {
-            if(sendmail)
+            if(config.email_vid_alarm == true)
                 markusmail.sendmail('markus@linderback.com', 'markus@linderback.com', 'Larm:' + name, '');
             cache.aktivtlarm =
             {
                 id: Date.now(),
-                expire: (Date.now() + 10000)
+                expire: (Date.now() + config.tid_larm_ar_aktivt)
             };
             console.log(cache);
             fs.mkdir('larm/' + cache.aktivtlarm.id.toString(), function(err) {
@@ -32,32 +30,31 @@ module.exports = {
     tabilderna: function (cache) {
         console.log(Date.now() + ' ' + cache.aktivtlarm.expire);
 
-        var options = {
-            host: 'images.webcams.travel',
-            port: 80,
-            path: '/webcam/1228154082-Väder-Maspalomas-Beach-"-La-Charca"-Meloneras.jpg'
-        };
-
-        var request = http.get( options, function ( res ) {
-            var imagedata = '';
-            res.setEncoding( 'binary' );
-
-            res.on( 'data', function ( chunk ) {
-                imagedata += chunk;
-            });
-
-            res.on( 'end', function () {
-                fs.writeFile( 'larm/'+ cache.aktivtlarm.id.toString() +'/' + Date.now().toString() + '.jpg', imagedata, 'binary', function ( err ) {
-                    if ( err ) throw err;
-                    console.log('Fil sparad');
-                });
-            });
-
-        });
+        for (item in config.cameras) {
+            if (config.cameras[item].enabled == false) continue;
+            try {
+                http.get(config.cameras[item].adress, function (res) {
+                    var imagedata = '';
+                    res.setEncoding('binary');
+                    
+                    res.on('data', function (chunk) {
+                        imagedata += chunk;
+                    });
+                    
+                    res.on('end', function () {
+                        if (cache.aktivtlarm != null) {
+                            fs.writeFile('larm/' + cache.aktivtlarm.id.toString() + '/' + Date.now().toString() + '.jpg', imagedata, 'binary', function (err) {
+                            });
+                        }                        ;
+                    });
+                }).on('error', function() { console.log('Fel vid ta bild'); });
+            }
+            catch (exp) { }
+        }
 
 
         if (Date.now() < cache.aktivtlarm.expire)
-            setTimeout(function() { this.tabilderna(cache); }.bind(this), 500);
+            setTimeout(function() { this.tabilderna(cache); }.bind(this), config.tid_mellan_larmbilder);
         else
             cache.aktivtlarm = null;
     }

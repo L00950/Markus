@@ -39,40 +39,53 @@
         "password": "",
         "originator": "Huset.js"
     },
+    "email_vid_alarm": false,
+    "tid_larm_ar_aktivt": 600000,
+    "tid_mellan_larmbilder": 1000,
+    "tid_mellan_ping_till_iphones": 20000,
+    "skicka_mail_om_ingen_hemma_och_larm_av": false,
     "database": {
         "file": "db/data.sqlite3",
         "script": "db/create.sql"
     },
     "cameras": [
         {
+            "enabled": true,
             "id": "vardagsrum2",
             "adress": "http://192.168.1.77/image.jpg"
         },
         {
+            "enabled": true,
             "id": "kitchen",
             "adress": "http://192.168.1.87/image.jpg"
         },
         {
+            "enabled": true,
             "id": "baksidan",
             "adress": "http://192.168.1.74/image.jpg"
         },
         {
+            "enabled": true,
             "id": "entre",
             "adress": "http://192.168.1.76/image.jpg"
         },
         {
+            "enabled": true,
             "id": "hallen",
             "adress": "http://192.168.1.85/image.jpg"
         },
         {
+            "enabled": true,
             "id": "upperfloor",
             "adress": "http://192.168.1.84/image.jpg"
         },
         {
+            "enabled": false,
             "id": "gc",
             "adress": "http://192.168.0.51/image/jpeg.cgi"
         },
         {
+            "enabled": false,
             "id": "vardagsrum",
             "adress": "http://192.168.1.86/img/snapshot.cgi"
         }
