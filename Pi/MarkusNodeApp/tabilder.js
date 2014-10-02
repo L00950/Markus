@@ -22,7 +22,6 @@ module.exports = {
                 else {
                     console.log('Innan tabilder');
                     this.tabilderna(cache);
-                    //(function () { this.tabilder(cache); }.bind(this));
                     console.log('Efter tabilder');
                 }
             }.bind(this));
@@ -32,6 +31,31 @@ module.exports = {
     },
     tabilderna: function (cache) {
         console.log(Date.now() + ' ' + cache.aktivtlarm.expire);
+
+        var options = {
+            host: 'images.webcams.travel',
+            port: 80,
+            path: '/webcam/1228154082-Väder-Maspalomas-Beach-"-La-Charca"-Meloneras.jpg'
+        };
+
+        var request = http.get( options, function ( res ) {
+            var imagedata = '';
+            res.setEncoding( 'binary' );
+
+            res.on( 'data', function ( chunk ) {
+                imagedata += chunk;
+            });
+
+            res.on( 'end', function () {
+                fs.writeFile( 'larm/'+ cache.aktivtlarm.id.toString() +'/' + Date.now().toString() + '.jpg', imagedata, 'binary', function ( err ) {
+                    if ( err ) throw err;
+                    console.log('Fil sparad');
+                });
+            });
+
+        });
+
+
         if (Date.now() < cache.aktivtlarm.expire)
             setTimeout(function() { this.tabilderna(cache); }.bind(this), 500);
         else
