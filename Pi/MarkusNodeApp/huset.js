@@ -32,7 +32,19 @@ datasource.Init(function () {
 
     console.log('Creating cache ...');
 
-    var cache = { telldus_devices: {}, telldus_sensors: {}, eliq_datanow: null, eliq_dataday: null, elspot_now: null, devicegroups: null, larm: {}, larmhistory: [], vpn: config.vpn, senasthemma: {tid: Date.now()} };
+    var cache = {
+        telldus_devices: {}, 
+        telldus_sensors: {}, 
+        eliq_datanow: null, 
+        eliq_dataday: null, 
+        elspot_now: null, 
+        devicegroups: null, 
+        larm: {}, 
+        larmhistory: [], 
+        vpn: config.vpn, 
+        senasthemma: { tid: Date.now() },
+        aktivtlarm: null
+    };
     console.log(cache);
     var larm = 0;
 
@@ -276,19 +288,20 @@ datasource.Init(function () {
                 return;
             }
             if (larmenhet && larm) {
-                console.log(dateToString(now) + ' Tar hand om larm fran ' + name);
-                markusmail.sendmail('markus@linderback.com', 'markus@linderback.com', 'Larm:' + name, '');
+                console.log(dateToString(now) + ' Tar hand om larm från ' + name);
+                tabilder.handleLarm(cache, name);
+                //markusmail.sendmail('markus@linderback.com', 'markus@linderback.com', 'Larm:' + name, '');
 
-                larmTo = Date.now() + 1000 * 60 * 10;
-                if (larmIntervall == null) {
-                    larmIntervall = setInterval(function() {
-                        if (Date.now() > larmTo) {
-                            larmIntervall.clearInterval();
-                            larmIntervall = null;
-                        }
-                        console.log('ta bilder...');
-                    }, 1000);
-                }
+                //larmTo = Date.now() + 1000 * 60 * 10;
+                //if (larmIntervall == null) {
+                //    larmIntervall = setInterval(function() {
+                //        if (Date.now() > larmTo) {
+                //            larmIntervall.clearInterval();
+                //            larmIntervall = null;
+                //        }
+                //        console.log('ta bilder...');
+                //    }, 1000);
+                //}
             }
 
             // Notify triggers

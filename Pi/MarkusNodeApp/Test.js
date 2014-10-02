@@ -1,71 +1,32 @@
-//var mail = require('./markusmail');
+var tabilder = require('./tabilder.js');
 
-//mail.sendmail('markus@linderback.com', 'markus@linderback.com', 'Testmail', 'Innehåll...');
+var cache = { aktivtlarm: null };
 
-var log = require('./markuslogger').logger;
-log.error('Error');
-log.info(5%2);
-log.info(4%2);
-
-
-var countdown = 5;
-var fs = require('fs');
-http = require('http');
-
-var o = null;
-if (o == null) {
-    o = setInterval(function() {
-        console.log('bilder...');
-    }, 1000);
-}
+tabilder.handleLarm(cache, 'Entre');
 
 
 
-fs.exists('client/larm', function(exists) {
-    if (exists) {
-        console.log('Folder finns');
-    } else {
-        fs.mkdir('client/larm', function(err) {
-            if (err)
-                console.log('Error:' + err);
-            else
-                console.log('Success!');
-        });
-    }
-});
-var intervallobj = setInterval(function() {
-    console.log(countdown);
-    countdown--;
-}, 1000);
+//var options = {
+//    host: 'images.webcams.travel',
+//    port: 80,
+//    path: '/webcam/1228154082-Väder-Maspalomas-Beach-"-La-Charca"-Meloneras.jpg'
+//};
 
-var timerobj = setTimeout(function() {
-    clearInterval(intervallobj);
-    console.log('Intervall stoppat');
-    console.log('klart');
-}, 4000);
+//var request = http.get(options, function(res) {
+//    var imagedata = '';
+//    res.setEncoding('binary');
 
+//    res.on('data', function(chunk) {
+//        imagedata += chunk;
+//    });
 
-var options = {
-    host: 'images.webcams.travel',
-    port: 80,
-    path: '/webcam/1228154082-Väder-Maspalomas-Beach-"-La-Charca"-Meloneras.jpg'
-};
+//    res.on('end', function() {
+//        fs.writeFile('client/larm/gc.jpg', imagedata, 'binary', function(err) {
+//            if (err) throw err;
+//            console.log('File saved.');
+//        });
+//    });
 
-var request = http.get(options, function(res) {
-    var imagedata = '';
-    res.setEncoding('binary');
-
-    res.on('data', function(chunk) {
-        imagedata += chunk;
-    });
-
-    res.on('end', function() {
-        fs.writeFile('client/larm/gc.jpg', imagedata, 'binary', function(err) {
-            if (err) throw err;
-            console.log('File saved.');
-        });
-    });
-
-});
+//});
 
 
