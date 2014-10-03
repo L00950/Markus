@@ -48,6 +48,16 @@
         "file": "db/data.sqlite3",
         "script": "db/create.sql"
     },
+	"iphones":[
+		{
+			"ip": "192.168.1.75"
+		},
+		{
+			"ip": "192.168.1.79"
+		},
+		{
+			"ip": "192.168.1.81"
+		}],
     "cameras": [
         {
             "enabled": true,

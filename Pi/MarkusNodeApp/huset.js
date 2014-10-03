@@ -2,7 +2,7 @@ var fs = require( 'fs' )
     , socketio = require( 'socket.io' )
     , telldus = require( 'telldus' )
     , path = require( 'path' )
-
+    , iphone = require('./iphone.js')
     , server = require( './server.js' )
     , datasource = require( './datasource.js' )
     , sms = require( './sms.js' )
@@ -33,27 +33,21 @@ datasource.Init(function () {
     console.log('Creating cache ...');
 
     var cache = {
-        telldus_devices: {}, 
-        telldus_sensors: {}, 
-        eliq_datanow: null, 
-        eliq_dataday: null, 
-        elspot_now: null, 
-        devicegroups: null, 
-        larm: {}, 
-        larmhistory: [], 
-        vpn: config.vpn, 
+        telldus_devices: {},
+        telldus_sensors: {},
+        eliq_datanow: null,
+        eliq_dataday: null,
+        elspot_now: null,
+        devicegroups: null,
+        larm: { state: 0 },
+        larmhistory: [],
+        vpn: config.vpn,
         senasthemma: { tid: Date.now() },
         aktivtlarm: null
     };
     console.log(cache);
-    var larm = 0;
 
     var senasteDeviceAction = Date.now();
-
-
-    var larmTo = Date.now();
-    var larmIntervall = null;
-    var larmId = '';
 
     console.log('Initiating triggers:');
     triggers.Init(cache);
@@ -181,9 +175,9 @@ datasource.Init(function () {
                     telldus.turnOff(parseInt(data.id), function () { });
                 } else if (data.msg == 'larm') {
                     //datasource.db.prepare("update larm set state = ?").run(parseInt(data.state)).finalize();
-                    larm = parseInt(data.state);
-                    console.log(larm);
-                    io.sockets.emit('message', { msg: 'larm', data: { state: larm } });
+                    cache.larm.state = parseInt(data.state);
+                    console.log(cache.larm.state);
+                    io.sockets.emit('message', { msg: 'larm', data: { state: cache.larm.state} });
                 }
 
             });
@@ -287,21 +281,9 @@ datasource.Init(function () {
                 console.log('Status OFF gor vi inget med pa larmenheter');
                 return;
             }
-            if (larmenhet && larm) {
+            if (larmenhet && cache.larm) {
                 console.log(dateToString(now) + ' Tar hand om larm från ' + name);
                 tabilder.handleLarm(cache, name);
-                //markusmail.sendmail('markus@linderback.com', 'markus@linderback.com', 'Larm:' + name, '');
-
-                //larmTo = Date.now() + 1000 * 60 * 10;
-                //if (larmIntervall == null) {
-                //    larmIntervall = setInterval(function() {
-                //        if (Date.now() > larmTo) {
-                //            larmIntervall.clearInterval();
-                //            larmIntervall = null;
-                //        }
-                //        console.log('ta bilder...');
-                //    }, 1000);
-                //}
             }
 
             // Notify triggers
@@ -392,39 +374,8 @@ datasource.Init(function () {
         elspot.Start();
     }
 
-    console.log('Startar intervall för att pinga iPhone...');
-    var iPhoneIntervall = setInterval(function () {
-        console.log('Pingar iPhones...');
-        exec('ping -c 1 192.168.1.75', function(error, stdout, stderr) {
-            if (error === null) {
-                cache.aktivtlarm = null;
-                cache.senasthemma.tid = Date.now();
-                larm = 0;
-                io.sockets.emit('message', { msg: 'larm', data: { state: larm } });
-                io.sockets.emit('message', { msg: "senasthemma", data: cache.senasthemma });
-            } else {
-                console.log('192.168.1.75 svarar inte');
-            }
-        });
-        exec('ping -c 1 192.168.1.79', function(error, stdout, stderr) {
-            if (error === null) {
-                cache.aktivtlarm = null;
-                cache.senasthemma.tid = Date.now();
-                larm = 0;
-                io.sockets.emit('message', { msg: 'larm', data: { state: larm } });
-                io.sockets.emit('message', { msg: "senasthemma", data: cache.senasthemma });
-            }
-        });
-        exec('ping -c 1 192.168.1.81', function(error, stdout, stderr) {
-            if (error === null) {
-                cache.aktivtlarm = null;
-                cache.senasthemma.tid = Date.now();
-                larm = 0;
-                io.sockets.emit('message', { msg: 'larm', data: { state: larm } });
-                io.sockets.emit('message', { msg: "senasthemma", data: cache.senasthemma });
-            }
-        });
-    }, config.tid_mellan_ping_till_iphones);
+    console.log('Startar att pinga iPhone...');
+    setInterval(iphone.iPhoneTimer(cache, io), config.tid_mellan_ping_till_iphones);
 
     var hemmakontrollIntervall = setInterval(function () {
         console.log('Kollar om någon är hemma. Larm: ' + larm);
