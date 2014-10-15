@@ -306,7 +306,7 @@ datasource.Init(function () {
                     } catch (err) {
                         console.error('DB insert failed: ', err);
                     }
-                    cache.larmhistory = markusarray.insertFirst(cache.larmhistory, { id: device, status: lStatusNum, ts: ts, name: cache.telldus_devices['d_' + device].name, larm: larm });
+                    cache.larmhistory = markusarray.insertFirst(cache.larmhistory, { id: device, status: lStatusNum, ts: ts, name: cache.telldus_devices['d_' + device].name, larm: cache.larm.state });
                 }
                 io.sockets.emit('message', { msg: "larmhistory", data: cache.larmhistory });
             }
