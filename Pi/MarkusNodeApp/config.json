@@ -40,7 +40,7 @@
         "originator": "Huset.js"
     },
     "email_vid_alarm": false,
-    "tid_larm_ar_aktivt": 600000,
+    "tid_larm_ar_aktivt": 60000,
     "tid_mellan_larmbilder": 1000,
     "tid_mellan_ping_till_iphones": 20000,
     "skicka_mail_om_ingen_hemma_och_larm_av": false,
