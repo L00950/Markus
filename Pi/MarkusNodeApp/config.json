@@ -129,12 +129,12 @@
             {
                 "id": 1,
                 "name": "Belysning",
-                "devices": [ 1, 2, 10 ]
+                "devices": [ 1, 2, 10, 12, 13, 14 ]
             },
             {
                 "id": 2,
                 "name": "Annat",
-                "devices": [ 3, 8, 9 ]
+                "devices": [ 1, 3, 8, 9 ]
             }
         ],
         "sensors": [
