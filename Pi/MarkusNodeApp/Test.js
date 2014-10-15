@@ -1,8 +1,10 @@
-var tabilder = require('./tabilder.js');
+var tabilder = require('./iphone.js');
 
 var cache = { aktivtlarm: null };
 
-tabilder.handleLarm(cache, 'Entre');
+setInterval(function() { tabilder.iPhoneTimer(cache, null); }, 2000);
+
+//tabilder.handleLarm(cache, 'Entre');
 
 
 

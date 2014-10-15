@@ -372,20 +372,20 @@ datasource.Init(function () {
         elspot.Start();
     }
 
-    //console.log('Startar att pinga iPhone...');
-    //setInterval(iphone.iPhoneTimer(cache, io), config.tid_mellan_ping_till_iphones);
+    console.log('Startar att pinga iPhone...');
+    setInterval(function() { iphone.iPhoneTimer(cache, io); }, config.tid_mellan_ping_till_iphones);
 
-    //var hemmakontrollIntervall = setInterval(function () {
-    //    console.log('Kollar om någon är hemma. Larm: ' + larm);
-    //    console.log('Senaste tid någon var hemma: ' + dateToString(cache.senasthemma.tid));
-    //    if (larm == 0) {
-    //        console.log('Larm av');
-    //        if (((Date.now() - cache.senasthemma.tid) > (1000 * 60 * 60)) && larm == 0 && config.skicka_mail_om_ingen_hemma_och_larm_av == true) {
-    //            console.log('Ingen hemma och larmet av');
-    //            markusmail.sendmail('markus@linderback.com', 'markus@linderback.com', 'Larm - Ingen hemma?', 'Starta larmet på http://linderback.com:8081');
-    //        }
-    //    }
-    //}, (1000 * 60 * 60)); // varje timme
+    var hemmakontrollIntervall = setInterval(function () {
+        console.log('Kollar om någon är hemma. Larm: ' + cache.larm.state);
+        console.log('Senaste tid någon var hemma: ' + dateToString(cache.senasthemma.tid));
+        if (cache.larm.state == 0) {
+            console.log('Larm av');
+            if (((Date.now() - cache.senasthemma.tid) > (1000 * 60 * 60)) && cache.larm.state == 0 && config.skicka_mail_om_ingen_hemma_och_larm_av == true) {
+                console.log('Ingen hemma och larmet av');
+                markusmail.sendmail('markus@linderback.com', 'markus@linderback.com', 'Larm - Ingen hemma?', 'Starta larmet på http://linderback.com:8081');
+            }
+        }
+    }, (1000 * 60 * 60)); // varje timme
 
     console.log('Startar VPN-tjänst...');
     net.createServer(function (socket) {

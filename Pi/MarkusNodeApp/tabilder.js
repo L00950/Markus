@@ -18,9 +18,7 @@ module.exports = {
                 if (err)
                     console.log('Gick inte skapa mapp larm/' + cache.aktivtlarm.id.toString());
                 else {
-                    console.log('Innan tabilder');
                     this.tabilderna(cache);
-                    console.log('Efter tabilder');
                 }
             }.bind(this));
         } else {

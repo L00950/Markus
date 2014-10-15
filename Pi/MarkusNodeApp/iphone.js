@@ -3,19 +3,15 @@ var config = require('./config.json'),
 
 module.exports = {
     iPhoneTimer: function(cache, io) {
-        console.log('Pingar iPhones...');
         for (item in config.iphones) {
             (function(ipadress) {
                 exec('ping -c 1 ' + ipadress, function(error, stdout, stderr) {
                     if (error === null) {
-                        console.log(ipadress + ' svarar');
                         cache.aktivtlarm = null;
                         cache.senasthemma.tid = Date.now();
                         cache.larm.state = 0;
                         io.sockets.emit('message', { msg: 'larm', data: { state: cache.larm.state } });
                         io.sockets.emit('message', { msg: "senasthemma", data: cache.senasthemma });
-                    } else {
-                        console.log(ipadress + ' svarar inte');
                     }
                 });
             })(config.iphones[item].ip);
