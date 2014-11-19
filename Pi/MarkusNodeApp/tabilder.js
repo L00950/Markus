@@ -26,8 +26,6 @@ module.exports = {
         }
     },
     tabilderna: function (cache) {
-        console.log(Date.now() + ' ' + cache.aktivtlarm.expire);
-
         for (item in config.cameras) {
             if (config.cameras[item].enabled == false) continue;
             try {
