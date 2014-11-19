@@ -2,6 +2,8 @@
 var net = require('net');
 
 var client = new net.Socket;
+var senasteDeviceAction = Date.now();
+
 
 function dateToString(datum) {
     var date = new Date(datum);
@@ -15,10 +17,14 @@ function fill(antal, text) {
 }
 
 telldus.addDeviceEventListener(function (device, status) {
-    console.log('tid:' + dateToString(Date.now()) + ' event id:' + device + ' state:' + status.name);
+    var now = Date.now();
+    if (now - senasteDeviceAction < 500) return;
+    senasteDeviceAction = now;
+
+    console.log(dateToString(Date.now()) + ' event id:' + device + ' state:' + status.name);
     if (device == 1 && status.name === 'ON') {
         client.connect(8089, 'linderback.com', function() {
-            console.log('larmar till min server');
+            console.log(dateToString(Date.now()) + ' Larmar till min server');
             client.write('larm:spain');
         });
 
