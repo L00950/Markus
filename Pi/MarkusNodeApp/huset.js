@@ -176,6 +176,13 @@ datasource.Init(function () {
                     cache.larm.state = parseInt(data.state);
                     console.log(cache.larm.state);
                     io.sockets.emit('message', { msg: 'larm', data: { state: cache.larm.state} });
+                } else if (data.msg == 'vpn') {
+                    for (item in cache.vpn) {
+                        if (cache.vpn[item].name == data.name) {
+                            cache.vpn[item].enabled = data.enabled;
+                            io.sockets.emit('message', {msg: 'vpn', data: cache.vpn[item]});
+                        }
+                    }
                 }
 
             });
@@ -395,13 +402,13 @@ datasource.Init(function () {
             var meddelande = data.toString();
             console.log('Mottaget:' + data);
             if (meddelande.indexOf('enablevpn') > -1) {
-                if (meddelande.indexOf('RYDA') > -1) {
-                    console.log('RYDA frågar efter enablevpn');
-                    socket.write('0');
-                } else {
+                //if (meddelande.indexOf('RYDA') > -1) {
+                //    console.log('RYDA frågar efter enablevpn');
+                //    socket.write('0');
+                //} else {
                     console.log('Annan än RYDA frågar efter enablevpn');
                     socket.write('1');
-                }
+                //}
             }
         });
     }).listen(8089);

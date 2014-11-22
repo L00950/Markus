@@ -11,5 +11,8 @@
                 socket.write('1');
             }
         }
+        else if (meddelande.indexOf('larm') > -1) {
+            console.log('larm GC');
+        }
     });
 }).listen(8089);
