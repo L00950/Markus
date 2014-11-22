@@ -27,10 +27,10 @@ function fill(antal, text) {
     return text;
 }
 
-console.log('Initiating datasource ...');
+console.log(dateToString(Date.now()) + ' Initiating datasource ...');
 datasource.Init(function () {
 
-    console.log('Creating cache ...');
+    console.log(dateToString(Date.now()) + ' Creating cache ...');
 
     var cache = {
         telldus_devices: {},
@@ -49,14 +49,14 @@ datasource.Init(function () {
 
     var senasteDeviceAction = Date.now();
 
-    console.log('Initiating triggers:');
+    console.log(dateToString(Date.now()) + ' Initiating triggers:');
     triggers.Init(cache);
 
     if (config.tellstick.enable === 1) {
 
-        console.log('Connecting tellstick events ...');
+        console.log(dateToString(Date.now()) + ' Connecting tellstick events ...');
 
-        console.log('\tTellstick sensor values ...');
+        console.log(dateToString(Date.now()) + ' \tTellstick sensor values ...');
         var sql = "SELECT \
           dest.* \
         FROM \
@@ -117,7 +117,7 @@ datasource.Init(function () {
           }
         );
 
-        console.log('\tTellstick devices ...');
+        console.log(dateToString(Date.now()) + ' \tTellstick devices ...');
         var devices = telldus.getDevicesSync();
         devices.forEach(function (item) {
             cache.telldus_devices['d_' + item.id] = {
@@ -128,10 +128,10 @@ datasource.Init(function () {
             };
         });
 
-        console.log('\tDevice groups ...');
+        console.log(dateToString(Date.now()) + ' \tDevice groups ...');
         cache.devicegroups = config.tellstick.devicegroups;
 
-        console.log('\tLarm history...');
+        console.log(dateToString(Date.now()) + ' \tLarm history...');
         var index = 0;
         datasource.db.each(
             "select * from telldus_device_history order by ts desc limit 15",
@@ -149,7 +149,7 @@ datasource.Init(function () {
             });
     }
 
-    console.log('Initiating websockets ...');
+    console.log(dateToString(Date.now()) + ' Initiating websockets ...');
     if (config.server.live_stream === 1) {
 
         // Start listening, disable on screen logging
@@ -159,7 +159,7 @@ datasource.Init(function () {
         io.on('connection', function (socket) {
 
             // Send initial values
-            if (config.debug.enabled) console.log('Transmitting initial cache ...');
+            if (config.debug.enabled) console.log(dateToString(Date.now()) + ' Transmitting initial cache ...');
             io.sockets.emit('message', { msg: 'initial_data', data: cache });
 
             // On incoming message callback (has currently no use)
@@ -189,21 +189,21 @@ datasource.Init(function () {
 
             // Handle socket.io errors
             socket.on('error', function (err) {
-                console.log('Socket.io connection error: ' + err.errno);
+                console.log(dateToString(Date.now()) + ' Socket.io connection error: ' + err.errno);
             });
 
         });
 
         // Handle socket.io errors
         io.on('error', function (err) {
-            console.log('Socket.io Error: ' + err.errno);
+            console.log(dateToString(Date.now()) + ' Socket.io Error: ' + err.errno);
         });
 
     }
 
     if (config.tellstick.enable === 1) {
-        console.log('Initiating tellstick module:');
-        console.log('\tStarting sensor event listener ...');
+        console.log(dateToString(Date.now()) + ' Initiating tellstick module:');
+        console.log(dateToString(Date.now()) + ' \tStarting sensor event listener ...');
         telldus.addSensorEventListener(function (id, protocol, model, type, value, ts) {
 
             // Filter out crap
@@ -260,7 +260,7 @@ datasource.Init(function () {
             }
 
         });
-        console.log('\tStarting device event listener ...');
+        console.log(dateToString(Date.now()) + ' \tStarting device event listener ...');
         telldus.addDeviceEventListener(function (device, status) {
             var now = Date.now();
             if (now - senasteDeviceAction < 500) return;
@@ -283,7 +283,7 @@ datasource.Init(function () {
             console.log(dateToString(now) + ' Action:' + name + ' status.name:' + status.name);
 
             if (status.name === 'OFF' && larmenhet) {
-                console.log('Status OFF gor vi inget med pa larmenheter');
+                console.log(dateToString(Date.now()) + ' Status OFF gor vi inget med pa larmenheter');
                 return;
             }
             if (larmenhet && cache.larm) {
@@ -319,7 +319,7 @@ datasource.Init(function () {
             }
 
         });
-        console.log('\tStarting raw device event listener ...');
+        console.log(dateToString(Date.now()) + ' \tStarting raw device event listener ...');
         telldus.addRawDeviceEventListener(function (controllerId, data) {
             if(config.tellstick.lograwevent === 1)
                 console.log(dateToString(Date.now()) + ' Rawdata: ' + data);
@@ -331,8 +331,8 @@ datasource.Init(function () {
     }
 
     if (config.eliq.enable === 1) {
-        console.log('Initiating Eliq module:');
-        console.log('\tStarting live power consumption listener ...');
+        console.log(dateToString(Date.now()) + ' Initiating Eliq module:');
+        console.log(dateToString(Date.now()) + ' \tStarting live power consumption listener ...');
         eliq.onDatanowUpdate = function (data) {
 
             // Check if value has changed
@@ -346,7 +346,7 @@ datasource.Init(function () {
                 io.sockets.emit('message', { msg: "eliq_datanow", data: data });
 
         };
-        console.log('\tStarting daily power consumption listener ...');
+        console.log(dateToString(Date.now()) + ' \tStarting daily power consumption listener ...');
         eliq.onDatadayUpdate = function (data) {
 
             // Save to cache
@@ -361,8 +361,8 @@ datasource.Init(function () {
     }
 
     if (config.elspot.enable === 1) {
-        console.log('Initiating Electricity price module:');
-        console.log('\tStarting live electricity price listener ...');
+        console.log(dateToString(Date.now()) + ' Initiating Electricity price module:');
+        console.log(dateToString(Date.now()) + ' \tStarting live electricity price listener ...');
         elspot.onNowUpdate = function (data) {
 
             // Check if value has changed
@@ -379,36 +379,38 @@ datasource.Init(function () {
         elspot.Start();
     }
 
-    console.log('Startar att pinga iPhone...');
+    console.log(dateToString(Date.now()) + ' Startar att pinga iPhone...');
     setInterval(function() { iphone.iPhoneTimer(cache, io); }, config.tid_mellan_ping_till_iphones);
 
     var hemmakontrollIntervall = setInterval(function () {
-        console.log('Kollar om någon är hemma. Larm: ' + cache.larm.state);
-        console.log('Senaste tid någon var hemma: ' + dateToString(cache.senasthemma.tid));
+        console.log(dateToString(Date.now()) + ' Kollar om någon är hemma. Larm: ' + cache.larm.state);
+        console.log(dateToString(Date.now()) + ' Senaste tid någon var hemma: ' + dateToString(cache.senasthemma.tid));
         if (cache.larm.state == 0) {
-            console.log('Larm av');
+            console.log(dateToString(Date.now()) + ' Larm av');
             if (((Date.now() - cache.senasthemma.tid) > (1000 * 60 * 60)) && cache.larm.state == 0 && config.skicka_mail_om_ingen_hemma_och_larm_av == true) {
-                console.log('Ingen hemma och larmet av');
+                console.log(dateToString(Date.now()) + ' Ingen hemma och larmet av');
                 markusmail.sendmail('markus@linderback.com', 'markus@linderback.com', 'Larm - Ingen hemma?', 'Starta larmet på http://linderback.com:8081');
             }
         }
     }, (1000 * 60 * 60)); // varje timme
 
-    console.log('Startar VPN-tjänst...');
+    console.log(dateToString(Date.now()) + ' Startar VPN-tjänst...');
     net.createServer(function (socket) {
-        console.log('connected');
+        console.log(dateToString(Date.now()) + ' connected');
         
         socket.on('data', function (data) {
             var meddelande = data.toString();
-            console.log('Mottaget:' + data);
+            console.log(dateToString(Date.now()) + ' Mottaget:' + data);
             if (meddelande.indexOf('enablevpn') > -1) {
-                //if (meddelande.indexOf('RYDA') > -1) {
-                //    console.log('RYDA frågar efter enablevpn');
-                //    socket.write('0');
-                //} else {
-                    console.log('Annan än RYDA frågar efter enablevpn');
+                if (meddelande.indexOf('RYDA') > -1) {
+                    console.log(dateToString(Date.now()) + ' RYDA frågar efter enablevpn');
                     socket.write('1');
-                //}
+                } else {
+                    console.log(dateToString(Date.now()) + ' Annan än RYDA frågar efter enablevpn');
+                    socket.write('1');
+                }
+            } else if (meddelande.indexOf('larm') > -1) {
+                markusmail.sendmail('markus@linderback.com', 'markus@linderback.com', 'Larm spanien', '');
             }
         });
     }).listen(8089);
