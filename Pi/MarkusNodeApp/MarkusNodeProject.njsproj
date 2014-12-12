@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{4e1bd74d-70ad-4be6-9c7b-8489534852f1}</ProjectGuid>
     <ProjectHome />
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
     <StartupFile>test.js</StartupFile>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -28,6 +28,11 @@
     <Compile Include="vpn.js" />
     <Content Include="client\help.html" />
     <Content Include="client\amanda.html" />
+    <Content Include="client\iphone\css\style.css" />
+    <Content Include="client\iphone\images\apple-touch-icon.png" />
+    <Content Include="client\iphone\images\startup.png" />
+    <Content Include="client\iphone\index.html" />
+    <Content Include="client\ryda.html" />
     <Content Include="ipadresser.json" />
     <Content Include="config.json" />
     <Content Include="package.json" />
@@ -98,6 +103,9 @@
     <Folder Include="client" />
     <Folder Include="client\css\" />
     <Folder Include="client\css\vendor" />
+    <Folder Include="client\iphone\" />
+    <Folder Include="client\iphone\css\" />
+    <Folder Include="client\iphone\images\" />
     <Folder Include="client\js" />
     <Folder Include="client\js\vendor" />
     <Folder Include="client\themes\" />
