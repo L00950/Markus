@@ -36,7 +36,41 @@ telldus.addDeviceEventListener(function (device, status) {
     }
 });
 
-require('net').createServer(function (socket) {
+telldus.addRawDeviceEventListener(function(controllerId, data) {
+    var id = 0;
+    var temp = 0;
+    var humidity = 0;
+    var pairs = data.split(";");
+    for (var index in pairs) {
+        var pair = pairs[index];
+        if (pair.split(":")[0] == "id") {
+            id = pair.split(":")[1];
+        }
+        if (pair.split(":")[0] == "temp") {
+            temp = pair.split(":")[1];
+        }
+        if (pair.split(":")[0] == "humidity") {
+            humidity = pair.split(":")[1];
+        }
+    }
+
+    if (Number(id) == 135) {
+        client.connect(8089, 'linderback.com', function () {
+            client.write('place:spain;temp:' + temp + ';humidity:' + humidity);
+            client.destroy();
+        });
+        
+        client.on('data', function (returnData) {
+            client.destroy();
+        });
+        
+        client.on('close', function () {
+        });
+     }
+});
+
+
+    require('net').createServer(function (socket) {
     socket.on('data', function (data) {
     });
 }).listen(8089);
