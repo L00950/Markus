@@ -152,6 +152,10 @@
             {
                 "name": "Inne",
                 "id": 162
+            },
+			{
+                "name": "Uppe",
+                "id": 135
             }
         ],
         "larmdevices": [ 4, 5, 7, 11 ]
