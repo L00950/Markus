@@ -18,7 +18,7 @@ function fill(antal, text) {
 
 telldus.addDeviceEventListener(function (device, status) {
     var now = Date.now();
-    if (now - senasteDeviceAction < 500) return;
+    if (now - senasteDeviceAction < 1000) return;
     senasteDeviceAction = now;
 
     console.log(dateToString(Date.now()) + ' event id:' + device + ' state:' + status.name);
