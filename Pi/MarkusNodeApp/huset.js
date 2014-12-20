@@ -411,6 +411,57 @@ datasource.Init(function () {
                 }
             } else if (meddelande.indexOf('larm') > -1) {
                 markusmail.sendmail('markus@linderback.com', 'markus@linderback.com', 'Larm spanien', '');
+            } else if (meddelande.indexOf('temp') > -1) {
+                var pairs = meddelande.split(";");
+                console.log(dateToString(Date.now()) + 'Temp kommer från Spanien');
+                var place = '';
+                var temp = 0;
+                var humidity = 0;
+                for (var i in pairs) {
+                    console.log(dateToString(Date.now()) + pair);
+                    var pair = pairs[i];
+                    if (pair.split(":")[0] == "place") {
+                        place = pair.split(":")[1];
+                    }
+                    if (pair.split(":")[0] == "temp") {
+                        temp = pair.split(":")[1];
+                    }
+                    if (pair.split(":")[0] == "humidity") {
+                        humidity = pair.split(":")[1];
+                    }
+                }
+                if (place == 'spain') {
+                    var id = 1000;
+                    console.log(dateToString(Date.now()) + ' Temp Spanein ' + temp + ' fuktighet ' + humidity);
+                    var type = 1;
+                    cache.telldus_sensors['s_' + id + '' + type] = {
+                        id: id,
+                        type: type,
+                        name: 'Spanien',
+                        ts: Date.now(),
+                        message: '',
+                        protocol: '',
+                        value: temp,
+                        value_diff: 0,
+                        min: temp,
+                        max: temp
+                    };
+                    io.sockets.emit('message', { msg: "tellstick_sensor_update", data: cache.telldus_sensors['s_' + id + '' + type] });
+                    type = 2;
+                    cache.telldus_sensors['s_' + id + '' + 2] = {
+                        id: id,
+                        type: type,
+                        name: 'Spanien',
+                        ts: Date.now(),
+                        message: '',
+                        protocol: '',
+                        value: humidity,
+                        value_diff: 0,
+                        min: humidity,
+                        max: humidity
+                    };
+                    io.sockets.emit('message', { msg: "tellstick_sensor_update", data: cache.telldus_sensors['s_' + id + '' + type] });
+                }
             }
         });
     }).listen(8089);
