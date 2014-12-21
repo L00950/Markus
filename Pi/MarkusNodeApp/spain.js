@@ -28,7 +28,7 @@ telldus.addDeviceEventListener(function (device, status) {
         client.connect(8089, 'linderback.com', function() {
             console.log(dateToString(Date.now()) + ' Larmar till min server');
             client.write('larm:spain');
-            client.destroy();
+            client.end();
         });
 
         client.on('data', function(data) {
