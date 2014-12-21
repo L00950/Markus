@@ -324,6 +324,26 @@ datasource.Init(function () {
             if(config.tellstick.lograwevent === 1)
                 console.log(dateToString(Date.now()) + ' Rawdata: ' + data);
 
+            if (data.toString().indexOf('temperaturehumidity') > -1) {
+                var id = 0;
+                var temp = 0;
+                var humidity = 0;
+                var pairs = data.split(";");
+                for (var pairIndex in pairs) {
+                    var pair = pairs[pairIndex];
+                    if (pair.split(":")[0] == "id") {
+                        id = pair.split(":")[1];
+                    }
+                    if (pair.split(":")[0] == "temp") {
+                        temp = pair.split(":")[1];
+                    }
+                    if (pair.split(":")[0] == "humidity") {
+                        humidity = pair.split(":")[1];
+                    }
+                }
+                
+
+            }
             // Notify triggers
 //          triggers.notifyRawDeviceUpdate(data);
 
@@ -418,7 +438,7 @@ datasource.Init(function () {
                 var temp = 0;
                 var humidity = 0;
                 for (var i in pairs) {
-                    console.log(dateToString(Date.now()) + pair);
+                    console.log(dateToString(Date.now()) + ' ' + pair);
                     var pair = pairs[i];
                     if (pair.split(":")[0] == "place") {
                         place = pair.split(":")[1];
@@ -432,7 +452,7 @@ datasource.Init(function () {
                 }
                 if (place == 'spain') {
                     var id = 1000;
-                    console.log(dateToString(Date.now()) + ' Temp Spanein ' + temp + ' fuktighet ' + humidity);
+                    console.log(dateToString(Date.now()) + ' Temp Spanien ' + temp + ' fuktighet ' + humidity);
                     var type = 1;
                     cache.telldus_sensors['s_' + id + '' + type] = {
                         id: id,
@@ -468,7 +488,7 @@ datasource.Init(function () {
 
 });
 
-    // Super sweet errorhandling.. Until someone figures out the ECONNRESET problem
+// Super sweet errorhandling.. Until someone figures out the ECONNRESET problem
 process.on('uncaughtException', function (err) {
     console.log(dateToString(Date.now()) + ' Ohanterat exception: ' + err);
 });
