@@ -1,7 +1,6 @@
 ﻿var telldus = require('telldus');
 var net = require('net');
 
-var client = new net.Socket;
 var senasteDeviceAction = Date.now();
 var senasteTemp = 0;
 var senasteHumidity = 0;
@@ -25,6 +24,7 @@ telldus.addDeviceEventListener(function (device, status) {
 
     console.log(dateToString(Date.now()) + ' event id:' + device + ' state:' + status.name);
     if (device == 1 && status.name === 'ON') {
+        var client = new net.Socket;
         client.connect(8089, 'linderback.com', function() {
             console.log(dateToString(Date.now()) + ' Larmar till min server');
             client.write('larm:spain');
@@ -60,9 +60,10 @@ telldus.addRawDeviceEventListener(function(controllerId, data) {
     if (Number(id) == 135 && (temp != senasteTemp || humidity != senasteHumidity)) {
         senasteTemp = temp;
         senasteHumidity = humidity;
+        var client = new net.Socket;
         client.connect(8089, 'linderback.com', function () {
             client.write('place:spain;temp:' + temp + ';humidity:' + humidity + ';');
-            client.destroy();
+            client.end();
         });
         
         client.on('data', function (returnData) {
@@ -80,7 +81,6 @@ telldus.addRawDeviceEventListener(function(controllerId, data) {
     });
 }).listen(8089);
 
-// Super sweet errorhandling.. Until someone figures out the ECONNRESET problem
 process.on('uncaughtException', function (err) {
     console.log(dateToString(Date.now()) + ' Ohanterat exception: ' + err);
 });

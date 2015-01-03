@@ -417,7 +417,19 @@ datasource.Init(function () {
     console.log(dateToString(Date.now()) + ' Startar VPN-tjänst...');
     net.createServer(function (socket) {
         console.log(dateToString(Date.now()) + ' connected');
+
+        socket.on('end', function() {
+            console.log(dateToString(Date.now()) + ' disconnected');
+        });
         
+        socket.on('timeout', function () {
+            console.log(dateToString(Date.now()) + ' timeout');
+        });
+        
+        socket.on('close', function (hadError) {
+            console.log(dateToString(Date.now()) + ' close, hadError=' + hadError);
+        });
+
         socket.on('data', function (data) {
             var meddelande = data.toString();
             console.log(dateToString(Date.now()) + ' Mottaget:' + data);
@@ -488,7 +500,6 @@ datasource.Init(function () {
 
 });
 
-// Super sweet errorhandling.. Until someone figures out the ECONNRESET problem
 process.on('uncaughtException', function (err) {
     console.log(dateToString(Date.now()) + ' Ohanterat exception: ' + err);
 });
