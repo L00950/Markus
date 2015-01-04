@@ -24,6 +24,7 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
     <Compile Include="client\js\socket.io.js" />
+    <Compile Include="ryda.js" />
     <Compile Include="spain.js" />
     <Compile Include="vpn.js" />
     <Content Include="client\help.html" />

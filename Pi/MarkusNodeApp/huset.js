@@ -493,6 +493,8 @@ datasource.Init(function () {
                         max: humidity
                     };
                     io.sockets.emit('message', { msg: "tellstick_sensor_update", data: cache.telldus_sensors['s_' + id + '' + type] });
+                } else if (place == 'ryda') {
+                    console.log(dateToString(Date.now()) + ' Temp Ryda ' + temp + ' fuktighet ' + humidity);
                 }
             }
         });
