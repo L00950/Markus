@@ -286,7 +286,7 @@ datasource.Init(function () {
                 console.log(dateToString(Date.now()) + ' Status OFF gor vi inget med pa larmenheter');
                 return;
             }
-            if (larmenhet && cache.larm) {
+            if (larmenhet && cache.larm.state == 1) {
                 console.log(dateToString(now) + ' Tar hand om larm från ' + name);
                 tabilder.handleLarm(cache, name);
             }
