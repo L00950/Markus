@@ -43,7 +43,8 @@ datasource.Init(function () {
         larmhistory: [],
         vpn: config.vpn,
         senasthemma: { tid: Date.now() },
-        aktivtlarm: null
+        aktivtlarm: null,
+        senastetemp: { temp: 0, humidity: 0}
     };
     console.log(cache);
 
@@ -341,8 +342,13 @@ datasource.Init(function () {
                         humidity = pair.split(":")[1];
                     }
                 }
-                
 
+                if (Number(id) == 135 && (temp != cache.senastetemp.temp || humidity != cache.senastetemp.humidity)) {
+                    cache.senastetemp.temp = temp;
+                    cache.senastetemp.humidity = humidity;
+
+
+                }
             }
             // Notify triggers
 //          triggers.notifyRawDeviceUpdate(data);
@@ -442,7 +448,10 @@ datasource.Init(function () {
                     socket.write('1');
                 }
             } else if (meddelande.indexOf('larm') > -1) {
-                markusmail.sendmail('markus@linderback.com', 'markus@linderback.com', 'Larm spanien', '');
+                console.log(dateToString(Date.now()) + ' LARM Spanien');
+                cache.larmhistory = markusarray.insertFirst(cache.larmhistory, { id: 99, status: 1, ts: Date.now(), name: 'Spanien', larm: 1 });
+                io.sockets.emit('message', { msg: "larmhistory", data: cache.larmhistory });
+                //markusmail.sendmail('markus@linderback.com', 'markus@linderback.com', 'Larm spanien', '');
             } else if (meddelande.indexOf('temp') > -1) {
                 var pairs = meddelande.split(";");
                 console.log(dateToString(Date.now()) + 'Temp kommer från Spanien');
@@ -503,5 +512,7 @@ datasource.Init(function () {
 });
 
 process.on('uncaughtException', function (err) {
-    console.log(dateToString(Date.now()) + ' Ohanterat exception: ' + err);
+    var msg = dateToString(Date.now()) + ' Ohanterat exception: ' + err;
+    console.log(msg);
+    markusmail.sendmail('markus@linderback.com', 'markus@linderback.com', 'Exception på raspen', msg);
 });
