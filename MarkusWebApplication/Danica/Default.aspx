@@ -4,7 +4,13 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Danica Pension - Statistik</title>
+    <title>Danica</title>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <link rel="apple-touch-icon" href="img/touch-icon-ipad.png"/>
+    <link rel="apple-touch-icon" sizes="76x76" href="img/touch-icon-ipad.png"/>
+    <link rel="apple-touch-icon" sizes="120x120" href="img/touch-icon-iphone-retina.png"/>
+    <link rel="apple-touch-icon" sizes="152x152" href="img/touch-icon-ipad-retina.png"/>
+
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script>
@@ -36,7 +42,8 @@
 
             var options = {
                 title: 'Premier per kanal',
-                colors: colors
+                colors: colors,
+                width: 300
             };
 
             var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
@@ -51,7 +58,8 @@
 
             var options2 = {
                 title: 'Premier per produkt',
-                colors: colors
+                colors: colors,
+                width: 300
             };
 
             var chart2 = new google.visualization.PieChart(document.getElementById('chart_div2'));

@@ -5,6 +5,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <link rel="apple-touch-icon" href="img/touch-icon-ipad.png"/>
+    <link rel="apple-touch-icon" sizes="76x76" href="img/touch-icon-ipad.png"/>
+    <link rel="apple-touch-icon" sizes="120x120" href="img/touch-icon-iphone-retina.png"/>
+    <link rel="apple-touch-icon" sizes="152x152" href="img/touch-icon-ipad-retina.png"/>
+
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
         google.load("visualization", "1", { packages: ["corechart"] });
