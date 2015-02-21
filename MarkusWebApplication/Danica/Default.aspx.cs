@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 using MarkusModel;
 
 namespace Danica
@@ -33,10 +35,34 @@ namespace Danica
             var förraÅretsPremier = statistik.Premier.First(_ => _.ÅretsVärde == false);
             var värde = statistik.Värde;
 
-            SkrivTillTabell(premier, förraÅretsPremier);
+            SkrivTillTabell(premier, förraÅretsPremier, statistik.FörraÅretsTotalPremie);
             SkrivTillBarer(premier);
+            SkrivStekarna(statistik);
             if(värde != null)
                 SkrivVärdeTillBarer(värde);
+        }
+
+        private void SkrivStekarna(ClaesStatistik statistik)
+        {
+            if (!statistik.Stekar.Any())
+                stekarrubrik.Visible = false;
+
+            foreach (var stek in statistik.Stekar)
+            {
+                var förstaraden = new HtmlTableRow();
+                var belopp = new HtmlTableCell {InnerText = stek.Belopp.ToString("# ### ##0") + "kr"};
+                belopp.Style.Add("font-size", "14px");
+                förstaraden.Cells.Add(belopp);
+                förstaraden.Cells.Add(new HtmlTableCell { InnerText = stek.Mäklare });
+                stekar.Rows.Add(förstaraden);
+                var andraraden = new HtmlTableRow();
+                andraraden.Cells.Add(new HtmlTableCell { InnerText = stek.Försäkring });
+                andraraden.Cells.Add(new HtmlTableCell { InnerText = stek.Mäklarbolag });
+                stekar.Rows.Add(andraraden);
+                var mellanrum = new HtmlTableRow();
+                mellanrum.Cells.Add(new HtmlTableCell { Height = "10px" });
+                stekar.Rows.Add(mellanrum);
+            }
         }
 
         private void SkrivTillBarer(ÅrsPremier premier)
@@ -61,7 +87,7 @@ namespace Danica
             volymKryss.InnerText = "Kryss " + volymKryss.Width;
         }
 
-        private void SkrivTillTabell(ÅrsPremier premier, ÅrsPremier förraÅretsPremier)
+        private void SkrivTillTabell(ÅrsPremier premier, ÅrsPremier förraÅretsPremier, double förraÅretsTotalaPremie)
         {
             bankDepå.Text = SkrivVärde(premier.DepåBank, förraÅretsPremier.DepåBank);
             bankFond.Text = SkrivVärde(premier.FondBank, förraÅretsPremier.FondBank);
@@ -74,7 +100,7 @@ namespace Danica
             summaMäklare.Text = SkrivVärde(premier.MäklarPremier, förraÅretsPremier.MäklarPremier);
             summaKryss.Text = SkrivVärde(premier.Kryss, förraÅretsPremier.Kryss);
             summa.Text = SkrivVärde(premier.TotalaPremier, förraÅretsPremier.TotalaPremier);
-            estimat.Text = (premier.TotalaPremier * 0.000001 / DateTime.Today.DayOfYear * 365).ToString(Format).Trim();
+            estimat.Text = (premier.TotalaPremier / förraÅretsPremier.TotalaPremier * förraÅretsTotalaPremie * 0.000001).ToString(Format).Trim();
         }
 
         private static string SkrivVärde(double d1, double d2)

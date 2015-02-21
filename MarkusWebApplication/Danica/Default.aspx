@@ -5,13 +5,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Danica</title>
+    <meta name="viewport" content="width=device-width"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <link rel="apple-touch-icon" href="img/touch-icon-ipad.png"/>
     <link rel="apple-touch-icon" sizes="76x76" href="img/touch-icon-ipad.png"/>
     <link rel="apple-touch-icon" sizes="120x120" href="img/touch-icon-iphone-retina.png"/>
     <link rel="apple-touch-icon" sizes="152x152" href="img/touch-icon-ipad-retina.png"/>
 
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/iphone.css" />
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script>
         var minuter = 5;
@@ -20,7 +21,7 @@
             setTimeout(reLoad, milliSekunder);
             if (screen.width < 1000) {
                 var t = document.all["huvudTabell"];
-                t.style.cssText = t.style.cssText.replace("40px", "30px");
+                //t.style.cssText = t.style.cssText.replace("40px", "30px");
             }
         }
 
@@ -31,6 +32,8 @@
         google.load("visualization", "1", { packages: ["corechart"] });
         google.setOnLoadCallback(drawChart);
         var colors = ['blue', 'indigo', 'darkblue'];
+        var w = (window.orientation == 0 ? window.screen.width : window.screen.height) - 30;
+        
 
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
@@ -41,9 +44,9 @@
             ]);
 
             var options = {
-                title: 'Premier per kanal',
+                title: 'Kanal',
                 colors: colors,
-                width: 300
+                width: w
             };
 
             var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
@@ -57,9 +60,9 @@
             ]);
 
             var options2 = {
-                title: 'Premier per produkt',
+                title: 'Produkt',
                 colors: colors,
-                width: 300
+                width: w
             };
 
             var chart2 = new google.visualization.PieChart(document.getElementById('chart_div2'));
@@ -70,11 +73,11 @@
 </head>
 <body style="font-family: Danske" onload="init();">
     <form id="form1" runat="server">
-        <div>
+        <div style="width: 100%">
             <div style="height: 50px; border-top-left-radius: 5px; border-top-right-radius: 5px; background-color: navy; text-align: center; font-size: 40px; color: white">Danica Pension</div>
             <div style="height: 10px; background-color: lightblue"></div>
             <div style="">
-                <table id="huvudTabell" style="width: 100%; height: 100px; font-size: 35px">
+                <table id="huvudTabell" style="width: 95%; height: 100px; font-size: 10px">
                     <tr>
                         <td style="text-align: center; vertical-align: central">
                             <table style="width: 100%; text-align: right">
@@ -135,14 +138,33 @@
                                     <td colspan="4">
                                         <table style="width: 100%; border-spacing: 0">
                                             <tr>
-                                                <td style="width: 50%">
-                                                    <div id="chart_div" style="width: 100%; height: 400px;"></div>
-                                                </td>
-                                                <td style="width: 50%">
-                                                    <div id="chart_div2" style="width: 100%; height: 400px;"></div>
+                                                <td style="width: 100%">
+                                                    <div id="chart_div" style="width: 100%; height: 200px;"></div>
                                                 </td>
                                             </tr>
                                         </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <table style="width: 100%; border-spacing: 0">
+                                            <tr>
+                                                <td style="width: 100%">
+                                                    <div id="chart_div2" style="width: 100%; height: 200px;"></div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4"><hr/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" style="font-size: 16px; text-align: left" id="stekarrubrik" runat="server">Dagens stekar</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <table style="width: 100%; border-spacing: 0" id="stekar" runat="server"></table>
                                     </td>
                                 </tr>
                                 <tr>

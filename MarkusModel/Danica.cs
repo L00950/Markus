@@ -8,6 +8,18 @@ namespace MarkusModel
         public ÅrsPremier[] Premier { get; set; }
         public Värde Värde { get; set; }
         public MånadsPremier[] MånadsPremier { get; set; }
+        public double FörraÅretsTotalPremie { get; set; }
+        public Stek[] Stekar { get; set; }
+    }
+
+    [Serializable]
+    public class Stek
+    {
+        public double Belopp { get; set; }
+        public string Försäkring { get; set; }
+        public string Typ { get; set; }
+        public string Mäklare { get; set; }
+        public string Mäklarbolag { get; set; }
     }
 
     [Serializable]
