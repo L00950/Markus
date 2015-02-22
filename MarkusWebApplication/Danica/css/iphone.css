@@ -1,0 +1,43 @@
+﻿@font-face {
+		font-family: 'Danske';
+		src: url('../fonts/danst___.eot');
+		src: url('../fonts/danst___.eot?#iefix') format('embedded-opentype'),
+			 url('../fonts/danst___.woff') format('woff'),
+			 url('../fonts/danst___.ttf') format('truetype'),
+			 url('../fonts/danst___.svg#danst___') format('svg');
+		font-weight: 400;
+		font-style: normal;
+}
+@font-face {
+		font-family: 'Danske';
+		src: url('../fonts/dansts__.eot');
+		src: url('../fonts/dansts__.eot?#iefix') format('embedded-opentype'),
+			 url('../fonts/dansts__.woff') format('woff'),
+			 url('../fonts/dansts__.ttf') format('truetype'),
+			 url('../fonts/dansts__.svg#dansts__') format('svg');
+		font-weight: 700;
+		font-style: normal;
+}
+@font-face {
+		font-family: 'Danske';
+		src: url('../fonts/danshsi_.eot');
+		src: url('../fonts/danshsi_.eot?#iefix') format('embedded-opentype'),
+			 url('../fonts/danshsi_.woff') format('woff'),
+			 url('../fonts/danshsi_.ttf') format('truetype'),
+			 url('../fonts/danshsi_.svg#danshsi_') format('svg');
+		font-weight: 700;
+		font-style: italic;
+}
+@font-face {
+		font-family: 'Danske';
+		src: url('../fonts/dansti__.eot');
+		src: url('../fonts/dansti__.eot?#iefix') format('embedded-opentype'),
+			 url('../fonts/dansti__.woff') format('woff'),
+			 url('../fonts/dansti__.ttf') format('truetype'),
+			 url('../fonts/dansti__.svg#dansti__') format('svg');
+		font-weight: 400;
+		font-style: italic;
+}
+html {
+    background:#f4f4f4;
+}
