@@ -44,8 +44,11 @@ namespace Danica
 
         private void SkrivStekarna(ClaesStatistik statistik)
         {
-            if (!statistik.Stekar.Any())
+            if (statistik.Stekar == null)
+            {
                 stekarrubrik.Visible = false;
+                return;
+            }
 
             foreach (var stek in statistik.Stekar)
             {
