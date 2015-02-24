@@ -168,7 +168,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="4"><hr/></td>
+                                    <td colspan="4" id="stekarlinje" runat="server"><hr/></td>
                                 </tr>
                                 <tr>
                                     <td colspan="4" style="font-size: 14px"><%=DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") %></td>

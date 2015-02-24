@@ -47,6 +47,7 @@ namespace Danica
             if (statistik.Stekar == null)
             {
                 stekarrubrik.Visible = false;
+                stekarlinje.Visible = false;
                 return;
             }
 
