@@ -74,10 +74,25 @@
 <body style="font-family: Danske" onload="init();">
     <form id="form1" runat="server">
         <div style="width: 100%">
-            <div style="height: 50px; border-top-left-radius: 5px; border-top-right-radius: 5px; background-color: navy; text-align: center; font-size: 40px; color: white">Danica Pension</div>
-            <div style="height: 10px; background-color: lightblue"></div>
+<%--            <div style="height: 50px; border-top-left-radius: 5px; border-top-right-radius: 5px; background-color: #123757; text-align: left; font-size: 45px; color: white"><div style="text-align: left; float: left">Premier</div><div style="float: right; width: 10px"></div><div style="float: right"></div></div>
+            <div style="height: 10px; background-color: #337BAD"></div>--%>
             <div style="">
                 <table id="huvudTabell" style="width: 95%; height: 100px; font-size: 10px">
+                    <tr>
+                        <td>
+                            <table style="width: 100%; border-collapse: collapse; border-spacing: 0; padding: 0">
+                                <tr style="background-color: #123757">
+                                    <td style="height: 50px; text-align: left; font-size: 45px; color: white; border: 0">Premier</td>
+                                    <td style="height: 50px; text-align: right; border: 0">
+                                        <img src="img/logga.png" width="120px" alt="logga" /></td>
+                                    <td style="height: 50px; width:10px; border: 0"/>
+                                </tr>
+                                <tr style="background-color: #337BAD">
+                                    <td colspan="3" style="height: 10px"/>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
                     <tr>
                         <td style="text-align: center; vertical-align: central">
                             <table style="width: 100%; text-align: right">
