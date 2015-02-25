@@ -81,11 +81,11 @@
                     <tr>
                         <td>
                             <table style="width: 100%; border-collapse: collapse; border-spacing: 0; padding: 0">
-                                <tr style="background-color: #123757">
-                                    <td style="height: 50px; text-align: left; font-size: 45px; color: white; border: 0">Premier</td>
-                                    <td style="height: 50px; text-align: right; border: 0">
+                                <tr>
+                                    <td style="height: 50px; text-align: left; font-size: 45px; color: white; background-color: #123757">Premier</td>
+                                    <td style="height: 50px; text-align: right; background-color: #123757">
                                         <img src="img/logga.png" width="120px" alt="logga" /></td>
-                                    <td style="height: 50px; width:10px; border: 0"/>
+                                    <td style="height: 50px; width:10px; background-color: #123757"/>
                                 </tr>
                                 <tr style="background-color: #337BAD">
                                     <td colspan="3" style="height: 10px"/>
