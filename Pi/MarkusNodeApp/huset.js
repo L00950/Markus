@@ -449,12 +449,12 @@ datasource.Init(function () {
                 }
             } else if (meddelande.indexOf('larm') > -1) {
                 console.log(dateToString(Date.now()) + ' LARM Spanien');
-                cache.larmhistory = markusarray.insertFirst(cache.larmhistory, { id: 99, status: 1, ts: Date.now(), name: 'Spanien', larm: 1 });
+                cache.larmhistory = markusarray.insertFirst(cache.larmhistory, { id: 99, status: 1, ts: Date.now()/1000, name: 'Spanien', larm: 1 });
                 io.sockets.emit('message', { msg: "larmhistory", data: cache.larmhistory });
                 //markusmail.sendmail('markus@linderback.com', 'markus@linderback.com', 'Larm spanien', '');
             } else if (meddelande.indexOf('temp') > -1) {
                 var pairs = meddelande.split(";");
-                console.log(dateToString(Date.now()) + 'Temp kommer från Spanien');
+                console.log(dateToString(Date.now()) + ' Temp kommer från Spanien');
                 var place = '';
                 var temp = 0;
                 var humidity = 0;
