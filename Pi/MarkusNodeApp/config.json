@@ -90,7 +90,7 @@
         {
             "enabled": true,
             "id": "upperfloor",
-            "adress": "http://192.168.11.253/image.jpg"
+            "adress": "http://192.168.11.215/image.jpg"
         },
         {
             "enabled": false,
