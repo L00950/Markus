@@ -13,7 +13,7 @@ client.on('data', function(data) {
     console.log('tid: ' + (Date.now() - start) + 'ms');
     client.destroy();
     if (data == "1")
-        exec('ping -c 1 192.168.1.64', function(error, stdout, stderr) {
+        exec('ping -c 1 192.168.11.192', function(error, stdout, stderr) {
             if (error !== null)
                 exec('sudo pon lidingo', function(errorPon, stdoutPon, stderrPon) {
                     if (errorPon !== null)
