@@ -80,7 +80,7 @@
         {
             "enabled": true,
             "id": "entre",
-            "adress": "http://192.168.11.34/image.jpg"
+            "adress": "http://192.168.11.184/image.jpg"
         },
         {
             "enabled": true,
@@ -95,7 +95,7 @@
         {
             "enabled": false,
             "id": "gc",
-            "adress": "http://192.168.0.51/image/jpeg.cgi"
+            "adress": "http://192.168.10.5/image/jpeg.cgi"
         },
         {
             "enabled": false,
