@@ -176,7 +176,9 @@ namespace MarkusWebApplication
         }
 		private void UpdateWeb()
 		{
-		    new Kalender().SkapaKalendrarFörObjekt(6);
+		    var kalender = new Kalender();
+		    kalender.SkapaKalendrarFörMonteRojo();
+            kalender.SkapaKalendrarFörRyda();
 		}
 		private void FillBookings()
 		{

@@ -26,8 +26,9 @@ namespace MarkusModel
             }
         }
 
-	    public void SkapaKalendrarFörObjekt(int objectid)
+	    public void SkapaKalendrarFörMonteRojo()
 	    {
+	        const int objectid = 6;
             const string mall = @"C:\Development\Markus\MarkusWeb\MonteRojo\default_mall.htm";
             var reader = new System.IO.StreamReader(mall);
             var innehåll = reader.ReadToEnd();
@@ -43,7 +44,27 @@ namespace MarkusModel
             writer.Write(innehåll);
             writer.Close();
 	    }
-		public void CreateCalendar(int objectid)
+
+        public void SkapaKalendrarFörRyda()
+        {
+            const string mall = @"C:\Development\Markus\MarkusWeb\Linderback\default_mall.htm";
+            var reader = new System.IO.StreamReader(mall);
+            var innehåll = reader.ReadToEnd();
+            reader.Close();
+            innehåll = innehåll.Replace("#kalender1#", SkapaÅr(1, DateTime.Today.Year));
+            innehåll = innehåll.Replace("#kalender2#", SkapaÅr(2, DateTime.Today.Year));
+            innehåll = innehåll.Replace("#kalender3#", SkapaÅr(5, DateTime.Today.Year));
+
+            const string fil = @"C:\Development\Markus\MarkusWeb\Linderback\default.asp";
+            if (System.IO.File.Exists(fil))
+                System.IO.File.Delete(fil);
+
+            var writer = new System.IO.StreamWriter(fil);
+            writer.Write(innehåll);
+            writer.Close();
+        }
+        
+        public void CreateCalendar(int objectid)
 		{
             HämtaBokadeDatum(objectid);
 

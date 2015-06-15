@@ -11,7 +11,11 @@ namespace MarkusConsoleApplication
             if(args.Any(_ => _.Equals("BBS")))
                 LäsInMedlemmar.Kör();
             if (args.Any(_ => _.Equals("UppdateraKalender")))
-                new MarkusModel.Kalender().SkapaKalendrarFörObjekt(6);
+            {
+                var kalender = new MarkusModel.Kalender();
+                kalender.SkapaKalendrarFörMonteRojo();
+                kalender.SkapaKalendrarFörRyda();
+            }
             if (args.Any(_ => _.Equals("test")))
             {
                 try
