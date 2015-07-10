@@ -12,7 +12,7 @@ namespace BBS
 
             KontrolleraSession();
 
-            var vaktlogg = MedlemsRegister.LäsVaktLogg(Request.QueryString["bryggplats"]);
+            var vaktlogg = MedlemsRegister.LäsVaktLoggFörBryggplats(Request.QueryString["bryggplats"]);
 
             var resultat = (from m in vaktlogg
                             orderby m.Tidpunkt

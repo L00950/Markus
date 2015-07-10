@@ -44,6 +44,12 @@ namespace BBS
                 case "vaktlogg":
                     innehåll.Controls.Add(LoadControl("VaktLogg.ascx"));
                     break;
+                case "vakt":
+                    innehåll.Controls.Add(LoadControl("VaktÖversikt.ascx"));
+                    break;
+                case "vaktloggfordatum":
+                    innehåll.Controls.Add(LoadControl("VaktLoggDatum.ascx"));
+                    break;
             }
         }
     }

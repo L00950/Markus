@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="MedlemsKalender.ascx.cs" Inherits="BBS.MedlemsKalender" %>
-<form id="form1">
     <table width="100%" cellpadding="30px">
         <tr>
             <td width="100%" style="font-family:verdana; font-size:small">
@@ -49,4 +48,3 @@
             </td>
         </tr>
     </table>
-</form>

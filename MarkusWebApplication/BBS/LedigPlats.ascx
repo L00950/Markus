@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="LedigPlats.ascx.cs" Inherits="BBS.LedigPlats" %>
-<form id="form1">
     <table width="100%" cellpadding="30px">
         <tr>
             <td width="100%" style="font-family:verdana; font-size:small">
@@ -46,4 +45,3 @@
             </td>
         </tr>
     </table>
-</form>

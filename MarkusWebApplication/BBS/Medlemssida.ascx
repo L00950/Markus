@@ -19,6 +19,11 @@
                                 </td>
                                 <td style="width: 5px"/>
                                 <td>
+                                    <asp:Button ID="vaktöversiktKnapp" runat="server" Text="Vaktgång" 
+                                        style="font-family:Verdana; font-size:small" OnClick="vaktöversiktKnapp_Click"/>
+                                </td>
+                                <td style="width: 5px"/>
+                                <td>
                                     <asp:Button ID="loggaUtKnapp" runat="server" Text="Logga ut" 
                                         style="font-family:Verdana; font-size:small" onclick="LoggaUtKnappClick"/>
                                 </td>
