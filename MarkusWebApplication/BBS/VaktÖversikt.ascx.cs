@@ -12,6 +12,8 @@ namespace BBS
         {
             if (IsPostBack) return;
 
+            månad.SelectedValue = Request.QueryString["month"];
+
             LaddaVaktgång();
         }
 
@@ -27,11 +29,7 @@ namespace BBS
             {
                 var rad = new TableRow();
 
-                rad.Cells.Add(SkapaCell(5, i, loggposter));
-                rad.Cells.Add(SkapaCell(6, i, loggposter));
-                rad.Cells.Add(SkapaCell(7, i, loggposter));
-                rad.Cells.Add(SkapaCell(8, i, loggposter));
-                rad.Cells.Add(SkapaCell(9, i, loggposter));
+                rad.Cells.Add(SkapaCell(Convert.ToInt32(Request.QueryString["month"]), i, loggposter));
 
                 tabell.Rows.Add(rad);
             }
@@ -64,7 +62,7 @@ namespace BBS
                     cell.Controls.Add(new Label{Text = loggposterFörDatum.Min(_ => _.Tidpunkt).ToString("HH:mm") + "-" + loggposterFörDatum.Max(_ => _.Tidpunkt).ToString("HH:mm") + " ("});
                     var länk = new HyperLink
                         {
-                            NavigateUrl = "Default.aspx?sida=vaktloggfordatum&id=" + Request.QueryString["id"] + "&datum=" + datum.ToString("yyyy-MM-dd"),
+                            NavigateUrl = "Default.aspx?sida=vaktloggfordatum&id=" + Request.QueryString["id"] + "&datum=" + datum.ToString("yyyy-MM-dd") + "&month=" + this.månad.SelectedValue,
                             Text = antal.ToString()
                         };
                     cell.Controls.Add(länk);
@@ -104,6 +102,10 @@ namespace BBS
         {
             KontrolleraSession();
             Response.Redirect("Default.aspx?sida=medlemssida&id=" + Request.QueryString["id"]);
+        }
+        protected void månad_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Response.Redirect("Default.aspx?sida=vakt&id=" + Request.QueryString["id"] + "&month=" + månad.SelectedValue);
         }
     }
 }

@@ -85,7 +85,7 @@ namespace BBS
         }
         protected void vaktöversiktKnapp_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Default.aspx?sida=vakt&id=" + Request.QueryString["id"]);
+            Response.Redirect("Default.aspx?sida=vakt&id=" + Request.QueryString["id"] + "&month=4");
         }
     }
 }

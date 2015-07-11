@@ -53,7 +53,7 @@ namespace BBS
                 {
                     var länk = new HyperLink
                         {
-                            NavigateUrl = "Default.aspx?sida=ledigplats&id=" + Request.QueryString["id"] + "&datum=" + datum.ToString(),
+                            NavigateUrl = "Default.aspx?sida=ledigplats&id=" + Request.QueryString["id"] + "&datum=" + datum.ToString("yyyy-MM-dd"),
                             Text = antal + "st"
                         };
                     cell.Controls.Add(länk);

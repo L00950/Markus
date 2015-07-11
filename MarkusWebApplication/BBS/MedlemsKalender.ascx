@@ -1,8 +1,17 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="MedlemsKalender.ascx.cs" Inherits="BBS.MedlemsKalender" %>
-    <table width="100%" cellpadding="30px">
+<%@ Import Namespace="MarkusModel" %>
+<table width="100%" cellpadding="30px">
         <tr>
             <td width="100%" style="font-family:verdana; font-size:small">
                 <table>
+                    <tr>
+                        <td>
+                            <a href="Default.aspx?sida=medlemssida&id=<%=Request.QueryString["id"]%>"><%=((Medlem)Cache[Request.QueryString["id"]]).Namn%></a> / Kalender <%=BryggplatsId()%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="height:30px"/>
+                    </tr>
                     <tr>
                         <td>
                             Här kan du markera när din bryggplats <b><%=BryggplatsId()%></b> är ledig. Med ledig anses från kl 12 den markerade dagen till klockan 12 dagen efter. Ex 1 juli avser perioden 1 juli kl 12:00 till 2 juli kl 12:00.
@@ -15,11 +24,6 @@
                         <td colspan="2">
                             <table>
                                 <tr>
-                                    <td>
-                                        <asp:Button ID="tillbakaKnapp" runat="server" Text="Tillbaka" 
-                                            style="font-family:Verdana; font-size:small" OnClick="TillbakaKnappClick"/>
-                                    </td>
-                                    <td style="width: 5px"/>
                                     <td>
                                         <asp:Button ID="sparaKnapp" runat="server" Text="Spara" 
                                             style="font-family:Verdana; font-size:small" OnClick="SparaKnappClick"/>

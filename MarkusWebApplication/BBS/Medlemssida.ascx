@@ -5,6 +5,14 @@
         <td style="width: 100%">
             <table style="font-family:Verdana; font-size:smaller">
                 <tr>
+                    <td>
+                        <%=((Medlem)Cache[Request.QueryString["id"]]).Namn%>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="height:30px"/>
+                </tr>
+                <tr>
                     <td colspan="2">
                         <table>
                             <tr>

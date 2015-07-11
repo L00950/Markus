@@ -1,29 +1,20 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="LedigaPlatser.ascx.cs" Inherits="BBS.LedigaPlatser" EnableViewState="false" %>
-    <table width="100%" cellpadding="30px">
+<%@ Import Namespace="MarkusModel" %>
+<table width="100%" cellpadding="30px">
         <tr>
             <td width="100%" style="font-family:verdana; font-size:small">
                 <table style="width: 100%">
                     <tr>
                         <td>
-                            Kalender över lediga platser i hamnen. Om det finns lediga platser så kan du trycka på siffran för att se vilka platser som är lediga.
+                            <a href="Default.aspx?sida=medlemssida&id=<%=Request.QueryString["id"]%>"><%=((Medlem)Cache[Request.QueryString["id"]]).Namn%></a> / Lediga platser
                         </td>
                     </tr>
                     <tr>
-                        <td height="30px"></td>
+                        <td style="height:30px"/>
                     </tr>
                     <tr>
-                        <td colspan="2">
-                            <table>
-                                <tr>
-                                    <td>
-                                        <asp:Button ID="tillbakaKnapp" runat="server" Text="Tillbaka" 
-                                            style="font-family:Verdana; font-size:small" OnClick="TillbakaKnappClick"/>
-                                    </td>
-                                    <td style="width: 5px"/>
-                                    <td>
-                                    </td>
-                                </tr>
-                            </table>
+                        <td>
+                            Kalender över lediga platser i hamnen. Om det finns lediga platser så kan du trycka på siffran för att se vilka platser som är lediga.
                         </td>
                     </tr>
                     <tr>

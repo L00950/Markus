@@ -1,24 +1,16 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="VaktLoggDatum.ascx.cs" Inherits="BBS.VaktLoggDatum"  EnableViewState="False" %>
+<%@ Import Namespace="MarkusModel" %>
 <table width="100%" cellpadding="30px">
     <tr>
         <td style="width: 100%">
             <table style="font-family:Verdana; font-size:smaller">
                 <tr>
-                    <td colspan="2">
-                        <table>
-                            <tr>
-                                <td>
-                                    <asp:Button ID="tillbakaKnapp" runat="server" Text="Tillbaka" 
-                                        style="font-family:Verdana; font-size:small" onclick="TillbakaClick"/>
-                                </td>
-                            </tr>
-                        </table>
+                    <td>
+                        <a href="Default.aspx?sida=medlemssida&id=<%=Request.QueryString["id"]%>"><%=((Medlem)Cache[Request.QueryString["id"]]).Namn%></a> / <a href="Default.aspx?sida=vakt&id=<%=Request.QueryString["id"]%>&month=<%=Request.QueryString["month"]%>">Vaktöversikt</a> / <%=Request.QueryString["datum"]%>
                     </td>
                 </tr>
                 <tr>
-                    <td style="height:30px">
-                        <h3>Vaktlogg för <b><%=Request.QueryString["datum"]%></b></h3>
-                    </td>
+                    <td style="height:30px"/>
                 </tr>
                 <tr>
                     <td>

@@ -37,7 +37,7 @@ namespace BBS
 
         protected void TillbakaClick(object sender, EventArgs e)
         {
-            Response.Redirect("Default.aspx?sida=vakt&id=" + Request.QueryString["id"]);
+            Response.Redirect("Default.aspx?sida=vakt&id=" + Request.QueryString["id"] + "&month=" + Request.QueryString["month"]);
         }
 
         private Medlem KontrolleraSession()
