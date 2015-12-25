@@ -1,29 +1,21 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="LedigPlats.ascx.cs" Inherits="BBS.LedigPlats" %>
-<form id="form1">
-    <table width="100%" cellpadding="30px">
+<%@ Import Namespace="MarkusModel" %>
+<table width="100%" cellpadding="30px">
         <tr>
             <td width="100%" style="font-family:verdana; font-size:small">
                 <table>
                     <tr>
                         <td>
-                            Följande bryggplatser är lediga <b><%=Convert.ToDateTime(Request.QueryString["datum"]).ToString("yyyy-MM-dd")%></b>.<br />
-                            Kontakta gärna platsägaren för att dubbelkolla för säkerhets skull.
+                            <a href="Default.aspx?sida=medlemssida&id=<%=Request.QueryString["id"]%>"><%=((Medlem)Cache[Request.QueryString["id"]]).Namn%></a> / <a href="Default.aspx?sida=ledigaplatser&id=<%=Request.QueryString["id"]%>">Lediga platser</a> / <%=Request.QueryString["datum"]%>
                         </td>
                     </tr>
                     <tr>
-                        <td height="30px"></td>
+                        <td style="height:30px"/>
                     </tr>
                     <tr>
-                        <td colspan="2">
-                            <table>
-                                <tr>
-                                    <td>
-                                        <asp:Button ID="tillbakaKnapp" runat="server" Text="Tillbaka" 
-                                            style="font-family:Verdana; font-size:small" OnClick="TillbakaKnappClick"/>
-                                    </td>
-                                    <td style="width: 5px"/>
-                                </tr>
-                            </table>
+                        <td>
+                            Följande bryggplatser är lediga <b><%=Convert.ToDateTime(Request.QueryString["datum"]).ToString("yyyy-MM-dd")%></b>.<br />
+                            Kontakta gärna platsägaren för att dubbelkolla för säkerhets skull.
                         </td>
                     </tr>
                     <tr>
@@ -46,4 +38,3 @@
             </td>
         </tr>
     </table>
-</form>

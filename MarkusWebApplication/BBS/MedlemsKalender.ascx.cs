@@ -79,11 +79,6 @@ namespace BBS
         {
             return Request.QueryString["bryggplats"];
         }
-        protected void TillbakaKnappClick(object sender, EventArgs e)
-        {
-            KontrolleraSession();
-            Response.Redirect("Default.aspx?sida=medlemssida&id=" + Request.QueryString["id"]);
-        }
         protected void SparaKnappClick(object sender, EventArgs e)
         {
             KontrolleraSession();

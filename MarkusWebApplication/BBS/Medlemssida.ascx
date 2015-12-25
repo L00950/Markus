@@ -5,6 +5,14 @@
         <td style="width: 100%">
             <table style="font-family:Verdana; font-size:smaller">
                 <tr>
+                    <td>
+                        <%=((Medlem)Cache[Request.QueryString["id"]]).Namn%>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="height:30px"/>
+                </tr>
+                <tr>
                     <td colspan="2">
                         <table>
                             <tr>
@@ -16,6 +24,11 @@
                                 <td>
                                     <asp:Button ID="ledigaPlatserKnapp" runat="server" Text="Lediga Platser" 
                                         style="font-family:Verdana; font-size:small" OnClick="LedigaPlatserKnappClick"/>
+                                </td>
+                                <td style="width: 5px"/>
+                                <td>
+                                    <asp:Button ID="vaktöversiktKnapp" runat="server" Text="Vaktgång" 
+                                        style="font-family:Verdana; font-size:small" OnClick="vaktöversiktKnapp_Click"/>
                                 </td>
                                 <td style="width: 5px"/>
                                 <td>

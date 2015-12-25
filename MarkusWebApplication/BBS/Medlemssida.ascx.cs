@@ -37,6 +37,8 @@ namespace BBS
                 row.Controls.Add(cell);
                 bryggplatsLista.Controls.Add(row);
             }
+
+            vaktöversiktKnapp.Visible = MedlemsRegister.Styrelse.Any(_ => _ == (MedlemsRegister.Medlem) medlem.Id);
         }
 
         private void VaktloggKnappClick(object sender, EventArgs eventArgs)
@@ -80,6 +82,10 @@ namespace BBS
         protected void MedlemmarClick(object sender, EventArgs e)
         {
             Response.Redirect("Default.aspx?sida=medlemmar&id=" + Request.QueryString["id"]);
+        }
+        protected void vaktöversiktKnapp_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Default.aspx?sida=vakt&id=" + Request.QueryString["id"] + "&month=4");
         }
     }
 }

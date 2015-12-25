@@ -6,57 +6,67 @@ using MarkusModel;
 
 namespace BBS
 {
-    public partial class LedigaPlatser : System.Web.UI.UserControl
+    public partial class VaktÖversikt : System.Web.UI.UserControl
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (IsPostBack) return;
 
-            LaddaKalender();
+            månad.SelectedValue = Request.QueryString["month"];
+
+            LaddaVaktgång();
         }
 
-        private void LaddaKalender()
+        private void LaddaVaktgång()
         {
-            var ledigaDatum =
-                FilHanterare.Läs<LedigBryggplats>(new LedigBryggplats().FilNamn()).ToList();
+            var filer = MedlemsRegister.HämtaVaktLoggFiler();
+            var loggposter = new List<Loggpost>();
+            foreach (var fil in filer)
+                loggposter.AddRange(MedlemsRegister.LäsVaktLogg(fil));
+
 
             for (var i = 1; i <= 31; i++)
             {
                 var rad = new TableRow();
 
-                rad.Cells.Add(SkapaCell(5, i, ledigaDatum));
-                rad.Cells.Add(SkapaCell(6, i, ledigaDatum));
-                rad.Cells.Add(SkapaCell(7, i, ledigaDatum));
-                rad.Cells.Add(SkapaCell(8, i, ledigaDatum));
-                rad.Cells.Add(SkapaCell(9, i, ledigaDatum));
+                rad.Cells.Add(SkapaCell(Convert.ToInt32(Request.QueryString["month"]), i, loggposter));
 
                 tabell.Rows.Add(rad);
             }
         }
 
-        private TableCell SkapaCell(int månad, int dag, IEnumerable<LedigBryggplats> ledigaDatum)
+        private IEnumerable<Loggpost> HämtaFörDatum(IEnumerable<Loggpost> loggposter, DateTime datum)
+        {
+            var starttid = new DateTime(datum.Year, datum.Month, datum.Day, 18, 0, 0);
+            var sluttid = starttid.AddDays(1);
+            return loggposter.Where(_ => _.Tidpunkt >= starttid && _.Tidpunkt < sluttid);
+        }
+
+        private TableCell SkapaCell(int månad, int dag, IEnumerable<Loggpost> loggposter)
         {
             var cell = new TableCell();
             if (dag <= DateTime.DaysInMonth(DateTime.Today.Year, månad))
             {
                 var datum = new DateTime(DateTime.Today.Year, månad, dag);
-                var ledigaBryggplatser = ledigaDatum as IList<LedigBryggplats> ?? ledigaDatum.ToList();
-                var antal = ledigaBryggplatser.Count(_ => _.Dag == datum);
+                var loggposterFörDatum = HämtaFörDatum(loggposter, datum).ToList();
+                var antal = loggposterFörDatum.Count();
                 cell.ForeColor = datum.DayOfWeek == DayOfWeek.Sunday
                                      ? System.Drawing.Color.Red
                                      : System.Drawing.Color.Black;
                 var text = new Label {Text = datum.Day + " " + HämtaMånadsnamn(datum) + " "};
                 if (antal == 0)
-                    text.Text += "0st";
+                    text.Text += "";
                 cell.Controls.Add(text);
                 if (antal > 0)
                 {
+                    cell.Controls.Add(new Label{Text = loggposterFörDatum.Min(_ => _.Tidpunkt).ToString("HH:mm") + "-" + loggposterFörDatum.Max(_ => _.Tidpunkt).ToString("HH:mm") + " ("});
                     var länk = new HyperLink
                         {
-                            NavigateUrl = "Default.aspx?sida=ledigplats&id=" + Request.QueryString["id"] + "&datum=" + datum.ToString("yyyy-MM-dd"),
-                            Text = antal + "st"
+                            NavigateUrl = "Default.aspx?sida=vaktloggfordatum&id=" + Request.QueryString["id"] + "&datum=" + datum.ToString("yyyy-MM-dd") + "&month=" + this.månad.SelectedValue,
+                            Text = antal.ToString()
                         };
                     cell.Controls.Add(länk);
+                    cell.Controls.Add(new Label { Text = ")" });
                 }
             }
             return cell;
@@ -81,17 +91,21 @@ namespace BBS
                 default: return "";
             }
         }
-        protected void TillbakaKnappClick(object sender, EventArgs e)
-        {
-            KontrolleraSession();
-            Response.Redirect("Default.aspx?sida=medlemssida&id=" + Request.QueryString["id"]);
-        }
         private Medlem KontrolleraSession()
         {
             var obj = Cache[Request.QueryString["id"]];
             if (obj == null)
                 Response.Redirect("Default.aspx");
             return (Medlem)obj;
+        }
+        protected void TillbakaKnappClick(object sender, EventArgs e)
+        {
+            KontrolleraSession();
+            Response.Redirect("Default.aspx?sida=medlemssida&id=" + Request.QueryString["id"]);
+        }
+        protected void månad_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Response.Redirect("Default.aspx?sida=vakt&id=" + Request.QueryString["id"] + "&month=" + månad.SelectedValue);
         }
     }
 }

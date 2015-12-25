@@ -64,10 +64,28 @@ namespace MarkusModel
 
     public static class MedlemsRegister
     {
-        public static List<Loggpost> LäsVaktLogg(string bryggplatsId)
+        public enum Medlem
+        {
+            Markus = 580,
+            Kjell = 299,
+            Gerda = 251,
+            Bergholm = 465,
+            Andreas = 145,
+            AndersW = 498,
+            AndersJ = 587,
+            Edholm = 399
+        }
+
+        public static readonly List<Medlem> Styrelse = new List<Medlem>{Medlem.Markus, Medlem.Kjell, Medlem.Gerda, Medlem.Bergholm, Medlem.AndersJ, Medlem.Andreas, Medlem.AndersW, Medlem.Edholm};
+ 
+        public static IEnumerable<String> HämtaVaktLoggFiler()
+        {
+            return Directory.GetFiles(@"c:\data\vaktlogg", "*.csv");
+        }
+
+        public static List<Loggpost> LäsVaktLogg(string fil)
         {
             var vaktLogg = new List<Loggpost>();
-            var fil = @"c:\data\vaktlogg\" + bryggplatsId + ".csv";
             if (!File.Exists(fil))
                 return vaktLogg;
 
@@ -77,10 +95,10 @@ namespace MarkusModel
             {
                 var items = rad.Split(';');
                 vaktLogg.Add(new Loggpost
-                    {
-                        Plats = items[1],
-                        Tidpunkt = Convert.ToDateTime(items[3] + " " + items[2])
-                    });
+                {
+                    Plats = items[1],
+                    Tidpunkt = Convert.ToDateTime(items[3] + " " + items[2])
+                });
                 rad = reader.ReadLine();
             }
             reader.Close();
@@ -89,26 +107,31 @@ namespace MarkusModel
             return vaktLogg;
         }
 
-        public static void UppdateraMedlem(Medlem medlem)
+        public static List<Loggpost> LäsVaktLoggFörBryggplats(string bryggplatsId)
+        {
+            return LäsVaktLogg(@"c:\data\vaktlogg\" + bryggplatsId + ".csv");
+        }
+
+        public static void UppdateraMedlem(MarkusModel.Medlem medlem)
         {
             var medlemmar = HämtaAllaMedlemmar().ToList();
             medlemmar.RemoveAll(item => item.Id == medlem.Id);
             medlemmar.Add(medlem);
             SparaMedlemmar(medlemmar);
         }
-        public static IEnumerable<Medlem> HämtaAllaMedlemmar()
+        public static IEnumerable<MarkusModel.Medlem> HämtaAllaMedlemmar()
         {
-            return FilHanterare.Läs<Medlem>(new Medlem().FilNamn());
+            return FilHanterare.Läs<MarkusModel.Medlem>(new MarkusModel.Medlem().FilNamn());
         }
         public static IEnumerable<Bryggplats> HämtaAllaBryggplatser()
         {
             return FilHanterare.Läs<Bryggplats>(new Bryggplats().FilNamn());
         }
-        public static IEnumerable<Bryggplats> HämtaAllaBryggplatserFörMedlem(Medlem medlem)
+        public static IEnumerable<Bryggplats> HämtaAllaBryggplatserFörMedlem(MarkusModel.Medlem medlem)
         {
             return FilHanterare.Läs<Bryggplats>(new Bryggplats().FilNamn()).Where(_ => _.MedlemsId == medlem.Id);
         }
-        public static void SparaMedlemsKalender(Medlem medlem, IEnumerable<DateTime> datumLista)
+        public static void SparaMedlemsKalender(MarkusModel.Medlem medlem, IEnumerable<DateTime> datumLista)
         {
             var bryggplats = FilHanterare.Läs<Bryggplats>(new Bryggplats().FilNamn()).FirstOrDefault(_ => _.MedlemsId == medlem.Id);
 
@@ -120,9 +143,9 @@ namespace MarkusModel
             ledigaBryggplatser.RemoveAll(_ => _.BryggplatsId == bryggplats.Id);
             ledigaBryggplatser.AddRange(medlemsLedigatider);
         }
-        private static void SparaMedlemmar(IEnumerable<Medlem> medlemmar)
+        private static void SparaMedlemmar(IEnumerable<MarkusModel.Medlem> medlemmar)
         {
-            FilHanterare.Spara(medlemmar, new Medlem().FilNamn());
+            FilHanterare.Spara(medlemmar, new MarkusModel.Medlem().FilNamn());
         }
     }
 }
