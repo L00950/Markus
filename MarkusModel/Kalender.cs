@@ -51,9 +51,10 @@ namespace MarkusModel
             var reader = new System.IO.StreamReader(mall);
             var innehåll = reader.ReadToEnd();
             reader.Close();
-            innehåll = innehåll.Replace("#kalender1#", SkapaÅr(1, DateTime.Today.Year));
-            innehåll = innehåll.Replace("#kalender2#", SkapaÅr(2, DateTime.Today.Year));
-            innehåll = innehåll.Replace("#kalender3#", SkapaÅr(5, DateTime.Today.Year));
+            var år = DateTime.Today.Month >= 11 ? DateTime.Today.Year + 1 : DateTime.Today.Year;
+            innehåll = innehåll.Replace("#kalender1#", SkapaÅr(1, år));
+            innehåll = innehåll.Replace("#kalender2#", SkapaÅr(2, år));
+            innehåll = innehåll.Replace("#kalender3#", SkapaÅr(5, år));
 
             const string fil = @"C:\Development\Markus\MarkusWeb\Linderback\default.asp";
             if (System.IO.File.Exists(fil))
