@@ -38,7 +38,7 @@ public class MarkusService : WebService {
         try
         {
             // Kontrollera user och lösenord
-            if (username.ToLower() != "markus" && password.ToLower() != "jtk001")
+            if (username.ToLower() != "markus" || password.ToLower() != "jtk001")
                 throw new Exception("Wrong username or password");
 
             var message = new MailMessage();
