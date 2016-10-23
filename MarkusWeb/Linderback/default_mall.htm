@@ -21,10 +21,20 @@
             $("#tabContainer").tabs();
         });
     </script>
-
 </head>
 
 <body>
+    <div id="fb-root"></div>
+    <script>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
     <div id="wrapper">
         <div id="header">
             <div class="inner container_12 clearfix">
@@ -60,16 +70,16 @@
                             <h2>
                                 Välkommen till Nedre Ryda</h2>
                             <br />
-					        <p>
-						        Välkommen till Nedre Ryda som ligger i södra Östergötland i en fantastisk 
-						        natur. Gården är belägen mellan den vackra sjön Åsunden och skogssjön 
-						        Nedre Ucknen. Här finns möjlighet till bad, skogspromenader 
-						        med bär- och svampplockning och många utflyktsmål, t ex Astrid Lindgrens Värld.
-					        </p>
-					        <p>
-						        Våra idylliska röda, timrade stugor erbjuds till uthyrning året runt. De är smakfullt renoverade och modernt utrustade. Internetuppkoppling finns. Stugorna har egna trädgårdar
-						        med utemöbler och grillar. Avståndet mellan stugorna är ca 100 meter.
-					        </p>
+                            <p>
+                                Välkommen till Nedre Ryda som ligger i södra Östergötland i en fantastisk 
+                                natur. Gården är belägen mellan den vackra sjön Åsunden och skogssjön 
+                                Nedre Ucknen. Här finns möjlighet till bad, skogspromenader 
+                                med bär- och svampplockning och många utflyktsmål, t ex Astrid Lindgrens Värld.
+                            </p>
+                            <p>
+                                Våra idylliska röda, timrade stugor erbjuds till uthyrning året runt. De är smakfullt renoverade och modernt utrustade. Internetuppkoppling finns. Stugorna har egna trädgårdar
+                                med utemöbler och grillar. Avståndet mellan stugorna är ca 100 meter.
+                            </p>
                         </div>
                         <div id="sidebar" class="grid_4">
                             <div class="inner">
@@ -80,6 +90,18 @@
                             </div>
                         </div>
                     </div>
+                    <div class="fb-page"
+                         data-href="https://www.facebook.com/facebook"
+                         data-width="380"
+                         data-hide-cover="false"
+                         data-show-facepile="false"
+                         data-show-posts="false">
+                    </div>
+                    <!--<div class="fb-page" data-href="https://www.facebook.com/nedreryda/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+                        <blockquote cite="https://www.facebook.com/nedreryda/" class="fb-xfbml-parse-ignore">
+                            <a href="https://www.facebook.com/nedreryda/">Nedre Ryda stugor</a>
+                        </blockquote>
+                    </div>-->
                 </div>
             </div>
             <div id="tabs-2">
