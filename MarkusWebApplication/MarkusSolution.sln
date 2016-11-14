@@ -1,7 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MarkusWebApplication", "..\MarkusWebApplication", "{30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD}"
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MarkusWebApplication", ".", "{30E14E3E-B57B-47F4-B2AD-AB8532CDCEDD}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		ProjectReferences = "{648B7E7B-9455-4290-931C-BFDC89ABA64A}|MarkusModel.dll;"
@@ -20,6 +22,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MarkusWebApplication", "..\
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "60901"
+		SlnRelativePath = "..\MarkusWebApplication\"
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkusModel", "..\MarkusModel\MarkusModel.csproj", "{648B7E7B-9455-4290-931C-BFDC89ABA64A}"
