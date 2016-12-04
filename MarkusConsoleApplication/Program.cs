@@ -22,6 +22,10 @@ namespace MarkusConsoleApplication
                 kalender.SkapaKalendrarFörMonteRojo();
                 kalender.SkapaKalendrarFörRyda();
             }
+            else if (args.Any(_ => _.Equals("TrafficInSpain")))
+            {
+                Spanien.HämtaStatus();
+            }
             else if (args.Any(_ => _.Equals("maila")))
             {
                 try
@@ -132,6 +136,7 @@ namespace MarkusConsoleApplication
             var hashcode = reader.GetHashCode();
         }
     }
+
     public class TestKlass
     {
         public string Sträng;
