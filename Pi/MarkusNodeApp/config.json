@@ -50,16 +50,13 @@
     },
 	"iphones":[
 		{
-			"ip": "192.168.11.76"
+			"ip": "192.168.11.19" // Markus iPhone
 		},
 		{
-			"ip": "192.168.1.97"
+			"ip": "192.168.11.115" // Camillas iPhone
 		},
 		{
-			"ip": "192.168.1.79"
-		},
-		{
-			"ip": "192.168.1.81"
+			"ip": "192.168.11.39" // Amandas iPhone
 		}],
     "cameras": [
         {
@@ -146,15 +143,11 @@
         ],
         "sensors": [
             {
-                "name": "Ute",
-                "id": 105
-            },
-            {
                 "name": "Inne",
-                "id": 162
+                "id": 193
             },
 			{
-                "name": "Uppe",
+                "name": "Grunden",
                 "id": 135
             }
         ],
