@@ -14,5 +14,8 @@
         else if (meddelande.indexOf('larm') > -1) {
             console.log('larm GC');
         }
+        else {
+            socket.write('unknown command: ' + meddelande);
+        }
     });
 }).listen(8089);
