@@ -32,7 +32,7 @@ namespace BBS
             medlem.Lösenord = nyttLösen.ToString(CultureInfo.InvariantCulture);
             MedlemsRegister.UppdateraMedlem(medlem);
             string errormessage;
-            new MarkusService().SendMail("B51137", "jtk001", email.Text.Trim(), "Lösenord BBS", "Hej,\n\nAnvändarnamn: <din e-postadress>\nLösenord: " + medlem.Lösenord + "\n", new List<MarkusService.Bilaga>().ToArray(), out errormessage);
+            new MarkusService().SendMail("markus", "jtk001", email.Text.Trim(), "Lösenord BBS", "Hej,\n\nAnvändarnamn: <din e-postadress>\nLösenord: " + medlem.Lösenord + "\n", new List<MarkusService.Bilaga>().ToArray(), out errormessage);
 
             infoText.Text = "Nytt lösenord skickat till angiven e-post";
             infoText.ForeColor = Color.Black;
