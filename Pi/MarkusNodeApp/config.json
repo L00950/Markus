@@ -50,17 +50,18 @@
     },
 	"iphones":[
 		{
-      "ip": "192.168.11.186",
-      "name": "Camillas iPhone"
-		},
+            "ip": "192.168.11.19",
+            "name": "Markus iPhone"
+        },
 		{
-      "ip": "192.168.11.177",
-      "name": "Amandas iPhone"
-		},
+            "ip": "192.168.11.115",
+            "name": "Camillas iPhone"
+        },
 		{
-      "ip": "192.168.11.220",
-      "name": "Markus iPhone"
-		}],
+            "ip": "192.168.11.51",
+            "name": "Amandas iPhone"
+        }
+    ],
     "cameras": [
         {
             "enabled": true,
@@ -146,15 +147,11 @@
         ],
         "sensors": [
             {
-                "name": "Ute",
-                "id": 105
-            },
-            {
                 "name": "Inne",
-                "id": 162
+                "id": 193
             },
 			{
-                "name": "Uppe",
+                "name": "Grunden",
                 "id": 135
             }
         ],
