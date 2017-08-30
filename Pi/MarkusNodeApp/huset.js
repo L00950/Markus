@@ -14,7 +14,8 @@ var fs = require( 'fs' )
     , tabilder = require( './tabilder.js' )
     , exec = require('child_process').exec
     , config = require('./config.json')
-    , net = require('net');
+    , net = require('net')
+    , json = require('json-serialize');
 
 function dateToString(datum) {
     var date = new Date(datum);
@@ -505,6 +506,10 @@ datasource.Init(function () {
                 } else if (place == 'ryda') {
                     console.log(dateToString(Date.now()) + ' Temp Ryda ' + temp + ' fuktighet ' + humidity);
                 }
+            } else if (meddelande.indexOf('cache') > -1) {
+                socket.write(JSON.stringify(cache));
+            } else {
+                socket.write('unknown command: ' + meddelande);
             }
         });
     }).listen(8089);
