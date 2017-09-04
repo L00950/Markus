@@ -53,7 +53,8 @@ datasource.Init(function () {
         vpn: config.vpn,
         senasthemma: { tid: Date.now() },
         aktivtlarm: null,
-        senastetemp: { temp: 0, humidity: 0}
+        senastetemp: { temp: 0, humidity: 0},
+        robban: { status: 'Klipper', batteri: 59}
     };
     console.log(cache);
 

@@ -116,6 +116,7 @@
         // Cache devicegroups
         devicegroups = data;
         devicegroups.push({'id':'_1','name':'Larm'});
+        devicegroups.push({'id':'_2','name':'Robban'});
 
         // Check for device group
         for( idx in devicegroups ) {
@@ -140,6 +141,17 @@
                   $('#larm').bootstrapSwitch('setState', false);
               }
           }
+      }
+
+      function processRobban(data) {
+        console.log('Incoming robban:' + data);
+        if (!document.getElementById('robban')) {
+          var robban = $('<div style="padding-right:5px;" id=robban/>');
+          $('#devicegroup__2').append(robban);
+        }
+        var html = '<h4>Status:<div class="float-right">' + data.status + '</div></h4>' + 
+          '<h4>Batteri:<div class="float-right">' + data.batteri + '</div></h4>';
+        $('#robban').html(html);
       }
 
       function createLarm(data) {
@@ -253,10 +265,10 @@
           $('#spot_1').html('<h4>Elpris live</h4><h2>' + data.full_price + ' öre/KWh');
       }
 
-        function processSenastHemma(data) {
-            console.log('Incoming senast hemma:' + data);
-            $('#senasthemma').html('<h4>Senast hemma:<div class="float-right">' + dateToString2(data.tid) + '</div></h4>');
-        }
+      function processSenastHemma(data) {
+          console.log('Incoming senast hemma:' + data);
+          $('#senasthemma').html('<h4>Senast hemma:<div class="float-right">' + dateToString2(data.tid) + '</div></h4>');
+      }
 
       function processEliqDataday (data) {
 
@@ -285,7 +297,7 @@
               console.log(message);
             // On connect, a complete bunch of messages are sent in one message
             if(message.msg=="initial_data") {
-                console.log('Forst i InitialData');
+              console.log('Forst i InitialData');
               processDeviceGroups (message.data.devicegroups);
               for( item in message.data.telldus_sensors ) {
                 processSensor(message.data.telldus_sensors[item]);
@@ -296,6 +308,7 @@
               processLarm(message.data.larm);
               processLarmHistory(message.data.larmhistory);
               processSenastHemma(message.data.senasthemma);
+              processRobban(message.data.robban)
             }
 
             // Single message handlers
@@ -304,6 +317,7 @@
             if (message.msg == "tellstick_device_update") processDevice(message.data);
             if (message.msg == "larmhistory") processLarmHistory(message.data);
             if (message.msg == "senasthemma") processSenastHemma(message.data);
+            if (message.msg == "robban") processRobban(message.data);
           });
         });
       });
