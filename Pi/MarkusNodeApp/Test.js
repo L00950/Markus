@@ -1,8 +1,35 @@
-var tabilder = require('./iphone.js');
+// var huset = require('./huset.js');
 
-var cache = { aktivtlarm: null };
+function HämtaNamnPåSensor(cache, id) {
+    cache.forEach(function(element) {
+        if (element.id == id) return element.name;
+    }, this);
+}
 
-setInterval(function() { tabilder.iPhoneTimer(cache, null); }, 2000);
+
+var options = {
+    url: 'http://admin:8999@192.168.11.250/jsondata.cgi',
+    json:true
+}
+require("request")(options, function(error, response, body){
+    if(error) console.log(error);
+    else {
+        console.log('Batteri: ' + body.perc_batt);
+        console.log('Status: ' + body.state);
+        console.log('Understatus: ' + body.workReq);
+        console.log('Meddelande: ' + (body.message == 'none' ? '' : body.message));
+        console.log('Laddarstatus: ' + body.batteryChargerState);
+        console.log('Distans:' + body.distance);
+        console.log('Firmware:' + body.versione_fw);
+    }
+});
+
+var namn = HämtaNamnPåSensor([{id: "1", name:"ettan"}, {id: "2", name:"tvåan"}], 2)
+
+
+// var cache = { aktivtlarm: null };
+
+// setInterval(function() { tabilder.iPhoneTimer(cache, null); }, 2000);
 
 //tabilder.handleLarm(cache, 'Entre');
 

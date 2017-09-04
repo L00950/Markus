@@ -28,6 +28,14 @@ function fill(antal, text) {
     return text;
 }
 
+function HämtaNamnPåSensor(config, id) {
+    var retval = '';
+    config.tellstick.sensors.forEach(function(element) {
+        if (element.id === id) retval = element.name;
+    }, this);
+    return retval;
+}
+
 console.log(dateToString(Date.now()) + ' Initiating datasource ...');
 datasource.Init(function () {
 
@@ -258,7 +266,7 @@ datasource.Init(function () {
                     }
                 }
             } else {
-                if (config.debug.enabled) console.info('Invalid sensor data received');
+                if (config.debug.enabled) console.info(dateToString(Date.now()) + 'Invalid sensor data received');
             }
 
         });
@@ -472,28 +480,37 @@ datasource.Init(function () {
                         humidity = pair.split(":")[1];
                     }
                 }
-                if (place == 'spain') {
-                    var id = 1000;
-                    console.log(dateToString(Date.now()) + ' Temp Spanien ' + temp + ' fuktighet ' + humidity);
+                if (place.indexOf('spain') !== -1) {
+                    var id = place === 'spain_outside' ? 1000 : 1001;
+                    var namn = HämtaNamnPåSensor(config, id);
+                    console.log(dateToString(Date.now()) + ' Temp ' + namn + ' ' + temp + ' fuktighet ' + humidity);
                     var type = 1;
                     cache.telldus_sensors['s_' + id + '' + type] = {
                         id: id,
                         type: type,
-                        name: 'Spanien',
+                        name: namn,
                         ts: Date.now(),
                         message: '',
                         protocol: '',
                         value: temp,
-                        value_diff: 0,
-                        min: temp,
-                        max: temp
+                        value_diff: cache.telldus_sensors['s_' + id + '' + type] == undefined ? 0 : temp - cache.telldus_sensors['s_' + id + '' + type].value,
+                        min: cache.telldus_sensors['s_' + id + '' + type] == undefined ? temp : Math.min(cache.telldus_sensors['s_' + id + '' + type].min, temp),
+                        max: cache.telldus_sensors['s_' + id + '' + type] == undefined ? temp : Math.max(cache.telldus_sensors['s_' + id + '' + type].max, temp)
                     };
                     io.sockets.emit('message', { msg: "tellstick_sensor_update", data: cache.telldus_sensors['s_' + id + '' + type] });
+
+                    // Insert in database
+                    try {
+                        datasource.db.prepare("INSERT INTO telldus_sensor_history (id,message,protocol,type,value,ts) VALUES(?,?,?,?,?,?)").run(id, '', '', type, temp, Date.now()).finalize();
+                    } catch (err) {
+                        console.error(dateToString(Date.now()) + 'DB insert failed: ', err);
+                    }
+                    
                     type = 2;
                     cache.telldus_sensors['s_' + id + '' + 2] = {
                         id: id,
                         type: type,
-                        name: 'Spanien',
+                        name: namn,
                         ts: Date.now(),
                         message: '',
                         protocol: '',

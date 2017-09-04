@@ -39,11 +39,11 @@
         "password": "",
         "originator": "Huset.js"
     },
-    "email_vid_alarm": false,
+    "email_vid_alarm": true,
     "tid_larm_ar_aktivt": 10000,
     "tid_mellan_larmbilder": 1000,
     "tid_mellan_ping_till_iphones": 20000,
-    "skicka_mail_om_ingen_hemma_och_larm_av": false,
+    "skicka_mail_om_ingen_hemma_och_larm_av": true,
     "database": {
         "file": "db/data.sqlite3",
         "script": "db/create.sql"
@@ -153,6 +153,14 @@
 			{
                 "name": "Grunden",
                 "id": 135
+            },
+            {
+                "name": "GC ute",
+                "id": 1000
+            },
+            {
+                "name": "GC inne",
+                "id": 1001
             }
         ],
         "larmdevices": [ 4, 5, 7, 11 ]

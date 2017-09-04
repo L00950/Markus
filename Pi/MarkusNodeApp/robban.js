@@ -1,22 +1,24 @@
-﻿var net = require('net');
-var log = require('./markuslogger').logger;
+var config = require('./config.json'),
+    exec = require('child_process').exec;
 
-var timer = setInterval(function() {
-    var start = Date.now();
-    var client = new net.Socket();
-    client.connect(8089, 'linderback.com', function() {
-        client.write('test');
-    });
+module.exports = {
+    robbanTimer: function(cache, io) {
+        
+        for (item in config.iphones) {
+            (function(ipadress) {
+                exec('ping -c 1 ' + ipadress, function(error, stdout, stderr) {
+                    if (error === null) {
+                        cache.aktivtlarm = null;
+                        cache.senasthemma.tid = Date.now();
+                        cache.larm.state = 0;
+                        io.sockets.emit('message', { msg: 'larm', data: { state: cache.larm.state } });
+                        io.sockets.emit('message', { msg: "senasthemma", data: cache.senasthemma });
+                    }
+                });
+            })(config.iphones[item].ip);
+        }
+    }
+}
 
-    client.on('data', function(data) {
-        log.info('anrop ok, tid: ' + (Date.now() - start) + 'ms');
-        client.destroy();
-    });
 
-    client.on('error', function(error) {
-        log.error('fel vid anrop: ' + error);
-    });
 
-    client.on('close', function() {
-        });
-    }, 1000*60*10);
