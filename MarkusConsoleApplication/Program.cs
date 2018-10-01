@@ -49,6 +49,11 @@ namespace MarkusConsoleApplication
             {
                 TestaLäsaPdf();
             }
+            else if(args.Any(_ => _.Equals("robban")))
+            {
+                var client = new WebClient { BaseAddress = "http://admin:8999@192.168.11.250/"};
+
+            }
             else if (args.Any(_ => _.Equals("test")))
             {
                 TcpClient client = new TcpClient();
@@ -77,7 +82,6 @@ namespace MarkusConsoleApplication
                 System.Threading.Thread.Sleep(10000); //Sleep for 10 seconds
 
 
-                ConsoleApplication.AsynchronousClient.StartClient();
 
 
                 byte[] bytes = new byte[2048];

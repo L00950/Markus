@@ -17,7 +17,7 @@ namespace MarkusConsoleApplication
             var bryggLista = new List<Bryggplats>();
             foreach (var medlemIn in medlemmarIn.Markus)
             {
-                if(medlemIn.Kajplats == null || medlemIn.SåldDatumSpecified) continue;
+                if(medlemIn.SåldDatumSpecified) continue;
 
                 var medlemUt = medlemmarUt.FirstOrDefault(_ => _.Id == medlemIn.MedlNr) ?? new Medlem();
 
@@ -27,17 +27,17 @@ namespace MarkusConsoleApplication
                 medlemUt.Gata = medlemIn.Adress;
                 medlemUt.PostNummer = medlemIn.Postnr;
                 medlemUt.Ort = medlemIn.Postadress;
-                medlemUt.Lösenord = medlemUt.Lösenord ?? medlemIn.Kajplats.Replace(" ", "");
+                medlemUt.Lösenord = medlemUt.Lösenord ?? (medlemIn.Kajplats ?? medlemIn.Upplag).Replace(" ", "");
                 medlemUt.Tel = medlemIn.TelBostad;
                 medlemUt.Mobil = medlemIn.TelMobil;
                 if(!medlemsLista.Contains(medlemUt))
                     medlemsLista.Add(medlemUt);
 
-                foreach (var medlemsPlats in medlemmarIn.Markus.Where(_ => _.MedlNr == medlemUt.Id && _.Kajplats != null && _.SåldDatumSpecified == false))
+                foreach (var medlemsPlats in medlemmarIn.Markus.Where(_ => _.MedlNr == medlemUt.Id && (_.Kajplats != null || _.Upplag != null) && _.SåldDatumSpecified == false))
                 {
                     var bryggPlats = new Bryggplats
                         {
-                            Id = medlemsPlats.Kajplats,
+                            Id = medlemsPlats.Kajplats ?? medlemsPlats.Upplag,
                             MedlemsId = medlemIn.MedlNr,
                             Båt = medlemIn.Typbeteckning
                         };
@@ -49,6 +49,21 @@ namespace MarkusConsoleApplication
             System.Console.WriteLine("Antal Bryggplatser: " + bryggLista.Count());
             FilHanterare.Spara(medlemsLista, new Medlem().FilNamn());
             FilHanterare.Spara(bryggLista, new Bryggplats().FilNamn());
+
+            // Fil med bryggplatser till scannern
+            TextWriter writer = File.CreateText(@"c:\data\bryggplats.txt");
+            foreach(var bryggplats in bryggLista)
+                writer.WriteLine(bryggplats.Id + ";" + medlemsLista.FirstOrDefault(_ => _.Id == bryggplats.MedlemsId)?.Namn);
+            writer.Close();
+            writer.Dispose();
+
+            // Fil med bryggplatser till scannern
+            writer = File.CreateText(@"c:\data\till_pärmen.txt");
+            foreach (var bryggplats in bryggLista)
+                writer.WriteLine(medlemsLista.FirstOrDefault(_ => _.Id == bryggplats.MedlemsId)?.Namn + ";" + bryggplats.Id + ";" + medlemsLista.FirstOrDefault(_ => _.Id == bryggplats.MedlemsId)?.Namn);
+            writer.Close();
+            writer.Dispose();
+
             System.Console.ReadLine();
         }
     }

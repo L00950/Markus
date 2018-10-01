@@ -93,9 +93,9 @@
                                             <tr style="background-color: #337BAD">
                                                 <td colspan="3" style="height: 10px" />
                                             </tr>
-                                            <tr <% Visible = DateTime.Today == new DateTime(2018, 3, 7) ? true : false; %> >
+<%--                                            <tr>
                                                 <td colspan="3" style="height: 10px; background-color: white; color: red; text-align: center; font-size: 25px">Grattis Claes 60år!</td>
-                                            </tr>
+                                            </tr>--%>
                                         </table>
                                     </td>
                                 </tr>
