@@ -105,6 +105,8 @@
             for (index in data) {
                 var row = data[index];
                 console.log('Rad:' + index + row);
+                if(row == null)
+                  continue;
                 var date = new Date(Number(row.ts) * 1000);
                 content += ('<H5 style="color:' + (row.larm == 1 ? 'red' : 'green') + '">' + dateToString(date) + '  --  ' + row.name + '</H5>');
             }

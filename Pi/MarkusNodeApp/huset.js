@@ -218,8 +218,8 @@ datasource.Init(function () {
         telldus.addSensorEventListener(function (id, protocol, model, type, value, ts) {
 
             // Filter out crap
-            console.log(protocol + " " + model + " " + value + " " + id);
-            if (protocol == "temperature" && (model == "fineoffset" || model == "mandolyn") && Number(value) != NaN && Number(type) != NaN && Number(id) != NaN && Number(value) == value) {
+            console.log(dateToString(Date.now()) +  " Sensor event Protocol:" +  protocol + " Model:" + model + " Value:" + value + " Id:" + id + " Type:" + type);
+            if ((protocol == "temperature" || protocol == "temperaturehumidity") && (model == "fineoffset" || model == "mandolyn") && Number(value) != NaN && Number(type) != NaN && Number(id) != NaN && Number(value) == value) {
 
                 // Only track configured sensors
                 for (item in config.tellstick.sensors) {
@@ -267,7 +267,7 @@ datasource.Init(function () {
                     }
                 }
             } else {
-                if (config.debug.enabled) console.info(dateToString(Date.now()) + 'Invalid sensor data received');
+                if (config.debug.enabled) console.info(dateToString(Date.now()) + ' Invalid sensor data received');
             }
 
         });
