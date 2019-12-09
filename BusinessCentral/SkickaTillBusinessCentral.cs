@@ -36,7 +36,7 @@ namespace BusinessCentral
                 }
 
 
-                var sr = new System.IO.StreamReader("20191205.json");
+                var sr = new System.IO.StreamReader("20191206.json");
                 var input = sr.ReadToEnd();
                 sr.Close();
 
